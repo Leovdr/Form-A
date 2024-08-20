@@ -1,104 +1,114 @@
 package com.example.aplikasiforma
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var etNosurat: EditText
-    private lateinit var etNamaPengawas: EditText
-    private lateinit var etJabatan: EditText
-    private lateinit var etNomorSurat: EditText
-    private lateinit var etAlamat: EditText
-    private lateinit var etTahapan: EditText
-    private lateinit var etKegiatan: EditText
-    private lateinit var etTujuan: EditText
-    private lateinit var etSasaran: EditText
-    private lateinit var etWaktuTempat: EditText
-    private lateinit var etHasilPengawasan: EditText
-    private lateinit var etDugaanPelanggaran: EditText
-    private lateinit var etPotensiSengketa: EditText
-    private lateinit var btnExport: Button
+    private val sharedViewModel: SharedViewModel by viewModels()
+
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        // Inisialisasi semua EditText berdasarkan ID
-        etNosurat = findViewById(R.id.etNosurat)
-        etNamaPengawas = findViewById(R.id.etNamaPengawas)
-        etJabatan = findViewById(R.id.etJabatan)
-        etNomorSurat = findViewById(R.id.etNomorSurat)
-        etAlamat = findViewById(R.id.etAlamat)
-        etTahapan = findViewById(R.id.etTahapan)
-        etKegiatan = findViewById(R.id.etKegiatan)
-        etTujuan = findViewById(R.id.etTujuan)
-        etSasaran = findViewById(R.id.etSasaran)
-        etWaktuTempat = findViewById(R.id.etWaktuTempat)
-        etHasilPengawasan = findViewById(R.id.etHasilPengawasan)
-        etDugaanPelanggaran = findViewById(R.id.etDugaanPelanggaran)
-        etPotensiSengketa = findViewById(R.id.etPotensiSengketa)
-        btnExport = findViewById(R.id.btnExport)
+        // Initialize ViewPager and TabLayout
+        viewPager = findViewById(R.id.viewPager)
+        tabLayout = findViewById(R.id.tabLayout)
 
-        btnExport.setOnClickListener {
-            if (checkPermission()) {
-                generateDocument()
-            } else {
-                requestPermission()
+        // Set up ViewPager with a FragmentStateAdapter
+        viewPager.adapter = SectionsPagerAdapter(this)
+
+        // Link TabLayout and ViewPager
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Data Pengawas"
+                1 -> "Kegiatan Pengawasan"
+                2 -> "Hasil Pengawasan"
+                3 -> "Dugaan Pelanggaran"
+                4 -> "Potensi Sengketa"
+                else -> null
             }
+        }.attach()
+
+        // Set up the Export button listener
+        findViewById<Button>(R.id.btnExport).setOnClickListener {
+            collectDataFromFragments()
+            generateDocument()
         }
+
+        // Observe data changes from ViewModel
+        sharedViewModel.documentData.observe(this, Observer { data ->
+            // Perform any action when data is updated, if needed
+        })
+    }
+
+    private fun collectDataFromFragments() {
+        val adapter = viewPager.adapter as SectionsPagerAdapter
+        val dataPengawasFragment = adapter.getFragment(0) as FragmentDataPengawas
+        val kegiatanPengawasanFragment = adapter.getFragment(1) as FragmentKegiatanPengawasan
+        val hasilPengawasanFragment = adapter.getFragment(2) as FragmentHasilPengawasan
+        val dugaanPelanggaranFragment = adapter.getFragment(3) as FragmentDugaanPelanggaran
+        val potensiSengketaFragment = adapter.getFragment(4) as FragmentPotensiSengketa
+
+        val data = DocumentData(
+            noSurat = dataPengawasFragment.getNoSurat(),
+            namaPengawas = dataPengawasFragment.getNamaPengawas(),
+            jabatan = dataPengawasFragment.getJabatan(),
+            nomorSurat = dataPengawasFragment.getNomorSurat(),
+            alamat = dataPengawasFragment.getAlamat(),
+            tahapan = dataPengawasFragment.getTahapan(),
+            kegiatan = kegiatanPengawasanFragment.getKegiatan(),
+            tujuan = kegiatanPengawasanFragment.getTujuan(),
+            sasaran = kegiatanPengawasanFragment.getSasaran(),
+            waktuTempat = kegiatanPengawasanFragment.getWaktuTempat(),
+            hasilPengawasan = hasilPengawasanFragment.getHasilPengawasan(),
+            dugaanPelanggaran = dugaanPelanggaranFragment.getDugaanPelanggaran(),
+            potensiSengketa = potensiSengketaFragment.getPotensiSengketa()
+        )
+
+        sharedViewModel.updateDocumentData(data)
     }
 
     private fun generateDocument() {
-        val data = DocumentData(
-            noSurat = etNosurat.text.toString(),
-            namaPengawas = etNamaPengawas.text.toString(),
-            jabatan = etJabatan.text.toString(),
-            nomorSurat = etNomorSurat.text.toString(),
-            alamat = etAlamat.text.toString(),
-            tahapan = etTahapan.text.toString(),
-            kegiatan = etKegiatan.text.toString(),
-            tujuan = etTujuan.text.toString(),
-            sasaran = etSasaran.text.toString(),
-            waktuTempat = etWaktuTempat.text.toString(),
-            hasilPengawasan = etHasilPengawasan.text.toString(),
-            dugaanPelanggaran = etDugaanPelanggaran.text.toString(),
-            potensiSengketa = etPotensiSengketa.text.toString()
+        val data = sharedViewModel.documentData.value
+        if (data != null) {
+            val generator = DocumentGenerator(this)
+            val isSaved = generator.generateAndSaveDocument(data)
+            if (isSaved) {
+                Toast.makeText(this, "File saved successfully!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Failed to save file.", Toast.LENGTH_LONG).show()
+            }
+        } else {
+            Toast.makeText(this, "Failed to collect data from fragments.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private inner class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+        private val fragments = arrayOf(
+            FragmentDataPengawas(),
+            FragmentKegiatanPengawasan(),
+            FragmentHasilPengawasan(),
+            FragmentDugaanPelanggaran(),
+            FragmentPotensiSengketa()
         )
 
-        val generator = DocumentGenerator(this)
-        val isSaved = generator.generateAndSaveDocument(data)
+        override fun getItemCount(): Int = fragments.size
 
-        if (isSaved) {
-            Toast.makeText(this, "File saved successfully!", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this, "Failed to save file.", Toast.LENGTH_LONG).show()
-        }
-    }
+        override fun createFragment(position: Int): Fragment = fragments[position]
 
-    private fun checkPermission(): Boolean {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
-            true
-        } else {
-            val result = ContextCompat.checkSelfPermission(
-                this, Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-            result == PackageManager.PERMISSION_GRANTED
-        }
-    }
-
-    private fun requestPermission() {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1
-            )
-        }
+        fun getFragment(position: Int): Fragment = fragments[position]
     }
 }

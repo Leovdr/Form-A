@@ -1,221 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".MainActivity">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnExport"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Export to Word"
+            android:layout_gravity="center"
+            android:layout_margin="16dp" />
 
-            <!--Nomor Surat -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nomor"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingBottom="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nomor Surat" />
-
-            <EditText
-                android:id="@+id/etNosurat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan nomor surat" />
-
-
-            <!-- Section I: Data Pengawas Pemilihan -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I. Data Pengawas Pemilihan"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingBottom="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tahapan yang diawasi" />
-
-            <EditText
-                android:id="@+id/etTahapan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan tahapan yang diawasi" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama Pelaksana Tugas Pengawasan" />
-
-            <EditText
-                android:id="@+id/etNamaPengawas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan nama pengawas" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jabatan" />
-
-            <EditText
-                android:id="@+id/etJabatan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan jabatan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nomor Surat Tugas" />
-
-            <EditText
-                android:id="@+id/etNomorSurat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan nomor surat tugas" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alamat" />
-
-            <EditText
-                android:id="@+id/etAlamat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan alamat" />
-
-            <!-- Section II: Kegiatan Pengawasan -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="II. Kegiatan Pengawasan"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Bentuk" />
-
-            <EditText
-                android:id="@+id/etKegiatan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan bentuk kegiatan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tujuan" />
-
-            <EditText
-                android:id="@+id/etTujuan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan tujuan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sasaran" />
-
-            <EditText
-                android:id="@+id/etSasaran"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan sasaran" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Waktu dan Tempat" />
-
-            <EditText
-                android:id="@+id/etWaktuTempat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan waktu dan tempat" />
-
-            <!-- Section III: Uraian Singkat Hasil Pengawasan -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="III. Uraian Singkat Hasil Pengawasan"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
-
-            <EditText
-                android:id="@+id/etHasilPengawasan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan uraian hasil pengawasan"
-                android:inputType="textMultiLine"
-                android:minLines="3"
-                android:gravity="top" />
-
-            <!-- Section IV: Informasi Dugaan Pelanggaran -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="IV. Informasi Dugaan Pelanggaran"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
-
-            <EditText
-                android:id="@+id/etDugaanPelanggaran"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan informasi dugaan pelanggaran"
-                android:inputType="textMultiLine"
-                android:minLines="3"
-                android:gravity="top" />
-
-            <!-- Section V: Informasi Potensi Sengketa -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="V. Informasi Potensi Sengketa"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
-
-            <EditText
-                android:id="@+id/etPotensiSengketa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan informasi potensi sengketa"
-                android:inputType="textMultiLine"
-                android:minLines="3"
-                android:gravity="top" />
-
-            <!-- Button Export -->
-            <Button
-                android:id="@+id/btnExport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Export to Word"
-                android:layout_marginTop="16dp" />
-
-        </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
