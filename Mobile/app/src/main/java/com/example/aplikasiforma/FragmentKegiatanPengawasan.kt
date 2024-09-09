@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 
 class FragmentKegiatanPengawasan : Fragment() {
 
-    private lateinit var etKegiatan: EditText
+    private lateinit var etBentuk: EditText
     private lateinit var etTujuan: EditText
     private lateinit var etSasaran: EditText
     private lateinit var etWaktuTempat: EditText
@@ -20,17 +20,17 @@ class FragmentKegiatanPengawasan : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_kegiatan_pengawasan, container, false)
 
-        etKegiatan = view.findViewById(R.id.etKegiatan)
-        etTujuan = view.findViewById(R.id.etTujuan)
-        etSasaran = view.findViewById(R.id.etSasaran)
-        etWaktuTempat = view.findViewById(R.id.etWaktuTempat)
+        etBentuk = view.findViewById(R.id.etBentukkegiatan)
+        etTujuan = view.findViewById(R.id.etTujuankegiatan)
+        etSasaran = view.findViewById(R.id.etSasarankegiatan)
+        etWaktuTempat = view.findViewById(R.id.etWaktudantempatkegiatan)
 
         return view
     }
 
-    fun getKegiatan(): String {
-        return if (this::etKegiatan.isInitialized){
-            etKegiatan.text.toString()
+    fun getBentuk(): String {
+        return if (this::etBentuk.isInitialized){
+            etBentuk.text.toString()
         }else{
             ""
         }

@@ -10,11 +10,10 @@ import androidx.fragment.app.Fragment
 class FragmentDataPengawas : Fragment() {
 
     private lateinit var etNosurat: EditText
-    private lateinit var etNamaPengawas: EditText
+    private lateinit var etNamapelaksana: EditText
     private lateinit var etJabatan: EditText
-    private lateinit var etNomorSurat: EditText
+    private lateinit var etNomorsuratperintah: EditText
     private lateinit var etAlamat: EditText
-    private lateinit var etTahapan: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,11 +22,10 @@ class FragmentDataPengawas : Fragment() {
         val view = inflater.inflate(R.layout.fragment_data_pengawas, container, false)
 
         etNosurat = view.findViewById(R.id.etNosurat)
-        etNamaPengawas = view.findViewById(R.id.etNamaPengawas)
+        etNamapelaksana = view.findViewById(R.id.etNamaPelaksana)
         etJabatan = view.findViewById(R.id.etJabatan)
-        etNomorSurat = view.findViewById(R.id.etNomorSurat)
-        etAlamat = view.findViewById(R.id.etAlamat)
-        etTahapan = view.findViewById(R.id.etTahapan)
+        etNomorsuratperintah = view.findViewById(R.id.etNomorsuratperintah)
+        etAlamat = view.findViewById(R.id.etAlamatpelaksana)
 
         return view
     }
@@ -39,9 +37,8 @@ class FragmentDataPengawas : Fragment() {
             ""
         }
     }
-    fun getNamaPengawas(): String = etNamaPengawas.text.toString()
+    fun getNamaPelaksana(): String = etNamapelaksana.text.toString()
     fun getJabatan(): String = etJabatan.text.toString()
-    fun getNomorSurat(): String = etNomorSurat.text.toString()
+    fun getNomorsuratperintah(): String = etNomorsuratperintah.text.toString()
     fun getAlamat(): String = etAlamat.text.toString()
-    fun getTahapan(): String = etTahapan.text.toString()
 }

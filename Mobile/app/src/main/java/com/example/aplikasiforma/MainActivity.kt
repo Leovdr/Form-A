@@ -1,16 +1,29 @@
 package com.example.aplikasiforma
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,96 +32,129 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
 
+    private val fragments = listOf(
+        FragmentDataPengawas(),
+        FragmentJenisdanTahapan(),
+        FragmentKegiatanPengawasan(),
+        FragmentHasilPengawasan(),
+        FragmentDugaanPelanggaran(),
+        FragmentPotensiSengketa()
+    )
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            collectDataAndExportDocument()
+        } else {
+            Toast.makeText(this, "Izin ditolak. Tidak dapat menyimpan dokumen.", Toast.LENGTH_LONG).show()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        // Initialize ViewPager and TabLayout
         viewPager = findViewById(R.id.viewPager)
         tabLayout = findViewById(R.id.tabLayout)
 
-        // Set up ViewPager with a FragmentStateAdapter
-        viewPager.adapter = SectionsPagerAdapter(this)
+        viewPager.adapter = SectionsPagerAdapter(this, fragments)
 
-        // Link TabLayout and ViewPager
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "Data Pengawas"
-                1 -> "Kegiatan Pengawasan"
-                2 -> "Hasil Pengawasan"
-                3 -> "Dugaan Pelanggaran"
-                4 -> "Potensi Sengketa"
+                1 -> "Jenis dan Tahapan Pengawasan"
+                2 -> "Kegiatan Pengawasan"
+                3 -> "Uraian Singkat Hasil Pengawasan"
+                4 -> "Informasi Dugaan Pelanggaran"
+                5 -> "Informasi Potensi Sengketa Pemilihan"
                 else -> null
             }
         }.attach()
 
-        // Set up the Export button listener
         findViewById<Button>(R.id.btnExport).setOnClickListener {
-            collectDataFromFragments()
-            generateDocument()
+            checkStoragePermissionAndGenerateDocument()
         }
 
-        // Observe data changes from ViewModel
         sharedViewModel.documentData.observe(this, Observer { data ->
-            // Perform any action when data is updated, if needed
+            // Handle data updates
         })
     }
 
-    private fun collectDataFromFragments() {
-        val adapter = viewPager.adapter as SectionsPagerAdapter
-        val dataPengawasFragment = adapter.getFragment(0) as FragmentDataPengawas
-        val kegiatanPengawasanFragment = adapter.getFragment(1) as FragmentKegiatanPengawasan
-        val hasilPengawasanFragment = adapter.getFragment(2) as FragmentHasilPengawasan
-        val dugaanPelanggaranFragment = adapter.getFragment(3) as FragmentDugaanPelanggaran
-        val potensiSengketaFragment = adapter.getFragment(4) as FragmentPotensiSengketa
-
-        val data = DocumentData(
-            noSurat = dataPengawasFragment.getNoSurat(),
-            namaPengawas = dataPengawasFragment.getNamaPengawas(),
-            jabatan = dataPengawasFragment.getJabatan(),
-            nomorSurat = dataPengawasFragment.getNomorSurat(),
-            alamat = dataPengawasFragment.getAlamat(),
-            tahapan = dataPengawasFragment.getTahapan(),
-            kegiatan = kegiatanPengawasanFragment.getKegiatan(),
-            tujuan = kegiatanPengawasanFragment.getTujuan(),
-            sasaran = kegiatanPengawasanFragment.getSasaran(),
-            waktuTempat = kegiatanPengawasanFragment.getWaktuTempat(),
-            hasilPengawasan = hasilPengawasanFragment.getHasilPengawasan(),
-            dugaanPelanggaran = dugaanPelanggaranFragment.getDugaanPelanggaran(),
-            potensiSengketa = potensiSengketaFragment.getPotensiSengketa()
-        )
-
-        sharedViewModel.updateDocumentData(data)
-    }
-
-    private fun generateDocument() {
-        val data = sharedViewModel.documentData.value
-        if (data != null) {
-            val generator = DocumentGenerator(this)
-            val isSaved = generator.generateAndSaveDocument(data)
-            if (isSaved) {
-                Toast.makeText(this, "File saved successfully!", Toast.LENGTH_LONG).show()
+    private fun checkStoragePermissionAndGenerateDocument() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                collectDataAndExportDocument()
             } else {
-                Toast.makeText(this, "Failed to save file.", Toast.LENGTH_LONG).show()
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
             }
         } else {
-            Toast.makeText(this, "Failed to collect data from fragments.", Toast.LENGTH_LONG).show()
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            } else {
+                collectDataAndExportDocument()
+            }
         }
     }
 
-    private inner class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
-        private val fragments = arrayOf(
-            FragmentDataPengawas(),
-            FragmentKegiatanPengawasan(),
-            FragmentHasilPengawasan(),
-            FragmentDugaanPelanggaran(),
-            FragmentPotensiSengketa()
+    private fun collectDataAndExportDocument() {
+        val dataPengawasFragment = fragments[0] as FragmentDataPengawas
+        val jenisdanTahapanFragment = fragments[1] as FragmentJenisdanTahapan
+        val kegiatanPengawasanFragment = fragments[2] as FragmentKegiatanPengawasan
+        val hasilPengawasanFragment = fragments[3] as FragmentHasilPengawasan
+        val dugaanPelanggaranFragment = fragments[4] as FragmentDugaanPelanggaran
+        val potensiSengketaFragment = fragments[5] as FragmentPotensiSengketa
+
+        val data = DocumentData(
+            noSurat = dataPengawasFragment.getNoSurat().orEmpty(),
+            namaPelaksana = dataPengawasFragment.getNamaPelaksana().orEmpty(),
+            jabatan = dataPengawasFragment.getJabatan().orEmpty(),
+            nomorSuratperintah = dataPengawasFragment.getNomorsuratperintah().orEmpty(),
+            alamat = dataPengawasFragment.getAlamat().orEmpty(),
+            bentuk = kegiatanPengawasanFragment.getBentuk().orEmpty(),
+            tujuan = kegiatanPengawasanFragment.getTujuan().orEmpty(),
+            sasaran = kegiatanPengawasanFragment.getSasaran().orEmpty(),
+            waktuTempat = kegiatanPengawasanFragment.getWaktuTempat().orEmpty(),
+            hasilPengawasan = hasilPengawasanFragment.getHasilPengawasan().orEmpty(),
+            dugaanPelanggaran = dugaanPelanggaranFragment.getDugaanPelanggaran().orEmpty(),
+            potensiSengketa = potensiSengketaFragment.getPotensiSengketa().orEmpty(),
+            tahapanPemilihan = jenisdanTahapanFragment.getTahapanpemilihan().orEmpty(),
+            jenisPemilihan = jenisdanTahapanFragment.getJenispemilihan().orEmpty()
         )
 
+        sharedViewModel.updateDocumentData(data)
+        generateDocument()
+    }
+
+    private fun generateDocument() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val data = sharedViewModel.documentData.value
+            if (data != null) {
+                val generator = DocumentGenerator(this@MainActivity)
+                val isSaved = generator.generateAndSaveDocument(data)
+                withContext(Dispatchers.Main) {
+                    if (isSaved) {
+                        Toast.makeText(this@MainActivity, "File berhasil disimpan!", Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@MainActivity, "Gagal menyimpan file.", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } else {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Gagal mengumpulkan data dari fragment.", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    private inner class SectionsPagerAdapter(
+        activity: AppCompatActivity,
+        private val fragments: List<Fragment>
+    ) : FragmentStateAdapter(activity) {
         override fun getItemCount(): Int = fragments.size
-
         override fun createFragment(position: Int): Fragment = fragments[position]
-
-        fun getFragment(position: Int): Fragment = fragments[position]
     }
 }

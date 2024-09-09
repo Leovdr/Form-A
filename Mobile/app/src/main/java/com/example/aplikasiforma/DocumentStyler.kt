@@ -14,7 +14,6 @@ import java.math.BigInteger
 
 class DocumentStyler(private val document: XWPFDocument) {
 
-    // Method to create and style title paragraphs
     fun createTitleParagraph(text: String): XWPFParagraph {
         val paragraph = document.createParagraph()
         paragraph.setSpacingBetween(1.0)
@@ -23,7 +22,7 @@ class DocumentStyler(private val document: XWPFDocument) {
         val run = paragraph.createRun()
         run.isBold = true
         run.fontSize = 12
-        run.fontFamily = "Arial"  // Set font family
+        run.fontFamily = "Times New Roman"  // Set font family
         run.setText(text)
         return paragraph
     }
@@ -33,7 +32,7 @@ class DocumentStyler(private val document: XWPFDocument) {
         text: String,
         isBold: Boolean = false,
         fontSize: Int = 12,
-        fontFamily: String = "Arial",
+        fontFamily: String = "Times New Roman",
         alignment: ParagraphAlignment = ParagraphAlignment.LEFT
     ): XWPFParagraph {
         val paragraph = document.createParagraph()
@@ -94,7 +93,7 @@ class DocumentStyler(private val document: XWPFDocument) {
         text: String,
         isBold: Boolean = false,
         fontSize: Int = 12,
-        fontFamily: String = "Arial",
+        fontFamily: String = "Times New Roman",
         alignment: ParagraphAlignment = ParagraphAlignment.LEFT
     ) {
         paragraph.alignment = alignment
@@ -111,7 +110,7 @@ class DocumentStyler(private val document: XWPFDocument) {
         text: String,
         isBold: Boolean = false,
         fontSize: Int = 12,
-        fontFamily: String = "Arial",
+        fontFamily: String = "Times New Roman",
         alignment: ParagraphAlignment = ParagraphAlignment.LEFT
     ) {
         val paragraph = cell.paragraphs[0] // Use the first paragraph in the cell

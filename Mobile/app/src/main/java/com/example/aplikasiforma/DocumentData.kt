@@ -2,16 +2,17 @@ package com.example.aplikasiforma
 
 data class DocumentData(
     val noSurat: String,
-    val namaPengawas: String,
+    val namaPelaksana: String,
     val jabatan: String,
-    val nomorSurat: String,
+    val nomorSuratperintah: String,
     val alamat: String,
-    val tahapan: String,
-    val kegiatan: String,
+    val bentuk : String,
     val tujuan: String,
     val sasaran: String,
     val waktuTempat: String,
     val hasilPengawasan: String,
-    val dugaanPelanggaran: String,
-    val potensiSengketa: String
+    val dugaanPelanggaran: Map<String, String>,
+    val potensiSengketa: String,
+    val tahapanPemilihan: String,
+    val jenisPemilihan: String
 )

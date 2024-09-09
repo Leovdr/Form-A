@@ -7,6 +7,10 @@ android {
     namespace = "com.example.aplikasiforma"
     compileSdk = 34
 
+    viewBinding{
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.example.aplikasiforma"
         minSdk = 26

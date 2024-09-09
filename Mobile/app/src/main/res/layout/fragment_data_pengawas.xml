@@ -16,7 +16,7 @@
         android:id="@+id/etNosurat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Masukkan Nomor Surat" />
+        android:hint="…/LHP/PM … / … / 202…" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,55 +29,44 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tahapan yang diawasi" />
+            android:text="a. Nama Pelaksana Tugas Pengawasan" />
 
         <EditText
-            android:id="@+id/etTahapan"
+            android:id="@+id/etNamaPelaksana"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan tahapan yang diawasi" />
+            android:hint="Masukkan Nama Pelaksana Tugas" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nama Pelaksana Tugas Pengawasan" />
-
-        <EditText
-            android:id="@+id/etNamaPengawas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Masukkan nama pengawas" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Jabatan" />
+            android:text="b. Jabatan" />
 
         <EditText
             android:id="@+id/etJabatan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan jabatan" />
+            android:hint="Masukkan Jabatan Pelaksana Tugas" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nomor Surat Tugas" />
+            android:text="c. Nomor Surat Perintah Tugas" />
 
         <EditText
-            android:id="@+id/etNomorSurat"
+            android:id="@+id/etNomorsuratperintah"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan nomor surat tugas" />
+            android:hint="Masukkan Nomor Surat Perintah Tugas" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Alamat" />
+            android:text="d. Alamat" />
 
         <EditText
-            android:id="@+id/etAlamat"
+            android:id="@+id/etAlamatpelaksana"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan alamat" />
+            android:hint="Masukkan Alamat Pelaksana Tugas" />
     </LinearLayout>
