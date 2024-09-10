@@ -148,8 +148,8 @@ class DocumentGenerator(private val context: Context) {
         // Mengatur tanda tangan pada kolom kelima
         val cell5: XWPFTableCell = row.getCell(4) ?: row.createCell()
         val paragraph = cell5.addParagraph()
-        styler.styleParagraph(paragraph, text = "Batu, 4 September\n", isBold = false, fontSize = 12, alignment = ParagraphAlignment.CENTER)
-        styler.styleParagraph(paragraph, text = "Kasursip Kearsipan", isBold = false, fontSize = 12, alignment = ParagraphAlignment.CENTER)
+        styler.styleParagraph(paragraph, text = "Batu, 4 September", isBold = false, fontSize = 12, alignment = ParagraphAlignment.CENTER)
+        styler.styleParagraph(paragraph, text = "\nKasursip Kearsipan", isBold = false, fontSize = 12, alignment = ParagraphAlignment.CENTER)
 
         // Menambahkan gambar tanda tangan
         val signatureParagraph = cell5.addParagraph()

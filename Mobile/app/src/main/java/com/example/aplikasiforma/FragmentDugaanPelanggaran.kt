@@ -34,8 +34,10 @@ class FragmentDugaanPelanggaran : Fragment(R.layout.fragment_dugaan_pelanggaran)
         setCheckboxListener(binding.checkboxWaktukejadian, binding.layoutWaktukejadian)
         setCheckboxListener(binding.checkboxPelaku, binding.layoutPelaku)
         setCheckboxListener(binding.checkboxAlamat, binding.layoutAlamat)
-        setCheckboxListener(binding.checkboxNama, binding.layoutNama)
-        setCheckboxListener(binding.checkboxAlamatsaksi, binding.layoutAlamatsaksi)
+        setCheckboxListener(binding.checkboxNama1, binding.layoutNama1)
+        setCheckboxListener(binding.checkboxAlamatsaksi1, binding.layoutAlamatsaksi1)
+        setCheckboxListener(binding.checkboxNama2, binding.layoutNama2)
+        setCheckboxListener(binding.checkboxAlamatsaksi2, binding.layoutAlamatsaksi2)
         setCheckboxListener(binding.checkboxAlatbukti, binding.layoutAlatbukti)
         setCheckboxListener(binding.checkboxBarangbukti, binding.layoutBarangbukti)
         setCheckboxListener(binding.checkboxUraian, binding.layoutUraian)
@@ -62,8 +64,10 @@ class FragmentDugaanPelanggaran : Fragment(R.layout.fragment_dugaan_pelanggaran)
             "Waktu Kejadian" to getInfo(binding.checkboxWaktukejadian, binding.etInformasiWaktukejadian),
             "Pelaku" to getInfo(binding.checkboxPelaku, binding.etInformasiPelaku),
             "Alamat" to getInfo(binding.checkboxAlamat, binding.etInformasiAlamat),
-            "Nama Saksi" to getInfo(binding.checkboxNama, binding.etInformasiNama),
-            "Alamat Saksi" to getInfo(binding.checkboxAlamatsaksi, binding.etInformasiAlamatsaksi),
+            "Nama Saksi" to getInfo(binding.checkboxNama1, binding.etInformasiNama1),
+            "Alamat Saksi" to getInfo(binding.checkboxAlamatsaksi1, binding.etInformasiAlamatsaksi1),
+            "Nama Saksi" to getInfo(binding.checkboxNama2, binding.etInformasiNama2),
+            "Alamat Saksi" to getInfo(binding.checkboxAlamatsaksi2, binding.etInformasiAlamatsaksi2),
             "Alat Bukti" to getInfo(binding.checkboxAlatbukti, binding.etInformasiAlatbukti),
             "Barang Bukti" to getInfo(binding.checkboxBarangbukti, binding.etInformasiBarangbukti),
             "Uraian Dugaan Pelanggaran" to getInfo(binding.checkboxUraian, binding.etInformasiUraian),

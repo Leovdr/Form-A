@@ -20,10 +20,10 @@ class FragmentKegiatanPengawasan : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_kegiatan_pengawasan, container, false)
 
-        etBentuk = view.findViewById(R.id.etBentukkegiatan)
-        etTujuan = view.findViewById(R.id.etTujuankegiatan)
-        etSasaran = view.findViewById(R.id.etSasarankegiatan)
-        etWaktuTempat = view.findViewById(R.id.etWaktudantempatkegiatan)
+        etBentuk = view.findViewById(R.id.etBentuk)
+        etTujuan = view.findViewById(R.id.etTujuan)
+        etSasaran = view.findViewById(R.id.etSasaran)
+        etWaktuTempat = view.findViewById(R.id.etWaktuTempat)
 
         return view
     }

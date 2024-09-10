@@ -206,13 +206,13 @@
             android:text="Nama" />
 
         <CheckBox
-            android:id="@+id/checkboxNama"
+            android:id="@+id/checkboxNama1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Centang jika ada nama saksi" />
 
         <LinearLayout
-            android:id="@+id/layoutNama"
+            android:id="@+id/layoutNama1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -227,7 +227,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/etInformasiNama"
+                android:id="@+id/etInformasiNama1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Masukkan Informasi Nama Saksi" />
@@ -239,13 +239,13 @@
             android:text="Alamat Saksi" />
 
         <CheckBox
-            android:id="@+id/checkboxAlamatsaksi"
+            android:id="@+id/checkboxAlamatsaksi1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Centang jika ada alamat saksi" />
 
         <LinearLayout
-            android:id="@+id/layoutAlamatsaksi"
+            android:id="@+id/layoutAlamatsaksi1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -260,7 +260,73 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/etInformasiAlamatsaksi"
+                android:id="@+id/etInformasiAlamatsaksi1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Alamat Saksi" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama" />
+
+        <CheckBox
+            android:id="@+id/checkboxNama2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada nama saksi" />
+
+        <LinearLayout
+            android:id="@+id/layoutNama2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etInformasiNama2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Nama Saksi" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alamat Saksi" />
+
+        <CheckBox
+            android:id="@+id/checkboxAlamatsaksi2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada alamat saksi" />
+
+        <LinearLayout
+            android:id="@+id/layoutAlamatsaksi2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etInformasiAlamatsaksi2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Masukkan Informasi Alamat Saksi" />
