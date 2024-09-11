@@ -3,10 +3,13 @@ package com.example.aplikasiforma
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.provider.Settings
 import android.widget.Button
 import android.widget.Toast
@@ -24,6 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,7 +42,8 @@ class MainActivity : AppCompatActivity() {
         FragmentKegiatanPengawasan(),
         FragmentHasilPengawasan(),
         FragmentDugaanPelanggaran(),
-        FragmentPotensiSengketa()
+        FragmentPotensiSengketa(),
+        FragmentLampiranGambar()
     )
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -68,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                 3 -> "Uraian Singkat Hasil Pengawasan"
                 4 -> "Informasi Dugaan Pelanggaran"
                 5 -> "Informasi Potensi Sengketa Pemilihan"
+                6 -> "Lampiran Gambar"
                 else -> null
             }
         }.attach()
@@ -107,7 +113,15 @@ class MainActivity : AppCompatActivity() {
         val hasilPengawasanFragment = fragments[3] as FragmentHasilPengawasan
         val dugaanPelanggaranFragment = fragments[4] as FragmentDugaanPelanggaran
         val potensiSengketaFragment = fragments[5] as FragmentPotensiSengketa
+        val lampiranGambarFragment = fragments[6] as FragmentLampiranGambar
 
+        // Mengambil Uri gambar terpilih dari FragmentLampiranGambar
+        val selectedImageUris = lampiranGambarFragment.getSelectedImageUris()
+
+        // Mengonversi Uri ke Bitmap hanya jika diperlukan
+        val selectedImages: List<Bitmap> = selectedImageUris.mapNotNull { uriToBitmap(it) }
+
+        // Mengambil data dari fragment lain
         val data = DocumentData(
             noSurat = dataPengawasFragment.getNoSurat().orEmpty(),
             namaPelaksana = dataPengawasFragment.getNamaPelaksana().orEmpty(),
@@ -125,16 +139,20 @@ class MainActivity : AppCompatActivity() {
             jenisPemilihan = jenisdanTahapanFragment.getJenispemilihan().orEmpty()
         )
 
+        // Mengambil tanda tangan dari FragmentPotensiSengketa
+        val signatureBitmap = potensiSengketaFragment.getSignatureBitmap()
+
         sharedViewModel.updateDocumentData(data)
-        generateDocument()
+        generateDocument(signatureBitmap, selectedImages)
     }
 
-    private fun generateDocument() {
+
+    private fun generateDocument(signatureBitmap: Bitmap?, selectedImages: List<Bitmap>) {
         CoroutineScope(Dispatchers.IO).launch {
             val data = sharedViewModel.documentData.value
             if (data != null) {
                 val generator = DocumentGenerator(this@MainActivity)
-                val isSaved = generator.generateAndSaveDocument(data)
+                val isSaved = generator.generateAndSaveDocument(data, signatureBitmap, selectedImages)
                 withContext(Dispatchers.Main) {
                     if (isSaved) {
                         Toast.makeText(this@MainActivity, "File berhasil disimpan!", Toast.LENGTH_LONG).show()
@@ -147,6 +165,21 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, "Gagal mengumpulkan data dari fragment.", Toast.LENGTH_LONG).show()
                 }
             }
+        }
+    }
+
+    // Fungsi untuk mengonversi Uri ke Bitmap
+    private fun uriToBitmap(uri: Uri): Bitmap? {
+        return try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val source = ImageDecoder.createSource(contentResolver, uri)
+                ImageDecoder.decodeBitmap(source)
+            } else {
+                MediaStore.Images.Media.getBitmap(contentResolver, uri)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
         }
     }
 

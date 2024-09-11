@@ -1,26 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".FragmentPotensiSengketa">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VI. Informasi Potensi Sengketa"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <EditText
+        android:id="@+id/etPotensiSengketa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".FragmentPotensiSengketa">
+        android:hint="Masukkan informasi potensi sengketa"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:gravity="top" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="V. Informasi Potensi Sengketa"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:paddingBottom="8dp" />
+    <!-- SignaturePad -->
+    <com.github.gcacace.signaturepad.views.SignaturePad
+        android:id="@+id/signature_pad"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/login" />
 
-        <EditText
-            android:id="@+id/etPotensiSengketa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Masukkan informasi potensi sengketa"
-            android:inputType="textMultiLine"
-            android:minLines="3"
-            android:gravity="top" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear Signature" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Signature" />
+
+</LinearLayout>
