@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Style for TextInputLayout -->
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <!-- Overlay for theming TextInputEditText within TextInputLayout -->
+        <item name="materialThemeOverlay">@style/CustomTextInputLayoutThemeOverlay</item>
+        <!-- Shape appearance overlay for TextInputLayout -->
+        <item name="shapeAppearanceOverlay">@style/CustomTextInputLayoutShapeAppearanceOverlay
+        </item>
+
+        <!-- Background color settings for different states -->
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+
+        <!-- Stroke color settings for different states -->
+        <item name="boxStrokeColor">@color/red</item>
+
+        <!-- Padding adjustments for the collapsed box state -->
+        <item name="boxCollapsedPaddingTop">4dp</item>
+        <!-- Stroke width settings -->
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+        <!-- Hint display control -->
+        <item name="hintEnabled">true</item>
+    </style>
+
+    <!-- Theme overlay for customizing TextInputEditText within TextInputLayout -->
+    <style name="CustomTextInputLayoutThemeOverlay" parent="ThemeOverlay.MaterialComponents.TextInputEditText.FilledBox">
+        <!-- Reference to the custom EditText style -->
+        <item name="editTextStyle">@style/CustomTextInputLayoutEditTextStyle</item>
+    </style>
+
+    <!-- Custom style for TextInputEditText -->
+    <style name="CustomTextInputLayoutEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <!-- Padding settings to visually match spec -->
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <!-- Custom shape appearance overlay for TextInputLayout -->
+    <style name="CustomTextInputLayoutShapeAppearanceOverlay" parent="ShapeAppearanceOverlay.MaterialComponents.TextInputLayout.FilledBox">
+        <!-- Corner sizes for customizing the shape -->
+        <item name="cornerSizeBottomLeft">4dp</item>
+        <item name="cornerSizeBottomRight">4dp</item>
+    </style>
+</resources>
+
