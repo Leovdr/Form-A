@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mnberanda"
+        android:icon="@drawable/baseline_window_24"
+        android:title="Beranda" />
+    <item
+        android:id="@+id/mnriwayat"
+        android:icon="@drawable/baseline_history_24"
+        android:title="Riwayat" />
+    <item
+        android:id="@+id/mnpengisian"
+        android:icon="@drawable/baseline_mail_24"
+        android:title="Pengisian" />
+    <item
+        android:id="@+id/mnprofil"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Profil" />
+</menu>

@@ -10,4 +10,11 @@
     <color name="red">#FF0000</color>
     <color name="text_input_background_color">#FFFFFF</color>
     <color name="login">#F6F7FA</color>
+    <color name="colorPrimary">#E7352F</color>
+    <color name="colorPrimaryDark">#B02726</color>
+    <color name="colorAccent">#FFD700</color>
+
+    <!-- Tambahkan warna lain yang diperlukan -->
+    <color name="colorTextPrimary">#FFD700</color>
+    <color name="colorTextSecondary">#FFFFFF</color>
 </resources>
