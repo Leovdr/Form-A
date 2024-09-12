@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IV. Informasi Dugaan Pelanggaran"
+            android:text="V. Informasi Dugaan Pelanggaran"
             android:textStyle="bold"
             android:textSize="16sp"
             android:paddingBottom="8dp" />
@@ -195,159 +195,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2. Saksi-Saksi"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:paddingBottom="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama" />
-
-        <CheckBox
-            android:id="@+id/checkboxNama1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Centang jika ada nama saksi" />
-
-        <LinearLayout
-            android:id="@+id/layoutNama1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/etInformasiNama1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Nama Saksi" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alamat Saksi" />
-
-        <CheckBox
-            android:id="@+id/checkboxAlamatsaksi1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Centang jika ada alamat saksi" />
-
-        <LinearLayout
-            android:id="@+id/layoutAlamatsaksi1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/etInformasiAlamatsaksi1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Alamat Saksi" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama" />
-
-        <CheckBox
-            android:id="@+id/checkboxNama2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Centang jika ada nama saksi" />
-
-        <LinearLayout
-            android:id="@+id/layoutNama2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/etInformasiNama2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Nama Saksi" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alamat Saksi" />
-
-        <CheckBox
-            android:id="@+id/checkboxAlamatsaksi2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Centang jika ada alamat saksi" />
-
-        <LinearLayout
-            android:id="@+id/layoutAlamatsaksi2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/etInformasiAlamatsaksi2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Alamat Saksi" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3. Alat Bukti"
+            android:text="2. Pasal yang diduga dilanggar"
             android:textStyle="bold"
             android:textSize="14sp"
             android:paddingBottom="8dp" />
 
         <CheckBox
-            android:id="@+id/checkboxAlatbukti"
+            android:id="@+id/checkboxPasal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Centang jika ada alat bukti" />
+            android:text="Centang jika ada pasal yang dilanggar" />
 
         <LinearLayout
-            android:id="@+id/layoutAlatbukti"
+            android:id="@+id/layoutPasal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -362,16 +222,158 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/etInformasiAlatbukti"
+                android:id="@+id/etInformasiPasal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Alat Bukti" />
+                android:hint="Masukkan Informasi Pasal yang Dilanggar" />
         </LinearLayout>
+
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4. Barang Bukti"
+            android:text="3. Saksi - saksi"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama" />
+
+                <CheckBox
+                    android:id="@+id/checkboxNama1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Centang jika ada nama saksi" />
+
+                <LinearLayout
+                    android:id="@+id/layoutNama1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Informasi"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etInformasiNama1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Masukkan Informasi Nama Saksi" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Saksi" />
+
+                <CheckBox
+                    android:id="@+id/checkboxAlamatsaksi1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Centang jika ada alamat saksi" />
+
+                <LinearLayout
+                    android:id="@+id/layoutAlamatsaksi1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Informasi"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etInformasiAlamatsaksi1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Masukkan Informasi Alamat Saksi" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama" />
+
+                <CheckBox
+                    android:id="@+id/checkboxNama2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Centang jika ada nama saksi" />
+
+                <LinearLayout
+                    android:id="@+id/layoutNama2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Informasi"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etInformasiNama2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Masukkan Informasi Nama Saksi" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Saksi" />
+
+                <CheckBox
+                    android:id="@+id/checkboxAlamatsaksi2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Centang jika ada alamat saksi" />
+
+                <LinearLayout
+                    android:id="@+id/layoutAlamatsaksi2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:paddingTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Informasi"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/etInformasiAlamatsaksi2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Masukkan Informasi Alamat Saksi" />
+                </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4. Bukti"
             android:textStyle="bold"
             android:textSize="14sp"
             android:paddingBottom="8dp" />
@@ -407,7 +409,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5. Uraian Dugaan Pelanggaran"
+            android:text="5. Uraian singkat dugaan pelangggaran pemilihan"
             android:textStyle="bold"
             android:textSize="14sp"
             android:paddingBottom="8dp" />
@@ -443,7 +445,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6. Fakta dan Keterangan"
+            android:text="6. Jenis dugaan pelanggaran"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+
+        <CheckBox
+            android:id="@+id/checkboxJenis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada jenis dugaan pelanggaran" />
+
+        <LinearLayout
+            android:id="@+id/layoutJenis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etInformasiJenis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Fakta dan Keterangan" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7. Fakta dan keterangan"
             android:textStyle="bold"
             android:textSize="14sp"
             android:paddingBottom="8dp" />
@@ -452,7 +490,7 @@
             android:id="@+id/checkboxFakta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Centang jika ada fakta dan keterangan" />
+            android:text="Centang jika ada Fakta" />
 
         <LinearLayout
             android:id="@+id/layoutFakta"
@@ -473,13 +511,13 @@
                 android:id="@+id/etInformasiFakta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Fakta dan Keterangan" />
+                android:hint="Masukkan Informasi Fakta" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="7. Analisa"
+            android:text="9. Analisa"
             android:textStyle="bold"
             android:textSize="14sp"
             android:paddingBottom="8dp" />
@@ -510,6 +548,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Masukkan Informasi Analisa" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10. Tindak lanjut"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:paddingBottom="8dp" />
+
+        <CheckBox
+            android:id="@+id/checkboxTindak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada tindak lanjut" />
+
+        <LinearLayout
+            android:id="@+id/layoutTindak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/etInformasiTindak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Tindak Lanjut" />
         </LinearLayout>
 
     </LinearLayout>

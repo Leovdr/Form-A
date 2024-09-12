@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         FragmentHasilPengawasan(),
         FragmentDugaanPelanggaran(),
         FragmentPotensiSengketa(),
-        FragmentLampiranGambar()
+        FragmentLampiranGambar(),
+        FragmentSignature()
     )
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -52,7 +53,8 @@ class MainActivity : AppCompatActivity() {
         if (isGranted) {
             collectDataAndExportDocument()
         } else {
-            Toast.makeText(this, "Izin ditolak. Tidak dapat menyimpan dokumen.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Izin ditolak. Tidak dapat menyimpan dokumen.", Toast.LENGTH_LONG)
+                .show()
         }
     }
 
@@ -74,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 4 -> "Informasi Dugaan Pelanggaran"
                 5 -> "Informasi Potensi Sengketa Pemilihan"
                 6 -> "Lampiran Gambar"
+                7 -> "Signature"
                 else -> null
             }
         }.attach()
@@ -83,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         sharedViewModel.documentData.observe(this, Observer { data ->
-            // Handle data updates
+            // Handle data updates, jika diperlukan.
         })
     }
 
@@ -98,7 +101,8 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED
+            ) {
                 requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             } else {
                 collectDataAndExportDocument()
@@ -107,6 +111,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun collectDataAndExportDocument() {
+        // Inisiasi fragment yang sudah ada
         val dataPengawasFragment = fragments[0] as FragmentDataPengawas
         val jenisdanTahapanFragment = fragments[1] as FragmentJenisdanTahapan
         val kegiatanPengawasanFragment = fragments[2] as FragmentKegiatanPengawasan
@@ -114,12 +119,11 @@ class MainActivity : AppCompatActivity() {
         val dugaanPelanggaranFragment = fragments[4] as FragmentDugaanPelanggaran
         val potensiSengketaFragment = fragments[5] as FragmentPotensiSengketa
         val lampiranGambarFragment = fragments[6] as FragmentLampiranGambar
+        val signatureFragment = fragments[7] as FragmentSignature
 
-        // Mengambil Uri gambar terpilih dari FragmentLampiranGambar
-        val selectedImageUris = lampiranGambarFragment.getSelectedImageUris()
-
-        // Mengonversi Uri ke Bitmap hanya jika diperlukan
-        val selectedImages: List<Bitmap> = selectedImageUris.mapNotNull { uriToBitmap(it) }
+        // Mengambil URI gambar yang dipilih dari FragmentLampiranGambar dan mengonversinya menjadi Bitmap
+        val selectedImageUris = lampiranGambarFragment.getSelectedImages()
+        val selectedImages = selectedImageUris.mapNotNull { uriToBitmap(it) } // Konversi URI ke Bitmap
 
         // Mengambil data dari fragment lain
         val data = DocumentData(
@@ -133,26 +137,37 @@ class MainActivity : AppCompatActivity() {
             sasaran = kegiatanPengawasanFragment.getSasaran().orEmpty(),
             waktuTempat = kegiatanPengawasanFragment.getWaktuTempat().orEmpty(),
             hasilPengawasan = hasilPengawasanFragment.getHasilPengawasan().orEmpty(),
-            dugaanPelanggaran = dugaanPelanggaranFragment.getDugaanPelanggaran().orEmpty(),
+            dugaanPelanggaran = dugaanPelanggaranFragment.getDugaanPelanggaran(),
             potensiSengketa = potensiSengketaFragment.getPotensiSengketa().orEmpty(),
             tahapanPemilihan = jenisdanTahapanFragment.getTahapanpemilihan().orEmpty(),
             jenisPemilihan = jenisdanTahapanFragment.getJenispemilihan().orEmpty()
         )
 
-        // Mengambil tanda tangan dari FragmentPotensiSengketa
-        val signatureBitmap = potensiSengketaFragment.getSignatureBitmap()
+        // Mengambil tanda tangan dan input dari FragmentSignature
+        val signatureFilePath = signatureFragment.getSignatureFilePath()
+        val signatureBitmap = signatureFragment.getSignatureBitmap()
+        val signatureDate = signatureFragment.getSignatureDate().orEmpty()
+        val signaturePosition = signatureFragment.getSignaturePosition().orEmpty()
+        val signatureName = signatureFragment.getSignatureName().orEmpty()
 
+        // Memperbarui data di ViewModel
         sharedViewModel.updateDocumentData(data)
-        generateDocument(signatureBitmap, selectedImages)
+        generateDocument(signatureFilePath, signatureBitmap, selectedImages, signatureDate, signaturePosition, signatureName)
     }
 
-
-    private fun generateDocument(signatureBitmap: Bitmap?, selectedImages: List<Bitmap>) {
+    private fun generateDocument(
+        signatureFilePath: String?,
+        signatureBitmap: Bitmap?,
+        selectedImages: List<Bitmap>,
+        signatureDate: String,
+        signaturePosition: String,
+        signatureName: String
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
             val data = sharedViewModel.documentData.value
             if (data != null) {
                 val generator = DocumentGenerator(this@MainActivity)
-                val isSaved = generator.generateAndSaveDocument(data, signatureBitmap, selectedImages)
+                val isSaved = generator.generateAndSaveDocument(data, signatureFilePath, signatureBitmap, selectedImages, signatureDate, signaturePosition, signatureName)
                 withContext(Dispatchers.Main) {
                     if (isSaved) {
                         Toast.makeText(this@MainActivity, "File berhasil disimpan!", Toast.LENGTH_LONG).show()

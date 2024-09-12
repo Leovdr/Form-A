@@ -34,15 +34,17 @@ class FragmentDugaanPelanggaran : Fragment(R.layout.fragment_dugaan_pelanggaran)
         setCheckboxListener(binding.checkboxWaktukejadian, binding.layoutWaktukejadian)
         setCheckboxListener(binding.checkboxPelaku, binding.layoutPelaku)
         setCheckboxListener(binding.checkboxAlamat, binding.layoutAlamat)
+        setCheckboxListener(binding.checkboxPasal, binding.layoutPasal)
         setCheckboxListener(binding.checkboxNama1, binding.layoutNama1)
         setCheckboxListener(binding.checkboxAlamatsaksi1, binding.layoutAlamatsaksi1)
         setCheckboxListener(binding.checkboxNama2, binding.layoutNama2)
         setCheckboxListener(binding.checkboxAlamatsaksi2, binding.layoutAlamatsaksi2)
-        setCheckboxListener(binding.checkboxAlatbukti, binding.layoutAlatbukti)
         setCheckboxListener(binding.checkboxBarangbukti, binding.layoutBarangbukti)
         setCheckboxListener(binding.checkboxUraian, binding.layoutUraian)
+        setCheckboxListener(binding.checkboxJenis, binding.layoutJenis)
         setCheckboxListener(binding.checkboxFakta, binding.layoutFakta)
         setCheckboxListener(binding.checkboxAnalisa, binding.layoutAnalisa)
+        setCheckboxListener(binding.checkboxTindak, binding.layoutTindak)
     }
 
     private fun setCheckboxListener(checkbox: CheckBox, layout: LinearLayout) {
@@ -64,15 +66,17 @@ class FragmentDugaanPelanggaran : Fragment(R.layout.fragment_dugaan_pelanggaran)
             "Waktu Kejadian" to getInfo(binding.checkboxWaktukejadian, binding.etInformasiWaktukejadian),
             "Pelaku" to getInfo(binding.checkboxPelaku, binding.etInformasiPelaku),
             "Alamat" to getInfo(binding.checkboxAlamat, binding.etInformasiAlamat),
+            "Pasal yang dilanggar" to getInfo(binding.checkboxPasal, binding.etInformasiPasal),
             "Nama Saksi" to getInfo(binding.checkboxNama1, binding.etInformasiNama1),
             "Alamat Saksi" to getInfo(binding.checkboxAlamatsaksi1, binding.etInformasiAlamatsaksi1),
-            "Nama Saksi" to getInfo(binding.checkboxNama2, binding.etInformasiNama2),
-            "Alamat Saksi" to getInfo(binding.checkboxAlamatsaksi2, binding.etInformasiAlamatsaksi2),
-            "Alat Bukti" to getInfo(binding.checkboxAlatbukti, binding.etInformasiAlatbukti),
-            "Barang Bukti" to getInfo(binding.checkboxBarangbukti, binding.etInformasiBarangbukti),
-            "Uraian Dugaan Pelanggaran" to getInfo(binding.checkboxUraian, binding.etInformasiUraian),
+            "Nama Saksi2" to getInfo(binding.checkboxNama2, binding.etInformasiNama2),
+            "Alamat Saksi2" to getInfo(binding.checkboxAlamatsaksi2, binding.etInformasiAlamatsaksi2),
+            "Bukti" to getInfo(binding.checkboxBarangbukti, binding.etInformasiBarangbukti),
+            "Uraian Singkat" to getInfo(binding.checkboxUraian, binding.etInformasiUraian),
+            "Jenis Dugaan" to getInfo(binding.checkboxJenis, binding.etInformasiJenis),
             "Fakta dan Keterangan" to getInfo(binding.checkboxFakta, binding.etInformasiFakta),
-            "Analisa" to getInfo(binding.checkboxAnalisa, binding.etInformasiAnalisa)
+            "Analisa" to getInfo(binding.checkboxAnalisa, binding.etInformasiAnalisa),
+            "Tindak lanjut" to getInfo(binding.checkboxTindak, binding.etInformasiTindak)
         )
     }
 

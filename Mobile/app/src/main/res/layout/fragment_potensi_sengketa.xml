@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".FragmentPotensiSengketa">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,6 +20,98 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:paddingBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1. Peristiwa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="a. Peserta Pemilihan" />
+
+    <EditText
+        android:id="@+id/etPesertaPemilihan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Peserta Pemilihan" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="b. Tempat Kejadian" />
+
+    <EditText
+        android:id="@+id/etTempatKejadian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Tempat Kejadian" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="c. Waktu Kejadian" />
+
+    <EditText
+        android:id="@+id/etWaktuKejadian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Waktu Kejadian" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2. Objek Sengketa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="a. Bentuk Objek Sengketa" />
+
+    <EditText
+        android:id="@+id/etBentukObjek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Bentuk Objek Sengketa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="b. Identitas Objek Sengketa" />
+
+    <EditText
+        android:id="@+id/etIdentitasObjek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Identitas Objek Sengketa" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="c. Hari/Tanggal Dikeluarkan" />
+
+    <EditText
+        android:id="@+id/etHariTanggal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Hari/Tanggal Dikeluarkan" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="d. Kerugian Langsung" />
+
+    <EditText
+        android:id="@+id/etKerugianLangsung"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Masukkan Kerugian Langsung" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3. Uraian Singkat Potensi Sengketa Pemilihan" />
 
     <EditText
         android:id="@+id/etPotensiSengketa"
@@ -24,24 +122,5 @@
         android:minLines="3"
         android:gravity="top" />
 
-    <!-- SignaturePad -->
-    <com.github.gcacace.signaturepad.views.SignaturePad
-        android:id="@+id/signature_pad"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/login" />
-
-    <Button
-        android:id="@+id/btnClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clear Signature" />
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Signature" />
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -21,7 +21,7 @@ class FragmentLampiranGambar : Fragment() {
     private lateinit var selectImagesButton: Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var imageAdapter: ImageAdapter
-    private lateinit var imageUris: MutableList<Uri>
+    private var imageUris: MutableList<Uri> = mutableListOf()  // Initialize list of URIs
     private lateinit var pickImagesLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
@@ -32,7 +32,6 @@ class FragmentLampiranGambar : Fragment() {
 
         selectImagesButton = view.findViewById(R.id.btnSelectImages)
         recyclerView = view.findViewById(R.id.recyclerView)
-        imageUris = mutableListOf()
 
         setupRecyclerView()
 
@@ -75,9 +74,8 @@ class FragmentLampiranGambar : Fragment() {
         pickImagesLauncher.launch(intent)
     }
 
-    // Metode untuk mendapatkan daftar gambar yang dipilih
-    fun getSelectedImageUris(): List<Uri> {
-        return imageUris.toList() // Mengembalikan daftar Uri gambar
+    // Method to get selected images URIs
+    fun getSelectedImages(): List<Uri> {
+        return imageUris.toList()  // Return a copy of the list
     }
-
 }
