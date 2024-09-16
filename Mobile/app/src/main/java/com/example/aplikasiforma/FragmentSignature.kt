@@ -29,8 +29,7 @@ class FragmentSignature : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_signature, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_signature, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,40 +55,44 @@ class FragmentSignature : Fragment() {
         if (!signaturePad.isEmpty) {
             signatureBitmap = signaturePad.signatureBitmap
             signatureFilePath = saveBitmapToFile(signatureBitmap)
-            Toast.makeText(context, "Tanda tangan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+            context?.let {
+                Toast.makeText(it, "Tanda tangan berhasil disimpan!", Toast.LENGTH_SHORT).show()
+            }
         } else {
             signatureBitmap = null
-            Toast.makeText(
-                context,
-                "Tanda tangan kosong, tidak ada yang disimpan.",
-                Toast.LENGTH_SHORT
-            ).show()
+            context?.let {
+                Toast.makeText(it, "Tanda tangan kosong, tidak ada yang disimpan.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     private fun saveBitmapToFile(bitmap: Bitmap?): String? {
         if (bitmap == null) return null
         val file = File(requireContext().cacheDir, "signature.png")
-        try {
+        return try {
             FileOutputStream(file).use { out ->
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
             }
-            return file.absolutePath
+            file.absolutePath
         } catch (e: IOException) {
             e.printStackTrace()
+            null
         }
-        return null
     }
 
+    // Fungsi untuk mengambil Bitmap tanda tangan
     fun getSignatureBitmap(): Bitmap? {
-        if (!this::signaturePad.isInitialized) {
-            Toast.makeText(context, "Tanda tangan belum siap.", Toast.LENGTH_SHORT).show()
-            return null
+        return if (signaturePad.isEmpty) {
+            context?.let {
+                Toast.makeText(it, "Tanda tangan kosong.", Toast.LENGTH_SHORT).show()
+            }
+            null
+        } else {
+            signaturePad.signatureBitmap
         }
-        return if (signaturePad.isEmpty) null else signaturePad.signatureBitmap
     }
 
-    // Tambahkan fungsi get untuk input
+    // Fungsi untuk mendapatkan input dengan cek null
     fun getSignatureDate(): String {
         return dateEditText.text.toString()
     }

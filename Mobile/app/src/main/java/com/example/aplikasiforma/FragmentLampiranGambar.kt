@@ -23,6 +23,7 @@ class FragmentLampiranGambar : Fragment() {
     private lateinit var imageAdapter: ImageAdapter
     private var imageUris: MutableList<Uri> = mutableListOf()  // Initialize list of URIs
     private lateinit var pickImagesLauncher: ActivityResultLauncher<Intent>
+    private val selectedImageUris = mutableListOf<Uri>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,4 +79,13 @@ class FragmentLampiranGambar : Fragment() {
     fun getSelectedImages(): List<Uri> {
         return imageUris.toList()  // Return a copy of the list
     }
+
+    fun addImageUri(uri: Uri) {
+        selectedImageUris.add(uri)
+    }
+
+    fun getSelectedImageUris(): List<Uri> {
+        return selectedImageUris
+    }
+
 }

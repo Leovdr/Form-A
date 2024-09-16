@@ -1,6 +1,7 @@
 package com.example.aplikasiforma
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,8 +39,17 @@ class FragmentPotensiSengketa : Fragment() {
     }
 
     fun getPotensiSengketa(): Map<String, String> {
-        // Mengembalikan data dari setiap EditText sebagai sebuah Map
-        return mapOf(
+        if (!isAdded) {
+            Log.e("FragmentPotensiSengketa", "Fragment is not attached to the activity.")
+            return emptyMap()
+        }
+
+        if (!this::etPesertaPemilihan.isInitialized) {
+            Log.e("FragmentPotensiSengketa", "EditTexts belum diinisialisasi.")
+            return emptyMap()
+        }
+
+        val dataMap = mapOf(
             "Peserta Pemilihan" to etPesertaPemilihan.text.toString(),
             "Tempat Kejadian" to etTempatKejadian.text.toString(),
             "Waktu Kejadian" to etWaktuKejadian.text.toString(),
@@ -49,5 +59,8 @@ class FragmentPotensiSengketa : Fragment() {
             "Kerugian Langsung" to etKerugianLangsung.text.toString(),
             "Uraian Singkat Potensi Sengketa" to etPotensiSengketa.text.toString()
         )
+        Log.d("FragmentPotensiSengketa", "Data Potensi Sengketa: $dataMap")
+        return dataMap
     }
+
 }

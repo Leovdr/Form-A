@@ -16,6 +16,7 @@
         android:id="@+id/etNosurat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/login"
         android:hint="…/LHP/PM … / … / 202…" />
 
         <TextView
