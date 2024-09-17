@@ -5,8 +5,8 @@
     <style name="Theme.AplikasiFormA" parent="Base.Theme.AplikasiFormA">
         <!-- Transparent system bars for edge-to-edge -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item> <!-- Status bar transparan -->
+        <item name="android:windowLightStatusBar">true</item> <!-- Icon status bar berwarna gelap -->
 
         <!-- Primary colors -->
         <item name="colorPrimary">@color/colorPrimary</item>

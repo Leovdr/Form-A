@@ -55,4 +55,64 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="default_web_client_id">324085102254-m01261nes3k0pk01chjn413bmsic172n.apps.googleusercontent.com</string>
+
+    <string name="kebijakan_privasi">
+        Aplikasi Pengisian Form A Bawarsiu menghargai privasi dan keamanan data pengguna.
+        \n\nKebijakan privasi ini dirancang untuk menjelaskan bagaimana informasi pribadi dikumpulkan, digunakan, disimpan, dan dilindungi saat menggunakan aplikasi ini.
+
+        \n\nKebijakan Privasi ini disertakan sebagai bagian dari ketentuan penggunaan. Kebijakan Privasi ini mencakup hal-hal sebagai berikut:
+
+        \n\n1. Definisi
+        \n2. Pengumpulan Informasi
+        \n3. Penggunaan Informasi
+        \n4. Perlindungan Data
+        \n5. Hak Pengguna
+        \n6. Pengakuan dan Persetujuan
+        \n7. Perubahan Atas Kebijakan Privasi
+        \n8. Cara untuk Menghubungi Kami
+
+        \nPenggunaan atas aplikasi dan layanan tunduk pada ketentuan penggunaan dan Kebijakan Privasi ini dan mengindikasikan persetujuan terhadap ketentuan penggunaan dan Kebijakan Privasi tersebut.
+
+        \n\n1. Definisi
+        \nAplikasi: Aplikasi Pengisian Form A Bawaslu yang digunakan untuk mengisi dan mengelola laporan pengawasan pemilu.
+        \nPengguna: Individu yang menggunakan aplikasi untuk keperluan pengisian form A.
+        \nData Pribadi: Informasi yang terkait dengan individu, seperti nama, alamat, data kontak, dan data terkait pengawasan pemilu yang dikumpulkan melalui aplikasi.
+        \nLayanan: Fitur dan fungsi yang disediakan oleh aplikasi untuk pengisian form A dan pengelolaan data pengawasan.
+
+        \n\n2. Pengumpulan Informasi
+        \nAplikasi ini mengumpulkan beberapa jenis informasi pribadi pengguna, termasuk namun tidak terbatas pada:
+        \n- Informasi Identitas: Nama lengkap, alamat, nomor telepon, alamat email.
+        \n- Informasi Pengawasan: Data yang terkait dengan laporan pengawasan pemilu seperti tanggal, lokasi, dan kejadian.
+        \n- Informasi Teknis: Data terkait perangkat yang digunakan, seperti alamat IP, jenis perangkat, dan sistem operasi.
+        \nInformasi dikumpulkan secara otomatis melalui penggunaan aplikasi atau secara sukarela saat pengguna mengisi form atau mengunggah data.
+
+        \n\n3. Penggunaan Informasi
+        \nData yang dikumpulkan akan digunakan untuk tujuan berikut:
+        \n- Mengelola dan memproses form A sesuai dengan tugas pengawasan pemilu.
+        \n- Menyediakan akses ke layanan aplikasi yang mendukung fungsi pengawasan pemilu.
+
+        \n\n4. Perlindungan Data
+        \nKami berkomitmen untuk melindungi data pengguna dengan menggunakan langkah-langkah keamanan teknis dan organisasi, termasuk enkripsi data dan akses terbatas ke informasi pribadi.
+
+        \n\n5. Hak Pengguna
+        \nPengguna memiliki hak terkait data pribadi mereka:
+        \n- Hak Akses: Pengguna dapat meminta salinan informasi pribadi yang dikumpulkan oleh aplikasi.
+        \n- Hak Perbaikan: Pengguna dapat memperbaiki atau memperbarui informasi pribadi yang tidak akurat.
+        \n- Hak Penghapusan: Pengguna dapat meminta penghapusan data pribadi mereka dari aplikasi, dengan tunduk pada ketentuan hukum yang berlaku.
+        \n- Hak Keberatan: Pengguna dapat menolak penggunaan data pribadi untuk tujuan tertentu, seperti pemasaran.
+
+        \n\n6. Pengakuan dan Persetujuan
+        \nDengan menggunakan aplikasi ini, pengguna menyetujui kebijakan privasi ini dan memberikan persetujuan terhadap pengumpulan, penggunaan, dan pemrosesan informasi pribadi mereka sesuai dengan kebijakan yang dijelaskan di atas.
+
+        \n\n7. Perubahan Atas Kebijakan Privasi
+        \nKami berhak untuk memperbarui kebijakan privasi ini dari waktu ke waktu guna mencerminkan perubahan pada praktik layanan atau hukum yang berlaku.
+
+        \n\n8. Cara untuk Menghubungi Kami
+        \nJika ada pertanyaan, keluhan, atau permintaan terkait kebijakan privasi, pengguna dapat menghubungi kami melalui email:
+
+        \n\nEmail: leovanderadds@gmail.com
+
+        \nKami akan berusaha menanggapi setiap permintaan atau keluhan secepat mungkin.
+    </string>
+
 </resources>
