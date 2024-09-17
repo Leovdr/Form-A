@@ -22,44 +22,76 @@
             android:layout_height="wrap_content"
             android:text="Bentuk" />
 
-        <EditText
-            android:id="@+id/etBentuk"
+        <!-- TextInputLayout for 'Bentuk' -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan bentuk kegiatan" />
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etBentuk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan bentuk kegiatan" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tujuan" />
 
-        <EditText
-            android:id="@+id/etTujuan"
+        <!-- TextInputLayout for 'Tujuan' -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan tujuan" />
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etTujuan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan tujuan" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sasaran" />
 
-        <EditText
-            android:id="@+id/etSasaran"
+        <!-- TextInputLayout for 'Sasaran' -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan sasaran" />
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etSasaran"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan sasaran" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Waktu dan Tempat" />
 
-        <EditText
-            android:id="@+id/etWaktuTempat"
+        <!-- TextInputLayout for 'Waktu dan Tempat' -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan waktu dan tempat" />
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etWaktuTempat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan waktu dan tempat" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

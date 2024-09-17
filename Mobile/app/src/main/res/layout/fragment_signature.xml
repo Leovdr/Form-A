@@ -22,33 +22,57 @@
             android:layout_height="wrap_content"
             android:text="Tempat dan Tanggal Surat" />
 
-        <EditText
-            android:id="@+id/etTanggalttd"
+        <!-- TextInputLayout for Tempat dan Tanggal Surat -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Tanggal" />
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etTanggalttd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Tanggal" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Jabatan" />
 
-        <EditText
-            android:id="@+id/etJabatanttd"
+        <!-- TextInputLayout for Jabatan -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Jabatan" />
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etJabatanttd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Jabatan" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Masukkan Nama" />
 
-        <EditText
-            android:id="@+id/etNamattd"
+        <!-- TextInputLayout for Nama -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Nama" />
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <EditText
+                android:id="@+id/etNamattd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Nama" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Contoh elemen SignaturePad -->
         <com.github.gcacace.signaturepad.views.SignaturePad

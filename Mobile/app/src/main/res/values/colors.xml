@@ -12,9 +12,9 @@
     <color name="login">#F6F7FA</color>
     <color name="colorPrimary">#E7352F</color>
     <color name="colorPrimaryDark">#B02726</color>
-    <color name="colorAccent">#FFD700</color>
+    <color name="colorAccent">#E7352F</color>
 
     <!-- Tambahkan warna lain yang diperlukan -->
-    <color name="colorTextPrimary">#FFD700</color>
+    <color name="colorTextPrimary">#000000</color>
     <color name="colorTextSecondary">#FFFFFF</color>
 </resources>

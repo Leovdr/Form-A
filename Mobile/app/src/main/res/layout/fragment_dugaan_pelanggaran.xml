@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,18 +15,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="V. Informasi Dugaan Pelanggaran"
-            android:textStyle="bold"
             android:textSize="16sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="1. Peristiwa"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,21 +44,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiPeristiwa"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Peristiwa" />
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="#ededed">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiPeristiwa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan Informasi Peristiwa" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
@@ -76,21 +85,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiTempatkejadian"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi tempat kejadian" />
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="#ededed">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiTempatkejadian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan Informasi Tempat Kejadian" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
@@ -109,21 +126,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiWaktukejadian"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Waktu Kejadian" />
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="#ededed">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiWaktukejadian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan Informasi Waktu Kejadian" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
@@ -135,28 +160,36 @@
             android:id="@+id/checkboxPelaku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Centang jika ada Pelaku" />
+            android:text="Centang jika ada pelaku" />
 
         <LinearLayout
             android:id="@+id/layoutPelaku"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiPelaku"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Pelaku" />
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="#ededed">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiPelaku"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan Informasi Pelaku" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
@@ -175,30 +208,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiAlamat"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Alamat" />
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="#ededed">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiAlamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Masukkan Informasi Alamat Kejadian" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="2. Pasal yang diduga dilanggar"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkboxPasal"
@@ -211,172 +252,184 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiPasal"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Pasal yang Dilanggar" />
+                android:hint="Masukkan Informasi Pasal yang Dilanggar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiPasal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-
-
+        <!-- Section 3: Saksi - saksi -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="3. Saksi - saksi"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama" />
-
-                <CheckBox
-                    android:id="@+id/checkboxNama1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Centang jika ada nama saksi" />
-
-                <LinearLayout
-                    android:id="@+id/layoutNama1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Informasi"
-                        android:textStyle="bold"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etInformasiNama1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Masukkan Informasi Nama Saksi" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alamat Saksi" />
-
-                <CheckBox
-                    android:id="@+id/checkboxAlamatsaksi1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Centang jika ada alamat saksi" />
-
-                <LinearLayout
-                    android:id="@+id/layoutAlamatsaksi1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Informasi"
-                        android:textStyle="bold"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etInformasiAlamatsaksi1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Masukkan Informasi Alamat Saksi" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama" />
-
-                <CheckBox
-                    android:id="@+id/checkboxNama2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Centang jika ada nama saksi" />
-
-                <LinearLayout
-                    android:id="@+id/layoutNama2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Informasi"
-                        android:textStyle="bold"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etInformasiNama2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Masukkan Informasi Nama Saksi" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alamat Saksi" />
-
-                <CheckBox
-                    android:id="@+id/checkboxAlamatsaksi2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Centang jika ada alamat saksi" />
-
-                <LinearLayout
-                    android:id="@+id/layoutAlamatsaksi2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Informasi"
-                        android:textStyle="bold"
-                        android:textSize="14sp" />
-
-                    <EditText
-                        android:id="@+id/etInformasiAlamatsaksi2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Masukkan Informasi Alamat Saksi" />
-                </LinearLayout>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="a. Nama"/>
+
+        <!-- Nama Saksi 1 -->
+        <CheckBox
+            android:id="@+id/checkboxNama1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada nama saksi" />
+
+        <LinearLayout
+            android:id="@+id/layoutNama1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Saksi 1"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Nama Saksi">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiNama1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Alamat Saksi 1 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alamat" />
+
+        <CheckBox
+            android:id="@+id/checkboxAlamatsaksi1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada alamat saksi" />
+
+        <LinearLayout
+            android:id="@+id/layoutAlamatsaksi1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Alamat Saksi">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiAlamatsaksi1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="b. Nama" />
+
+        <CheckBox
+            android:id="@+id/checkboxNama2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada nama saksi" />
+
+        <LinearLayout
+            android:id="@+id/layoutNama2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Informasi"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Nama Saksi">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiNama2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alamat" />
+
+        <CheckBox
+            android:id="@+id/checkboxAlamatsaksi2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Centang jika ada alamat saksi" />
+
+        <LinearLayout
+            android:id="@+id/layoutAlamatsaksi2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Informasi Alamat Saksi">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiAlamatsaksi2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="4. Bukti"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkboxBarangbukti"
@@ -389,30 +442,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiBarangbukti"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Barang Bukti" />
+                android:hint="Masukkan Informasi Barang Bukti">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiBarangbukti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="5. Uraian singkat dugaan pelangggaran pemilihan"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkboxUraian"
@@ -425,30 +483,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiUraian"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Uraian Dugaan Pelanggaran" />
+                android:hint="Masukkan Informasi Uraian Singkat Pelanggaran">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiUraian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="6. Jenis dugaan pelanggaran"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkboxJenis"
@@ -461,30 +524,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiJenis"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Fakta dan Keterangan" />
+                android:hint="Masukkan Informasi Jenis Dugaan Pelanggaran">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiJenis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="7. Fakta dan keterangan"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkboxFakta"
@@ -497,30 +565,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiFakta"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Fakta" />
+                android:hint="Masukkan Informasi Fakta">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiFakta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="9. Analisa"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkboxAnalisa"
@@ -533,30 +606,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiAnalisa"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Analisa" />
+                android:hint="Masukkan Informasi Analisa">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiAnalisa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="10. Tindak lanjut"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:paddingBottom="8dp" />
+            android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/checkboxTindak"
@@ -569,21 +647,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Informasi"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etInformasiTindak"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Informasi Tindak Lanjut" />
+                android:hint="Masukkan Informasi Tindak Lanjut">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etInformasiTindak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
     </LinearLayout>

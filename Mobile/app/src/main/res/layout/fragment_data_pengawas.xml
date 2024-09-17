@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,12 +15,20 @@
             android:layout_height="wrap_content"
             android:text="Nomor Surat" />
 
-        <EditText
-            android:id="@+id/etNosurat"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/login"
-            android:hint="…/LHP/PM … / … / 202…" />
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="#f0f0f0"
+            app:boxStrokeColor="#ededed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNosurat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#f0f0f0"
+                android:hint="…/LHP/PM … / … / 202…" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,44 +43,77 @@
             android:layout_height="wrap_content"
             android:text="a. Nama Pelaksana Tugas Pengawasan" />
 
-        <EditText
-            android:id="@+id/etNamaPelaksana"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Nama Pelaksana Tugas" />
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="#f0f0f0"
+            app:boxStrokeColor="#ededed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNamaPelaksana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Nama Pelaksana Tugas" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="b. Jabatan" />
 
-        <EditText
-            android:id="@+id/etJabatan"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Jabatan Pelaksana Tugas" />
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="#f0f0f0"
+            app:boxStrokeColor="#ededed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etJabatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Jabatan Pelaksana Tugas" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="c. Nomor Surat Perintah Tugas" />
 
-        <EditText
-            android:id="@+id/etNomorsuratperintah"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Nomor Surat Perintah Tugas" />
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="#f0f0f0"
+            app:boxStrokeColor="#ededed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNomorsuratperintah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Nomor Surat Perintah Tugas" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="d. Alamat" />
 
-        <EditText
-            android:id="@+id/etAlamatpelaksana"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Masukkan Alamat Pelaksana Tugas" />
+            app:boxBackgroundMode="filled"
+            app:boxBackgroundColor="#f0f0f0"
+            app:boxStrokeColor="#ededed">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAlamatpelaksana"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Alamat Pelaksana Tugas" />
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
 </ScrollView>
