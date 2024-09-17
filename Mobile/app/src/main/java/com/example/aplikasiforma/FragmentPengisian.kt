@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -45,8 +46,9 @@ class FragmentPengisian : Fragment() {
         FragmentHasilPengawasan(),
         FragmentDugaanPelanggaran(),
         FragmentPotensiSengketa(),
-        FragmentLampiranGambar(),
-        FragmentSignature()
+        FragmentSignature(),
+        FragmentLampiranGambar()
+
     )
 
     // Request permission handler
@@ -79,8 +81,8 @@ class FragmentPengisian : Fragment() {
                 3 -> "Uraian Singkat Hasil Pengawasan"
                 4 -> "Informasi Dugaan Pelanggaran"
                 5 -> "Informasi Potensi Sengketa Pemilihan"
-                6 -> "Lampiran Gambar"
-                7 -> "Signature"
+                6 -> "Signature"
+                7 -> "Lampiran Gambar"
                 else -> null
             }
         }.attach()
@@ -120,8 +122,8 @@ class FragmentPengisian : Fragment() {
     // Method to collect data and export document
     private fun collectDataAndExportDocument() {
         // Debugging log
-        if (!isFragmentReady(fragments[5])) {
-            Toast.makeText(requireContext(), "Fragment belum siap, coba lagi.", Toast.LENGTH_SHORT).show()
+        if (!isFragmentReady(fragments[5])) { // FragmentPotensiSengketa berada di posisi ke-5
+            Toast.makeText(requireContext(), "Fragment Potensi Sengketa belum siap, coba lagi.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -131,8 +133,9 @@ class FragmentPengisian : Fragment() {
         val hasilPengawasanFragment = fragments[3] as FragmentHasilPengawasan
         val dugaanPelanggaranFragment = fragments[4] as FragmentDugaanPelanggaran
         val potensiSengketaFragment = fragments[5] as FragmentPotensiSengketa
-        val lampiranGambarFragment = fragments[6] as FragmentLampiranGambar
-        val signatureFragment = fragments[7] as FragmentSignature
+        val potensiSengketaData = potensiSengketaFragment.getPotensiSengketa()
+        val signatureFragment = fragments[6] as FragmentSignature
+        val lampiranGambarFragment = fragments[7] as FragmentLampiranGambar
 
         val selectedImageUris = lampiranGambarFragment.getSelectedImages()
         val selectedImages = selectedImageUris.mapNotNull { uriToBitmap(it) }
@@ -160,6 +163,7 @@ class FragmentPengisian : Fragment() {
         val signaturePosition = signatureFragment.getSignaturePosition().orEmpty()
         val signatureName = signatureFragment.getSignatureName().orEmpty()
 
+        Log.d("Pengisian", "Data Potensi Sengketa: $potensiSengketaData")
         sharedViewModel.updateDocumentData(data)
         generateDocument(signatureFilePath, signatureBitmap, selectedImages, signatureDate, signaturePosition, signatureName)
     }

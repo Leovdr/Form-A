@@ -35,6 +35,8 @@ class FragmentPotensiSengketa : Fragment() {
         etKerugianLangsung = view.findViewById(R.id.etKerugianLangsung)
         etPotensiSengketa = view.findViewById(R.id.etPotensiSengketa)
 
+        Log.d("FragmentPotensiSengketa", "Fragment Potensi Sengketa view loaded and initialized")
+
         return view
     }
 
@@ -59,8 +61,9 @@ class FragmentPotensiSengketa : Fragment() {
             "Kerugian Langsung" to etKerugianLangsung.text.toString(),
             "Uraian Singkat Potensi Sengketa" to etPotensiSengketa.text.toString()
         )
-        Log.d("FragmentPotensiSengketa", "Data Potensi Sengketa: $dataMap")
+        Log.d("FragmentPotensiSengketa", "Data Potensi Sengketa Collected: $dataMap")
         return dataMap
     }
+
 
 }

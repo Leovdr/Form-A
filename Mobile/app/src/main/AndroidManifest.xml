@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,10 +19,17 @@
         android:theme="@style/Theme.AplikasiFormA"
         tools:targetApi="31">
         <activity
+            android:name=".KebijakanPrivasi"
+            android:exported="false" />
+        <activity
+            android:name=".TentangAplikasi"
+            android:exported="false" />
+        <activity
+            android:name=".PanduanPengisian"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
@@ -39,8 +47,7 @@
         </activity>
         <activity
             android:name=".SplashScreen"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

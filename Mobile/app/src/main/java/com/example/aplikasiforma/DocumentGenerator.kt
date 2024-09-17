@@ -285,7 +285,7 @@ class DocumentGenerator(private val context: Context) {
                 "",
                 "a. Bentuk Objek Sengketa",
                 ":",
-                data.potensiSengketa["Bentuk Objek"] ?: "Nihil"
+                data.potensiSengketa["Bentuk Objek Sengketa"] ?: "Nihil"
             )
         )
         addStyledRowToTable(
@@ -296,7 +296,7 @@ class DocumentGenerator(private val context: Context) {
                 "",
                 "b. Identitas objek sengketa",
                 ":",
-                data.potensiSengketa["Identitas Objek"] ?: "Nihil"
+                data.potensiSengketa["Identitas Objek Sengketa"] ?: "Nihil"
             )
         )
         addStyledRowToTable(
@@ -307,7 +307,7 @@ class DocumentGenerator(private val context: Context) {
                 "",
                 "c. Hari/tanggal dikeluarkan",
                 ":",
-                data.potensiSengketa["Hari Tanggal"] ?: "Nihil"
+                data.potensiSengketa["Hari/Tanggal Dikeluarkan"] ?: "Nihil"
             )
         )
         addStyledRowToTable(
@@ -329,7 +329,7 @@ class DocumentGenerator(private val context: Context) {
                 "",
                 "3. Uraian singkat potensi sengketa pilihan",
                 ":",
-                data.potensiSengketa["Uraian singkat"] ?: "Nihil"
+                data.potensiSengketa["Uraian Singkat Potensi Sengketa"] ?: "Nihil"
             )
         )
 

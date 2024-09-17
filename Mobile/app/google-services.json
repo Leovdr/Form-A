@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "324085102254",
+    "firebase_url": "https://aplikasi-form-a-default-rtdb.firebaseio.com",
+    "project_id": "aplikasi-form-a",
+    "storage_bucket": "aplikasi-form-a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324085102254:android:b71f3ae00e947cefba9f3f",
+        "android_client_info": {
+          "package_name": "com.example.aplikasiforma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324085102254-m01261nes3k0pk01chjn413bmsic172n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aplikasiforma",
+            "certificate_hash": "323a6a85bbfdec5ae1cff169b62d142015fbd21a"
+          }
+        },
+        {
+          "client_id": "324085102254-2atih8ntdbvicfc7huqkqsdnhmslun91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7mB_9WxaH7dQXKVIgF2Gm2SI_xyfBAZs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324085102254-2atih8ntdbvicfc7huqkqsdnhmslun91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

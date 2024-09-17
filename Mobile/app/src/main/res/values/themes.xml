@@ -6,7 +6,7 @@
         <!-- Transparent system bars for edge-to-edge -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item> <!-- Atur ke true jika ingin teks status bar berwarna gelap -->
+        <item name="android:windowLightStatusBar">true</item>
 
         <!-- Primary colors -->
         <item name="colorPrimary">@color/colorPrimary</item>

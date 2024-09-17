@@ -5,11 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".FragmentProfil">
 
-    <TextView
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bgframe"/>
+
+    <Button
+        android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fragment Profil"
-        android:textSize="40sp"
-        android:layout_gravity="center"/>
+        android:text="Logout"
+        android:layout_gravity="center" />
+
 
 </FrameLayout>
