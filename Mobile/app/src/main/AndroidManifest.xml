@@ -19,6 +19,21 @@
         android:theme="@style/Theme.AplikasiFormA"
         tools:targetApi="31">
         <activity
+            android:name=".UraianSingkat"
+            android:exported="false" />
+        <activity
+            android:name=".KegiatanPengawasan"
+            android:exported="false" />
+        <activity
+            android:name=".JenisTahapan"
+            android:exported="false" />
+        <activity
+            android:name=".DataPengawas"
+            android:exported="false" />
+        <activity
+            android:name=".NomorSurat"
+            android:exported="false" />
+        <activity
             android:name=".KebijakanPrivasi"
             android:exported="false" />
         <activity
@@ -29,7 +44,9 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="true" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
@@ -38,17 +55,15 @@
             android:exported="false" />
         <activity
             android:name=".GetStarted"
+            android:exported="true" />
+        <activity
+            android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".SplashScreen"
-            android:exported="true">
-
         </activity>
         <activity
             android:name=".MainActivity"

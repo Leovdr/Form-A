@@ -9,21 +9,20 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import okhttp3.*
 import java.io.IOException
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: FirebaseDatabase
+    private lateinit var preferencesHelper: PreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance()
+        preferencesHelper = PreferencesHelper(this)  // Inisialisasi PreferencesHelper
 
         val registerButton = findViewById<Button>(R.id.registerButton)
         val emailField = findViewById<EditText>(R.id.emailEditTextreg)
@@ -36,19 +35,26 @@ class RegisterActivity : AppCompatActivity() {
             val fullname = fullnameField.text.toString().trim()
 
             if (email.isNotEmpty() && password.isNotEmpty() && fullname.isNotEmpty()) {
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val userId = auth.currentUser?.uid
-                        // Simpan UID, email, dan fullname ke MySQL
-                        sendUserDataToServer(userId, email, fullname)
+                if (password.length >= 6) {
+                    auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val uid = auth.currentUser?.uid
+                            if (uid != null) {
+                                preferencesHelper.saveUid(uid)  // Simpan UID ke SharedPreferences
+                            }
 
-                        Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        Toast.makeText(this, "Registration Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                            sendUserDataToServer(uid, email, fullname)
+
+                            Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Registration Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
+                } else {
+                    Toast.makeText(this, "Password should be at least 6 characters", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
@@ -67,7 +73,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun sendUserDataToServer(uid: String?, email: String, fullname: String) {
         if (uid == null) return
 
-        // Menggunakan OkHttp untuk mengirim data ke server backend
         val client = OkHttpClient()
         val formBody = FormBody.Builder()
             .add("uid", uid)
@@ -76,20 +81,29 @@ class RegisterActivity : AppCompatActivity() {
             .build()
 
         val request = Request.Builder()
-            .url("https://kaftapus.web.id/api/register.php") // Ganti dengan URL API server kamu
+            .url("https://kaftapus.web.id/api/register.php")  // Ganti dengan URL API server kamu
             .post(formBody)
             .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("RegisterActivity", "Error sending user data to server: ${e.message}")
+                runOnUiThread {
+                    Toast.makeText(this@RegisterActivity, "Failed to send data to server", Toast.LENGTH_SHORT).show()
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) {
                     Log.d("RegisterActivity", "User data sent to server successfully")
+                    runOnUiThread {
+                        Toast.makeText(this@RegisterActivity, "Data successfully sent to server", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     Log.e("RegisterActivity", "Failed to send user data: ${response.message}")
+                    runOnUiThread {
+                        Toast.makeText(this@RegisterActivity, "Server error: ${response.message}", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         })

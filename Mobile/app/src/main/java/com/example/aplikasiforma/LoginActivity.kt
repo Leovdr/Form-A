@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var preferencesHelper: PreferencesHelper
     private val RC_SIGN_IN = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +30,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()
+        preferencesHelper = PreferencesHelper(this)  // Inisialisasi PreferencesHelper
 
         // Konfigurasi Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))  // Pastikan Web Client ID ini berasal dari Firebase Console
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
@@ -49,6 +51,11 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+                        val uid = auth.currentUser?.uid
+                        if (uid != null) {
+                            preferencesHelper.saveUid(uid)  // Simpan UID ke SharedPreferences
+                        }
+
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
@@ -104,10 +111,15 @@ class LoginActivity : AppCompatActivity() {
                 val user = auth.currentUser
                 val uid = user?.uid
                 val email = user?.email
-                val fullname = user?.displayName  // Menambahkan fullname dari akun Google
+                val fullname = user?.displayName  // Mengambil fullname dari akun Google
 
-                // Kirim UID, email, dan fullname ke server backend untuk disimpan di MySQL
-                sendUidToServer(uid, email, fullname)
+                if (uid != null) {
+                    preferencesHelper.saveUid(uid)  // Simpan UID ke SharedPreferences
+                }
+
+                if (uid != null && email != null) {
+                    sendUidToServer(uid, email, fullname ?: "")
+                }
 
                 Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
@@ -119,19 +131,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendUidToServer(uid: String?, email: String?, fullname: String?) {
-        if (uid == null || email == null) return
-
-        // Menggunakan OkHttp untuk mengirim data ke server backend
+    private fun sendUidToServer(uid: String, email: String, fullname: String) {
         val client = OkHttpClient()
+
         val formBody = FormBody.Builder()
             .add("uid", uid)
             .add("email", email)
-            .add("fullname", fullname ?: "")  // Mengirim fullname jika tersedia
+            .add("fullname", fullname)
             .build()
 
         val request = Request.Builder()
-            .url("https://kaftapus.web.id/api/login.php") // Ganti dengan URL API server kamu
+            .url("https://kaftapus.web.id/api/login.php")  // Ganti dengan URL API server kamu
             .post(formBody)
             .build()
 

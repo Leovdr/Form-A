@@ -28,6 +28,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.*
 import java.io.IOException
 
 class FragmentPengisian : Fragment() {
@@ -81,6 +82,7 @@ class FragmentPengisian : Fragment() {
 
         view.findViewById<Button>(R.id.btnExport).setOnClickListener {
             checkStoragePermissionAndGenerateDocument()
+            uploadDataToDatabase() // Call upload function after generating document
         }
 
         return view
@@ -143,6 +145,74 @@ class FragmentPengisian : Fragment() {
 
         generateDocument(signatureFilePath, signatureBitmap, selectedImages, signatureDate, signaturePosition, signatureName)
     }
+
+    // Function to upload data to MySQL database
+    private fun uploadDataToDatabase() {
+        val adapter = viewPager.adapter as SectionsPagerAdapter
+
+        val dataPengawasFragment = adapter.getFragmentAtPosition(0) as? FragmentDataPengawas
+        val jenisdanTahapanFragment = adapter.getFragmentAtPosition(1) as? FragmentJenisdanTahapan
+        val kegiatanPengawasanFragment = adapter.getFragmentAtPosition(2) as? FragmentKegiatanPengawasan
+        val hasilPengawasanFragment = adapter.getFragmentAtPosition(3) as? FragmentHasilPengawasan
+
+        // Ensure all required fragments are ready
+        if (dataPengawasFragment?.view == null ||
+            jenisdanTahapanFragment?.view == null ||
+            kegiatanPengawasanFragment?.view == null ||
+            hasilPengawasanFragment?.view == null) {
+            Toast.makeText(requireContext(), "Gagal mengumpulkan data. Pastikan semua fragment sudah siap.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // Gather data from fragments
+        val noSurat = dataPengawasFragment.getNoSurat()
+        val namaPelaksana = dataPengawasFragment.getNamaPelaksana()
+        val jabatan = dataPengawasFragment.getJabatan()
+        val nomorSuratPerintah = dataPengawasFragment.getNomorsuratperintah()
+        val alamat = dataPengawasFragment.getAlamat()
+        val bentuk = kegiatanPengawasanFragment.getBentuk()
+        val tujuan = kegiatanPengawasanFragment.getTujuan()
+
+        // Create request body with the data
+        val client = OkHttpClient()
+        val formBody = FormBody.Builder()
+            .add("noSurat", noSurat)
+            .add("namaPelaksana", namaPelaksana)
+            .add("jabatan", jabatan)
+            .add("nomorSuratPerintah", nomorSuratPerintah)
+            .add("alamat", alamat)
+            .add("bentuk", bentuk)
+            .add("tujuan", tujuan)
+            .build()
+
+        // Create request to the server
+        val request = Request.Builder()
+            .url("https://kaftapus.web.id/api/save_pengawas.php")  // Replace with your server's URL
+            .post(formBody)
+            .build()
+
+        // Execute the request
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = client.newCall(request).execute()
+                if (response.isSuccessful) {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Data berhasil diupload!", Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(requireContext(), "Gagal upload data: ${response.message}", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Error saat upload data: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
 
     private fun generateDocument(
         signatureFilePath: String?,

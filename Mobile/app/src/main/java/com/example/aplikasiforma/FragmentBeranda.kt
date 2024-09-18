@@ -1,14 +1,10 @@
 package com.example.aplikasiforma
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 
@@ -42,7 +38,7 @@ class FragmentBeranda : Fragment() {
         }
 
         imgSoon3.setOnClickListener {
-            val intent = Intent(requireContext(), MainActivity::class.java)
+            val intent = Intent(requireContext(), NomorSurat::class.java)
             startActivity(intent)
         }
 

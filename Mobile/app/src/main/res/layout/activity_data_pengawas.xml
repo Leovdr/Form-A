@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".DataPengawas">
+
+    <!-- ScrollView untuk form -->
+    <ScrollView
+        android:id="@+id/scrollViewForm"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Judul Form -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I. Data Pengawas Pemilihan"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:textColor="@color/colorform"
+                android:textSize="18sp" />
+
+            <!-- Label Nama Pelaksana -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="a. Nama Pelaksana"/>
+
+            <!-- Input Nama Pelaksana -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxStrokeColor="#ededed"
+                style="@style/CustomTextInputLayoutStyle"
+                android:paddingTop="4dp"
+                android:paddingBottom="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNamaPelaksana"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#f0f0f0"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="16sp"
+                    android:hint="a. Masukkan Nama Pelaksana" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Label Jabatan -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="b. Jabatan" />
+
+            <!-- Input Jabatan -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxStrokeColor="#ededed"
+                style="@style/CustomTextInputLayoutStyle"
+                android:paddingTop="4dp"
+                android:paddingBottom="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etJabatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#f0f0f0"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="16sp"
+                    android:hint="Masukkan Jabatan" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="c. Nomor Surat Perintah Tugas" />
+
+            <!-- Input Jabatan -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxStrokeColor="#ededed"
+                style="@style/CustomTextInputLayoutStyle"
+                android:paddingTop="4dp"
+                android:paddingBottom="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNomorsuratperintah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#f0f0f0"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="16sp"
+                    android:hint="Masukkan Jabatan" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Label Alamat -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="d. Alamat" />
+
+            <!-- Input Alamat -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxBackgroundColor="#f0f0f0"
+                app:boxStrokeColor="#ededed"
+                style="@style/CustomTextInputLayoutStyle"
+                android:paddingTop="4dp"
+                android:paddingBottom="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAlamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#f0f0f0"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="16sp"
+                    android:hint="Masukkan Alamat" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- LinearLayout untuk tombol Next dan Previous -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Tombol Previous -->
+        <Button
+            android:id="@+id/btnPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Previous"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins" />
+
+        <!-- Tombol Next -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:text="Next"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
