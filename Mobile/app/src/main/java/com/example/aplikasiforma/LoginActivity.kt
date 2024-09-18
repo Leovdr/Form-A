@@ -15,6 +15,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import okhttp3.*
+import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
@@ -99,6 +101,14 @@ class LoginActivity : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
+                val user = auth.currentUser
+                val uid = user?.uid
+                val email = user?.email
+                val fullname = user?.displayName  // Menambahkan fullname dari akun Google
+
+                // Kirim UID, email, dan fullname ke server backend untuk disimpan di MySQL
+                sendUidToServer(uid, email, fullname)
+
                 Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
@@ -107,5 +117,42 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Google Sign-In Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun sendUidToServer(uid: String?, email: String?, fullname: String?) {
+        if (uid == null || email == null) return
+
+        // Menggunakan OkHttp untuk mengirim data ke server backend
+        val client = OkHttpClient()
+        val formBody = FormBody.Builder()
+            .add("uid", uid)
+            .add("email", email)
+            .add("fullname", fullname ?: "")  // Mengirim fullname jika tersedia
+            .build()
+
+        val request = Request.Builder()
+            .url("https://kaftapus.web.id/api/login.php") // Ganti dengan URL API server kamu
+            .post(formBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("LoginActivity", "Error sending UID to server: ${e.message}")
+                runOnUiThread {
+                    Toast.makeText(this@LoginActivity, "Failed to send data to server", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    Log.d("LoginActivity", "UID sent to server successfully")
+                } else {
+                    Log.e("LoginActivity", "Failed to send UID: ${response.message}")
+                    runOnUiThread {
+                        Toast.makeText(this@LoginActivity, "Server Error: ${response.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
     }
 }

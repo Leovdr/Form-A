@@ -2,14 +2,16 @@ package com.example.aplikasiforma
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
+import okhttp3.*
+import java.io.IOException
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -37,21 +39,13 @@ class RegisterActivity : AppCompatActivity() {
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val userId = auth.currentUser?.uid
-                        val userRef = database.getReference("users").child(userId!!)
-                        val user = HashMap<String, String>()
-                        user["email"] = email
-                        user["fullname"] = fullname
+                        // Simpan UID, email, dan fullname ke MySQL
+                        sendUserDataToServer(userId, email, fullname)
 
-                        userRef.setValue(user).addOnCompleteListener {
-                            if (it.isSuccessful) {
-                                Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this, LoginActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                        Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     } else {
                         Toast.makeText(this, "Registration Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
@@ -68,5 +62,36 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun sendUserDataToServer(uid: String?, email: String, fullname: String) {
+        if (uid == null) return
+
+        // Menggunakan OkHttp untuk mengirim data ke server backend
+        val client = OkHttpClient()
+        val formBody = FormBody.Builder()
+            .add("uid", uid)
+            .add("email", email)
+            .add("fullname", fullname)
+            .build()
+
+        val request = Request.Builder()
+            .url("https://kaftapus.web.id/api/register.php") // Ganti dengan URL API server kamu
+            .post(formBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("RegisterActivity", "Error sending user data to server: ${e.message}")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    Log.d("RegisterActivity", "User data sent to server successfully")
+                } else {
+                    Log.e("RegisterActivity", "Failed to send user data: ${response.message}")
+                }
+            }
+        })
     }
 }

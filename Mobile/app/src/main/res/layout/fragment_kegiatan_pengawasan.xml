@@ -29,7 +29,7 @@
             android:background="?attr/selectableItemBackground"
             android:padding="8dp">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etBentuk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:background="?attr/selectableItemBackground"
             android:padding="8dp">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTujuan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:background="?attr/selectableItemBackground"
             android:padding="8dp">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSasaran"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             android:background="?attr/selectableItemBackground"
             android:padding="8dp">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etWaktuTempat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
