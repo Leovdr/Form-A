@@ -1,5 +1,6 @@
 package com.example.aplikasiforma
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
@@ -55,7 +56,9 @@ class DataPengawas : AppCompatActivity() {
                 // Upload data ke database
                 uploadDataPengawasToDatabase(namaPelaksana, jabatan, nomorSuratPerintah, alamat) { success ->
                     if (success) {
-                        Toast.makeText(this, "Data berhasil disimpan ke server.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, JenisTahapan::class.java)
+                        intent.putExtra("nama_pelaksana", namaPelaksana)
+                        startActivity(intent)
                     } else {
                         Toast.makeText(this, "Gagal menyimpan data ke server.", Toast.LENGTH_SHORT).show()
                     }
@@ -105,6 +108,7 @@ class DataPengawas : AppCompatActivity() {
                 { error ->
                     // Jika terjadi kesalahan
                     error.printStackTrace()
+                    Toast.makeText(this@DataPengawas, "Error: ${error.message}", Toast.LENGTH_SHORT).show() // Tampilkan error
                     callback(false)
                 }) {
                 override fun getParams(): Map<String, String> {
@@ -121,7 +125,7 @@ class DataPengawas : AppCompatActivity() {
             // Tambahkan request ke antrian
             requestQueue.add(stringRequest)
         } else {
-            Toast.makeText(this, "Gagal mendapatkan UID pengguna.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Gagal mendapatkan UID pengguna. Pastikan Anda telah login.", Toast.LENGTH_SHORT).show()
             callback(false)
         }
     }

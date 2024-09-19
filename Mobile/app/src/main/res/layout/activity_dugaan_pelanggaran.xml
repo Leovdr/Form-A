@@ -1,0 +1,918 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".FragmentDugaanPelanggaran">
+
+    <!-- ScrollView untuk form -->
+    <ScrollView
+        android:id="@+id/scrollViewForm"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Judul Form -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="V. Informasi Dugaan Pelanggaran"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:textSize="18sp" />
+
+            <!-- Label Peristiwa -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="1. Peristiwa" />
+
+            <!-- Input Peristiwa -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="a. Peristiwa" />
+
+            <CheckBox
+                android:id="@+id/checkboxPeristiwa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada peristiwa" />
+
+            <LinearLayout
+                android:id="@+id/layoutPeristiwa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiPeristiwa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp"
+                        android:hint="Masukkan Informasi Peristiwa" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Label Tempat Kejadian -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginTop="16dp"
+                android:text="b. Tempat Kejadian" />
+
+            <!-- Input Tempat Kejadian -->
+            <CheckBox
+                android:id="@+id/checkboxTempatkejadian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada tempat kejadian" />
+
+            <LinearLayout
+                android:id="@+id/layoutTempatkejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiTempatkejadian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp"
+                        android:hint="Masukkan Informasi Tempat Kejadian" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Label Waktu Kejadian -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginTop="16dp"
+                android:text="c. Waktu Kejadian" />
+
+            <!-- Input Waktu Kejadian -->
+            <CheckBox
+                android:id="@+id/checkboxWaktukejadian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada waktu kejadian" />
+
+            <LinearLayout
+                android:id="@+id/layoutWaktukejadian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiWaktukejadian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp"
+                        android:hint="Masukkan Informasi Waktu Kejadian" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Label Pelaku -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginTop="16dp"
+                android:text="d. Pelaku" />
+
+            <!-- Input Pelaku -->
+            <CheckBox
+                android:id="@+id/checkboxPelaku"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada pelaku" />
+
+            <LinearLayout
+                android:id="@+id/layoutPelaku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiPelaku"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp"
+                        android:hint="Masukkan Informasi Pelaku" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Alamat -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="e. Alamat" />
+
+            <CheckBox
+                android:id="@+id/checkboxAlamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada alamat" />
+
+            <LinearLayout
+                android:id="@+id/layoutAlamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiAlamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp"
+                        android:hint="Masukkan Informasi Alamat" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="2. Pasal yang diduga dilanggar"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxPasal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada pasal yang dilanggar"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutPasal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Pasal yang Dilanggar">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiPasal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Section 3: Saksi - saksi -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="3. Saksi - saksi"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="a. Nama" />
+
+            <!-- Nama Saksi 1 -->
+            <CheckBox
+                android:id="@+id/checkboxNama1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada nama saksi"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutNama1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Nama Saksi 1"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Nama Saksi">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiNama1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Alamat Saksi 1 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Alamat" />
+
+            <CheckBox
+                android:id="@+id/checkboxAlamatsaksi1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada alamat saksi"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutAlamatsaksi1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Alamat Saksi">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiAlamatsaksi1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="b. Nama" />
+
+            <CheckBox
+                android:id="@+id/checkboxNama2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada nama saksi"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutNama2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Nama Saksi">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiNama2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Alamat Saksi 2 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Alamat" />
+
+            <CheckBox
+                android:id="@+id/checkboxAlamatsaksi2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada alamat saksi"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutAlamatsaksi2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Alamat Saksi">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiAlamatsaksi2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="4. Bukti"
+                android:fontFamily="@font/poppins_semibold"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxBarangbukti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada barang bukti"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutBarangbukti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Barang Bukti">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiBarangbukti"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="5. Uraian singkat dugaan pelangggaran pemilihan"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxUraian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada uraian dugaan pelanggaran"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutUraian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Uraian Singkat Pelanggaran">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiUraian"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="6. Jenis dugaan pelanggaran"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxJenis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada jenis dugaan pelanggaran"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutJenis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Jenis Dugaan Pelanggaran">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiJenis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="7. Fakta dan keterangan"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxFakta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada Fakta"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutFakta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Fakta">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiFakta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="9. Analisa"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxAnalisa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada Analisa"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutAnalisa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Analisa">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiAnalisa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="10. Tindak lanjut"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxTindak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="Centang jika ada tindak lanjut"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutTindak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Informasi"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="#f0f0f0"
+                    app:boxStrokeColor="#ededed"
+                    style="@style/CustomTextInputLayoutStyle"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp"
+                    android:hint="Masukkan Informasi Tindak Lanjut">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInformasiTindak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#f0f0f0"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- LinearLayout untuk tombol Next dan Previous -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Tombol Previous -->
+        <Button
+            android:id="@+id/btnPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Previous"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins" />
+
+        <!-- Tombol Next -->
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:padding="10dp"
+            android:text="Next"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"
+            android:textAllCaps="false"
+            android:fontFamily="@font/poppins" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

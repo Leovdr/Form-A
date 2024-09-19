@@ -19,6 +19,12 @@
         android:theme="@style/Theme.AplikasiFormA"
         tools:targetApi="31">
         <activity
+            android:name=".PotensiSengketa"
+            android:exported="false" />
+        <activity
+            android:name=".DugaanPelanggaran"
+            android:exported="false" />
+        <activity
             android:name=".UraianSingkat"
             android:exported="false" />
         <activity
@@ -44,9 +50,7 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />

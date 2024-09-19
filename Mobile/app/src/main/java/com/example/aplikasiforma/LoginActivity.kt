@@ -29,8 +29,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        preferencesHelper = PreferencesHelper(this)
+
+        // Jika user sudah login, alihkan ke HomeActivity
+        if (preferencesHelper.isLoggedIn()) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
+
         auth = FirebaseAuth.getInstance()
-        preferencesHelper = PreferencesHelper(this)  // Inisialisasi PreferencesHelper
 
         // Konfigurasi Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -53,9 +62,8 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val uid = auth.currentUser?.uid
                         if (uid != null) {
-                            preferencesHelper.saveUid(uid)  // Simpan UID ke SharedPreferences
+                            preferencesHelper.saveUid(uid)  // Simpan UID dan status login
                         }
-
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, HomeActivity::class.java)
                         startActivity(intent)
@@ -110,17 +118,9 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val user = auth.currentUser
                 val uid = user?.uid
-                val email = user?.email
-                val fullname = user?.displayName  // Mengambil fullname dari akun Google
-
                 if (uid != null) {
-                    preferencesHelper.saveUid(uid)  // Simpan UID ke SharedPreferences
+                    preferencesHelper.saveUid(uid)  // Simpan UID dan status login
                 }
-
-                if (uid != null && email != null) {
-                    sendUidToServer(uid, email, fullname ?: "")
-                }
-
                 Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
@@ -129,40 +129,5 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Google Sign-In Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun sendUidToServer(uid: String, email: String, fullname: String) {
-        val client = OkHttpClient()
-
-        val formBody = FormBody.Builder()
-            .add("uid", uid)
-            .add("email", email)
-            .add("fullname", fullname)
-            .build()
-
-        val request = Request.Builder()
-            .url("https://kaftapus.web.id/api/login.php")  // Ganti dengan URL API server kamu
-            .post(formBody)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                Log.e("LoginActivity", "Error sending UID to server: ${e.message}")
-                runOnUiThread {
-                    Toast.makeText(this@LoginActivity, "Failed to send data to server", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    Log.d("LoginActivity", "UID sent to server successfully")
-                } else {
-                    Log.e("LoginActivity", "Failed to send UID: ${response.message}")
-                    runOnUiThread {
-                        Toast.makeText(this@LoginActivity, "Server Error: ${response.message}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        })
     }
 }

@@ -7,19 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import com.google.firebase.auth.FirebaseAuth
 
 class FragmentProfil : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var preferencesHelper: PreferencesHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Inisialisasi FirebaseAuth
         auth = FirebaseAuth.getInstance()
+
+        // Inisialisasi PreferencesHelper
+        preferencesHelper = PreferencesHelper(requireContext())
     }
 
     override fun onCreateView(
@@ -39,7 +40,12 @@ class FragmentProfil : Fragment() {
     }
 
     private fun logout() {
-        auth.signOut() // Logout dari Firebase
+        // Hapus status login dari SharedPreferences
+        preferencesHelper.logout()
+
+        // Logout dari Firebase
+        auth.signOut()
+
         // Kembali ke halaman login atau activity yang diinginkan setelah logout
         val intent = Intent(activity, LoginActivity::class.java) // Ganti dengan Activity yang sesuai
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
