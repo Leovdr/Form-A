@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AplikasiFormA"
         tools:targetApi="31">
         <activity
+            android:name=".TandaTangan"
+            android:exported="false" />
+        <activity
             android:name=".PotensiSengketa"
             android:exported="false" />
         <activity

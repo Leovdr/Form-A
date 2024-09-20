@@ -18,13 +18,15 @@ import com.google.firebase.auth.FirebaseAuth
 class DugaanPelanggaran : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var preferencesHelper: PreferencesHelper  // PreferencesHelper untuk penyimpanan lokal
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dugaan_pelanggaran)
 
-        // Inisialisasi Firebase Auth
+        // Inisialisasi Firebase Auth dan PreferencesHelper
         auth = FirebaseAuth.getInstance()
+        preferencesHelper = PreferencesHelper(this)  // Inisialisasi PreferencesHelper
 
         // Button Previous
         val btnPrevious: Button = findViewById(R.id.btnPrevious)
@@ -37,6 +39,7 @@ class DugaanPelanggaran : AppCompatActivity() {
         val btnNext: Button = findViewById(R.id.btnNext)
         btnNext.setOnClickListener {
             val dugaanPelanggaranData = getDugaanPelanggaran()
+            saveDataLocally(dugaanPelanggaranData)  // Simpan data lokal
             uploadDugaanPelanggaranToDatabase(dugaanPelanggaranData) { success ->
                 if (success) {
                     val intent = Intent(this, PotensiSengketa::class.java)
@@ -74,22 +77,22 @@ class DugaanPelanggaran : AppCompatActivity() {
 
     private fun getDugaanPelanggaran(): Map<String, String> {
         return mapOf(
-            "Peristiwa" to getInfo(findViewById(R.id.checkboxPeristiwa), findViewById(R.id.etInformasiPeristiwa)),
-            "Tempat Kejadian" to getInfo(findViewById(R.id.checkboxTempatkejadian), findViewById(R.id.etInformasiTempatkejadian)),
-            "Waktu Kejadian" to getInfo(findViewById(R.id.checkboxWaktukejadian), findViewById(R.id.etInformasiWaktukejadian)),
-            "Pelaku" to getInfo(findViewById(R.id.checkboxPelaku), findViewById(R.id.etInformasiPelaku)),
-            "Alamat" to getInfo(findViewById(R.id.checkboxAlamat), findViewById(R.id.etInformasiAlamat)),
-            "Pasal yang dilanggar" to getInfo(findViewById(R.id.checkboxPasal), findViewById(R.id.etInformasiPasal)),
-            "Nama Saksi 1" to getInfo(findViewById(R.id.checkboxNama1), findViewById(R.id.etInformasiNama1)),
-            "Alamat Saksi 1" to getInfo(findViewById(R.id.checkboxAlamatsaksi1), findViewById(R.id.etInformasiAlamatsaksi1)),
-            "Nama Saksi 2" to getInfo(findViewById(R.id.checkboxNama2), findViewById(R.id.etInformasiNama2)),
-            "Alamat Saksi 2" to getInfo(findViewById(R.id.checkboxAlamatsaksi2), findViewById(R.id.etInformasiAlamatsaksi2)),
-            "Bukti" to getInfo(findViewById(R.id.checkboxBarangbukti), findViewById(R.id.etInformasiBarangbukti)),
-            "Uraian Singkat" to getInfo(findViewById(R.id.checkboxUraian), findViewById(R.id.etInformasiUraian)),
-            "Jenis Dugaan" to getInfo(findViewById(R.id.checkboxJenis), findViewById(R.id.etInformasiJenis)),
-            "Fakta dan Keterangan" to getInfo(findViewById(R.id.checkboxFakta), findViewById(R.id.etInformasiFakta)),
-            "Analisa" to getInfo(findViewById(R.id.checkboxAnalisa), findViewById(R.id.etInformasiAnalisa)),
-            "Tindak lanjut" to getInfo(findViewById(R.id.checkboxTindak), findViewById(R.id.etInformasiTindak))
+            "peristiwa" to getInfo(findViewById(R.id.checkboxPeristiwa), findViewById(R.id.etInformasiPeristiwa)),
+            "tempat_kejadian" to getInfo(findViewById(R.id.checkboxTempatkejadian), findViewById(R.id.etInformasiTempatkejadian)),
+            "waktu_kejadian" to getInfo(findViewById(R.id.checkboxWaktukejadian), findViewById(R.id.etInformasiWaktukejadian)),
+            "pelaku" to getInfo(findViewById(R.id.checkboxPelaku), findViewById(R.id.etInformasiPelaku)),
+            "alamat" to getInfo(findViewById(R.id.checkboxAlamat), findViewById(R.id.etInformasiAlamat)),
+            "pasal_dilanggar" to getInfo(findViewById(R.id.checkboxPasal), findViewById(R.id.etInformasiPasal)),
+            "nama_saksi1" to getInfo(findViewById(R.id.checkboxNama1), findViewById(R.id.etInformasiNama1)),
+            "alamat_saksi1" to getInfo(findViewById(R.id.checkboxAlamatsaksi1), findViewById(R.id.etInformasiAlamatsaksi1)),
+            "nama_saksi2" to getInfo(findViewById(R.id.checkboxNama2), findViewById(R.id.etInformasiNama2)),
+            "alamat_saksi2" to getInfo(findViewById(R.id.checkboxAlamatsaksi2), findViewById(R.id.etInformasiAlamatsaksi2)),
+            "bukti" to getInfo(findViewById(R.id.checkboxBarangbukti), findViewById(R.id.etInformasiBarangbukti)),
+            "uraian_pelanggaran" to getInfo(findViewById(R.id.checkboxUraian), findViewById(R.id.etInformasiUraian)),
+            "jenis_pelanggaran" to getInfo(findViewById(R.id.checkboxJenis), findViewById(R.id.etInformasiJenis)),
+            "fakta" to getInfo(findViewById(R.id.checkboxFakta), findViewById(R.id.etInformasiFakta)),
+            "analisa" to getInfo(findViewById(R.id.checkboxAnalisa), findViewById(R.id.etInformasiAnalisa)),
+            "tindak_lanjut" to getInfo(findViewById(R.id.checkboxTindak), findViewById(R.id.etInformasiTindak))
         )
     }
 
@@ -127,5 +130,28 @@ class DugaanPelanggaran : AppCompatActivity() {
             Toast.makeText(this, "Gagal mendapatkan UID pengguna.", Toast.LENGTH_SHORT).show()
             callback(false)
         }
+    }
+
+    // Fungsi untuk menyimpan data ke SharedPreferences menggunakan PreferencesHelper
+    private fun saveDataLocally(dugaanPelanggaranData: Map<String, String>) {
+        preferencesHelper.saveDugaanPelanggaran(
+            dugaanPelanggaranData["peristiwa"] ?: "Nihil",
+            dugaanPelanggaranData["tempat_kejadian"] ?: "Nihil",
+            dugaanPelanggaranData["waktu_kejadian"] ?: "Nihil",
+            dugaanPelanggaranData["pelaku"] ?: "Nihil",
+            dugaanPelanggaranData["alamat"] ?: "Nihil",
+            dugaanPelanggaranData["pasal_dilanggar"] ?: "Nihil",
+            dugaanPelanggaranData["nama_saksi1"] ?: "Nihil",
+            dugaanPelanggaranData["alamat_saksi1"] ?: "Nihil",
+            dugaanPelanggaranData["nama_saksi2"] ?: "Nihil",
+            dugaanPelanggaranData["alamat_saksi2"] ?: "Nihil",
+            dugaanPelanggaranData["bukti"] ?: "Nihil",
+            dugaanPelanggaranData["uraian_pelanggaran"] ?: "Nihil",
+            dugaanPelanggaranData["jenis_pelanggaran"] ?: "Nihil",
+            dugaanPelanggaranData["fakta"] ?: "Nihil",
+            dugaanPelanggaranData["analisa"] ?: "Nihil",
+            dugaanPelanggaranData["tindak_lanjut"] ?: "Nihil"
+        )
+        Toast.makeText(this, "Data tersimpan secara lokal.", Toast.LENGTH_SHORT).show()
     }
 }
