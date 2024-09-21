@@ -2,6 +2,7 @@ package com.example.aplikasiforma
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 
 class PreferencesHelper(context: Context) {
 
@@ -21,34 +22,39 @@ class PreferencesHelper(context: Context) {
         private const val SASARAN_PENGAWASAN = "sasaran_pengawasan"
         private const val WAKTU_TEMPAT_PENGAWASAN = "waktu_tempat_pengawasan"
         private const val URAIAN_SINGKAT = "uraian_singkat"
+        private const val NAMA_TTD = "nama_ttd"
+        private const val JABATAN_TTD = "jabatan_ttd"
+        private const val TANGGAL_TTD = "tanggal_ttd"
+        private const val SIGNATURE_IMAGE = "signature_image"
+        private const val IMAGES_URI_LIST = "images_uri_list"
 
-        // Dugaan Pelanggaran fields
-        private const val PERISTIWA = "peristiwa"
-        private const val TEMPAT_KEJADIAN_DUGAAN = "tempat_kejadian_dugaan"
-        private const val WAKTU_KEJADIAN_DUGAAN = "waktu_kejadian_dugaan"
-        private const val PELAKU = "pelaku"
-        private const val ALAMAT_DUGAAN = "alamat_dugaan"
-        private const val PASAL_DILANGGAR = "pasal_dilanggar"
-        private const val NAMA_SAKSI1 = "nama_saksi1"
-        private const val ALAMAT_SAKSI1 = "alamat_saksi1"
-        private const val NAMA_SAKSI2 = "nama_saksi2"
-        private const val ALAMAT_SAKSI2 = "alamat_saksi2"
-        private const val BUKTI = "bukti"
-        private const val URAIAN_PELANGGARAN = "uraian_pelanggaran"
-        private const val JENIS_PELANGGARAN = "jenis_pelanggaran"
-        private const val FAKTA = "fakta"
-        private const val ANALISA = "analisa"
-        private const val TINDAK_LANJUT = "tindak_lanjut"
-
-        // Potensi Sengketa fields
-        private const val PESERTA_PEMILIHAN = "peserta_pemilihan"
-        private const val TEMPAT_KEJADIAN = "tempat_kejadian"
-        private const val WAKTU_KEJADIAN = "waktu_kejadian"
-        private const val BENTUK_OBJEK = "bentuk_objek"
-        private const val IDENTITAS_OBJEK = "identitas_objek"
-        private const val HARI_TANGGAL = "hari_tanggal"
-        private const val KERUGIAN_LANGSUNG = "kerugian_langsung"
-        private const val URAIAN_POTENSI_SENGKETA = "uraian_potensi_sengketa"
+//        // Dugaan Pelanggaran fields
+//        private const val PERISTIWA = "peristiwa"
+//        private const val TEMPAT_KEJADIAN_DUGAAN = "tempat_kejadian_dugaan"
+//        private const val WAKTU_KEJADIAN_DUGAAN = "waktu_kejadian_dugaan"
+//        private const val PELAKU = "pelaku"
+//        private const val ALAMAT_DUGAAN = "alamat_dugaan"
+//        private const val PASAL_DILANGGAR = "pasal_dilanggar"
+//        private const val NAMA_SAKSI1 = "nama_saksi1"
+//        private const val ALAMAT_SAKSI1 = "alamat_saksi1"
+//        private const val NAMA_SAKSI2 = "nama_saksi2"
+//        private const val ALAMAT_SAKSI2 = "alamat_saksi2"
+//        private const val BUKTI = "bukti"
+//        private const val URAIAN_PELANGGARAN = "uraian_pelanggaran"
+//        private const val JENIS_PELANGGARAN = "jenis_pelanggaran"
+//        private const val FAKTA = "fakta"
+//        private const val ANALISA = "analisa"
+//        private const val TINDAK_LANJUT = "tindak_lanjut"
+//
+//        // Potensi Sengketa fields
+//        private const val PESERTA_PEMILIHAN = "peserta_pemilihan"
+//        private const val TEMPAT_KEJADIAN = "tempat_kejadian"
+//        private const val WAKTU_KEJADIAN = "waktu_kejadian"
+//        private const val BENTUK_OBJEK = "bentuk_objek"
+//        private const val IDENTITAS_OBJEK = "identitas_objek"
+//        private const val HARI_TANGGAL = "hari_tanggal"
+//        private const val KERUGIAN_LANGSUNG = "kerugian_langsung"
+//        private const val URAIAN_POTENSI_SENGKETA = "uraian_potensi_sengketa"
     }
 
     // Fungsi untuk menyimpan UID dan status login
@@ -179,101 +185,155 @@ class PreferencesHelper(context: Context) {
         return sharedPreferences.getString(URAIAN_SINGKAT, "")
     }
 
-    // Fungsi untuk menyimpan data Dugaan Pelanggaran
-    fun saveDugaanPelanggaran(
-        peristiwa: String,
-        tempatKejadian: String,
-        waktuKejadian: String,
-        pelaku: String,
-        alamat: String,
-        pasalDilanggar: String,
-        namaSaksi1: String,
-        alamatSaksi1: String,
-        namaSaksi2: String,
-        alamatSaksi2: String,
-        bukti: String,
-        uraianPelanggaran: String,
-        jenisPelanggaran: String,
-        fakta: String,
-        analisa: String,
-        tindakLanjut: String
-    ) {
+    fun saveSignatureData(tanggalTtd: String, jabatanTtd: String, namaTtd: String, signatureImage: String) {
         val editor = sharedPreferences.edit()
-        editor.putString(PERISTIWA, peristiwa)
-        editor.putString(TEMPAT_KEJADIAN_DUGAAN, tempatKejadian)
-        editor.putString(WAKTU_KEJADIAN_DUGAAN, waktuKejadian)
-        editor.putString(PELAKU, pelaku)
-        editor.putString(ALAMAT_DUGAAN, alamat)
-        editor.putString(PASAL_DILANGGAR, pasalDilanggar)
-        editor.putString(NAMA_SAKSI1, namaSaksi1)
-        editor.putString(ALAMAT_SAKSI1, alamatSaksi1)
-        editor.putString(NAMA_SAKSI2, namaSaksi2)
-        editor.putString(ALAMAT_SAKSI2, alamatSaksi2)
-        editor.putString(BUKTI, bukti)
-        editor.putString(URAIAN_PELANGGARAN, uraianPelanggaran)
-        editor.putString(JENIS_PELANGGARAN, jenisPelanggaran)
-        editor.putString(FAKTA, fakta)
-        editor.putString(ANALISA, analisa)
-        editor.putString(TINDAK_LANJUT, tindakLanjut)
+        editor.putString(TANGGAL_TTD, tanggalTtd)
+        editor.putString(JABATAN_TTD, jabatanTtd)
+        editor.putString(NAMA_TTD, namaTtd)
+        editor.putString(SIGNATURE_IMAGE, signatureImage)
         editor.apply()
     }
 
-    // Fungsi untuk mendapatkan data Dugaan Pelanggaran
-    fun getDugaanPelanggaran(): Map<String, String?> {
-        return mapOf(
-            "peristiwa" to sharedPreferences.getString(PERISTIWA, null),
-            "tempat_kejadian" to sharedPreferences.getString(TEMPAT_KEJADIAN_DUGAAN, null),
-            "waktu_kejadian" to sharedPreferences.getString(WAKTU_KEJADIAN_DUGAAN, null),
-            "pelaku" to sharedPreferences.getString(PELAKU, null),
-            "alamat" to sharedPreferences.getString(ALAMAT_DUGAAN, null),
-            "pasal_dilanggar" to sharedPreferences.getString(PASAL_DILANGGAR, null),
-            "nama_saksi1" to sharedPreferences.getString(NAMA_SAKSI1, null),
-            "alamat_saksi1" to sharedPreferences.getString(ALAMAT_SAKSI1, null),
-            "nama_saksi2" to sharedPreferences.getString(NAMA_SAKSI2, null),
-            "alamat_saksi2" to sharedPreferences.getString(ALAMAT_SAKSI2, null),
-            "bukti" to sharedPreferences.getString(BUKTI, null),
-            "uraian_pelanggaran" to sharedPreferences.getString(URAIAN_PELANGGARAN, null),
-            "jenis_pelanggaran" to sharedPreferences.getString(JENIS_PELANGGARAN, null),
-            "fakta" to sharedPreferences.getString(FAKTA, null),
-            "analisa" to sharedPreferences.getString(ANALISA, null),
-            "tindak_lanjut" to sharedPreferences.getString(TINDAK_LANJUT, null)
-        )
-    }
-
-    // Fungsi untuk menyimpan data Potensi Sengketa
-    fun savePotensiSengketa(
-        pesertaPemilihan: String,
-        tempatKejadian: String,
-        waktuKejadian: String,
-        bentukObjek: String,
-        identitasObjek: String,
-        hariTanggal: String,
-        kerugianLangsung: String,
-        uraianPotensiSengketa: String
-    ) {
+    // Fungsi untuk menyimpan daftar URI gambar
+    fun saveImageUris(imageUris: List<Uri>) {
         val editor = sharedPreferences.edit()
-        editor.putString(PESERTA_PEMILIHAN, pesertaPemilihan)
-        editor.putString(TEMPAT_KEJADIAN, tempatKejadian)
-        editor.putString(WAKTU_KEJADIAN, waktuKejadian)
-        editor.putString(BENTUK_OBJEK, bentukObjek)
-        editor.putString(IDENTITAS_OBJEK, identitasObjek)
-        editor.putString(HARI_TANGGAL, hariTanggal)
-        editor.putString(KERUGIAN_LANGSUNG, kerugianLangsung)
-        editor.putString(URAIAN_POTENSI_SENGKETA, uraianPotensiSengketa)
+        val uriStrings = imageUris.map { it.toString() }.toSet()  // Mengubah URI menjadi String
+        editor.putStringSet(IMAGES_URI_LIST, uriStrings)
         editor.apply()
     }
 
-    // Fungsi untuk mendapatkan data Potensi Sengketa
-    fun getPotensiSengketa(): Map<String, String?> {
-        return mapOf(
-            "peserta_pemilihan" to sharedPreferences.getString(PESERTA_PEMILIHAN, null),
-            "tempat_kejadian" to sharedPreferences.getString(TEMPAT_KEJADIAN, null),
-            "waktu_kejadian" to sharedPreferences.getString(WAKTU_KEJADIAN, null),
-            "bentuk_objek" to sharedPreferences.getString(BENTUK_OBJEK, null),
-            "identitas_objek" to sharedPreferences.getString(IDENTITAS_OBJEK, null),
-            "hari_tanggal" to sharedPreferences.getString(HARI_TANGGAL, null),
-            "kerugian_langsung" to sharedPreferences.getString(KERUGIAN_LANGSUNG, null),
-            "uraian_potensi_sengketa" to sharedPreferences.getString(URAIAN_POTENSI_SENGKETA, null)
-        )
+    // Fungsi untuk mendapatkan daftar URI gambar yang disimpan
+    fun getImageUris(): List<Uri> {
+        val uriStrings = sharedPreferences.getStringSet(IMAGES_URI_LIST, emptySet()) ?: emptySet()
+        return uriStrings.map { Uri.parse(it) }
     }
+
+
+    // Fungsi untuk mendapatkan Tanggal Tanda Tangan
+    fun getTanggalTtd(): String? {
+        return sharedPreferences.getString(TANGGAL_TTD, null)
+    }
+
+    // Fungsi untuk mendapatkan Jabatan Tanda Tangan
+    fun getJabatanTtd(): String? {
+        return sharedPreferences.getString(JABATAN_TTD, null)
+    }
+
+    // Fungsi untuk mendapatkan Nama Tanda Tangan
+    fun getNamaTtd(): String? {
+        return sharedPreferences.getString(NAMA_TTD, null)
+    }
+
+    // Fungsi untuk mendapatkan gambar tanda tangan dalam format Base64
+    fun getSignatureImage(): String? {
+        return sharedPreferences.getString(SIGNATURE_IMAGE, null)
+    }
+
+    // Fungsi untuk menghapus data tanda tangan
+    fun clearSignatureData() {
+        val editor = sharedPreferences.edit()
+        editor.remove(TANGGAL_TTD)
+        editor.remove(JABATAN_TTD)
+        editor.remove(NAMA_TTD)
+        editor.remove(SIGNATURE_IMAGE)
+        editor.apply()
+    }
+
+//    // Fungsi untuk menyimpan data Dugaan Pelanggaran
+//    fun saveDugaanPelanggaran(
+//        peristiwa: String,
+//        tempatKejadian: String,
+//        waktuKejadian: String,
+//        pelaku: String,
+//        alamat: String,
+//        pasalDilanggar: String,
+//        namaSaksi1: String,
+//        alamatSaksi1: String,
+//        namaSaksi2: String,
+//        alamatSaksi2: String,
+//        bukti: String,
+//        uraianPelanggaran: String,
+//        jenisPelanggaran: String,
+//        fakta: String,
+//        analisa: String,
+//        tindakLanjut: String
+//    ) {
+//        val editor = sharedPreferences.edit()
+//        editor.putString(PERISTIWA, peristiwa)
+//        editor.putString(TEMPAT_KEJADIAN_DUGAAN, tempatKejadian)
+//        editor.putString(WAKTU_KEJADIAN_DUGAAN, waktuKejadian)
+//        editor.putString(PELAKU, pelaku)
+//        editor.putString(ALAMAT_DUGAAN, alamat)
+//        editor.putString(PASAL_DILANGGAR, pasalDilanggar)
+//        editor.putString(NAMA_SAKSI1, namaSaksi1)
+//        editor.putString(ALAMAT_SAKSI1, alamatSaksi1)
+//        editor.putString(NAMA_SAKSI2, namaSaksi2)
+//        editor.putString(ALAMAT_SAKSI2, alamatSaksi2)
+//        editor.putString(BUKTI, bukti)
+//        editor.putString(URAIAN_PELANGGARAN, uraianPelanggaran)
+//        editor.putString(JENIS_PELANGGARAN, jenisPelanggaran)
+//        editor.putString(FAKTA, fakta)
+//        editor.putString(ANALISA, analisa)
+//        editor.putString(TINDAK_LANJUT, tindakLanjut)
+//        editor.apply()
+//    }
+//
+//    // Fungsi untuk mendapatkan data Dugaan Pelanggaran
+//    fun getDugaanPelanggaran(): Map<String, String?> {
+//        return mapOf(
+//            "peristiwa" to sharedPreferences.getString(PERISTIWA, null),
+//            "tempat_kejadian" to sharedPreferences.getString(TEMPAT_KEJADIAN_DUGAAN, null),
+//            "waktu_kejadian" to sharedPreferences.getString(WAKTU_KEJADIAN_DUGAAN, null),
+//            "pelaku" to sharedPreferences.getString(PELAKU, null),
+//            "alamat" to sharedPreferences.getString(ALAMAT_DUGAAN, null),
+//            "pasal_dilanggar" to sharedPreferences.getString(PASAL_DILANGGAR, null),
+//            "nama_saksi1" to sharedPreferences.getString(NAMA_SAKSI1, null),
+//            "alamat_saksi1" to sharedPreferences.getString(ALAMAT_SAKSI1, null),
+//            "nama_saksi2" to sharedPreferences.getString(NAMA_SAKSI2, null),
+//            "alamat_saksi2" to sharedPreferences.getString(ALAMAT_SAKSI2, null),
+//            "bukti" to sharedPreferences.getString(BUKTI, null),
+//            "uraian_pelanggaran" to sharedPreferences.getString(URAIAN_PELANGGARAN, null),
+//            "jenis_pelanggaran" to sharedPreferences.getString(JENIS_PELANGGARAN, null),
+//            "fakta" to sharedPreferences.getString(FAKTA, null),
+//            "analisa" to sharedPreferences.getString(ANALISA, null),
+//            "tindak_lanjut" to sharedPreferences.getString(TINDAK_LANJUT, null)
+//        )
+//    }
+//
+//    // Fungsi untuk menyimpan data Potensi Sengketa
+//    fun savePotensiSengketa(
+//        pesertaPemilihan: String,
+//        tempatKejadian: String,
+//        waktuKejadian: String,
+//        bentukObjek: String,
+//        identitasObjek: String,
+//        hariTanggal: String,
+//        kerugianLangsung: String,
+//        uraianPotensiSengketa: String
+//    ) {
+//        val editor = sharedPreferences.edit()
+//        editor.putString(PESERTA_PEMILIHAN, pesertaPemilihan)
+//        editor.putString(TEMPAT_KEJADIAN, tempatKejadian)
+//        editor.putString(WAKTU_KEJADIAN, waktuKejadian)
+//        editor.putString(BENTUK_OBJEK, bentukObjek)
+//        editor.putString(IDENTITAS_OBJEK, identitasObjek)
+//        editor.putString(HARI_TANGGAL, hariTanggal)
+//        editor.putString(KERUGIAN_LANGSUNG, kerugianLangsung)
+//        editor.putString(URAIAN_POTENSI_SENGKETA, uraianPotensiSengketa)
+//        editor.apply()
+//    }
+//
+//    // Fungsi untuk mendapatkan data Potensi Sengketa
+//    fun getPotensiSengketa(): Map<String, String?> {
+//        return mapOf(
+//            "peserta_pemilihan" to sharedPreferences.getString(PESERTA_PEMILIHAN, null),
+//            "tempat_kejadian" to sharedPreferences.getString(TEMPAT_KEJADIAN, null),
+//            "waktu_kejadian" to sharedPreferences.getString(WAKTU_KEJADIAN, null),
+//            "bentuk_objek" to sharedPreferences.getString(BENTUK_OBJEK, null),
+//            "identitas_objek" to sharedPreferences.getString(IDENTITAS_OBJEK, null),
+//            "hari_tanggal" to sharedPreferences.getString(HARI_TANGGAL, null),
+//            "kerugian_langsung" to sharedPreferences.getString(KERUGIAN_LANGSUNG, null),
+//            "uraian_potensi_sengketa" to sharedPreferences.getString(URAIAN_POTENSI_SENGKETA, null)
+//        )
+//    }
 }

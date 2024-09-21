@@ -23,15 +23,31 @@ import java.math.BigInteger
 
 class DocumentGenerator(private val context: Context) {
 
+    private val preferencesHelper = PreferencesHelper(context) // Inisialisasi PreferencesHelper
+
     fun generateAndSaveDocument(
         data: DocumentData,
         signatureFilePath: String?,
         signatureBitmap: Bitmap?,
-        selectedImages: List<Bitmap>,
-        signatureDate: String, // Parameter tambahan
-        signaturePosition: String, // Parameter tambahan
-        signatureName: String // Parameter tambahan
+        selectedImages: List<Bitmap>
     ): Boolean {
+        // Ambil data dari SharedPreferences menggunakan PreferencesHelper (Bagian I-IV)
+        val noSurat = preferencesHelper.getNomorSurat() ?: "Tidak Ada Nomor Surat"
+        val namaPelaksana = preferencesHelper.getNamaPelaksana() ?: "Tidak Ada Nama Pelaksana"
+        val jabatan = preferencesHelper.getJabatan() ?: "Tidak Ada Jabatan"
+        val nomorSuratPerintah = preferencesHelper.getNomorSuratPerintah() ?: "Tidak Ada Nomor Surat Perintah"
+        val alamat = preferencesHelper.getAlamat() ?: "Tidak Ada Alamat"
+        val jenisPemilihan = preferencesHelper.getJenisPemilihan() ?: "Tidak Ada Jenis Pemilihan"
+        val tahapanPemilihan = preferencesHelper.getTahapanPemilihan() ?: "Tidak Ada Tahapan Pemilihan"
+        val bentukPengawasan = preferencesHelper.getBentukPengawasan() ?: "Tidak Ada Bentuk Pengawasan"
+        val tujuanPengawasan = preferencesHelper.getTujuanPengawasan() ?: "Tidak Ada Tujuan Pengawasan"
+        val sasaranPengawasan = preferencesHelper.getSasaranPengawasan() ?: "Tidak Ada Sasaran Pengawasan"
+        val waktuTempatPengawasan = preferencesHelper.getWaktuTempatPengawasan() ?: "Tidak Ada Waktu dan Tempat Pengawasan"
+        val uraianSingkat = preferencesHelper.getUraianSingkat() ?: "Tidak Ada Uraian Singkat"
+        val tanggalTtd = preferencesHelper.getTanggalTtd() ?: "Tidak Ada Tanggal TTD"
+        val jabatanTtd = preferencesHelper.getJabatanTtd() ?: "Tidak Ada Jabatan TTD"
+        val namaTtd = preferencesHelper.getNamaTtd() ?: "Tidak Ada Nama TTD"
+
         val document = XWPFDocument()
         val styler = DocumentStyler(document)
 
@@ -39,7 +55,7 @@ class DocumentGenerator(private val context: Context) {
         styler.createTitleParagraph("FORMULIR MODEL A")
         styler.createTitleParagraph("")
         styler.createTitleParagraph("LAPORAN HASIL PENGAWASAN PEMILU")
-        styler.createTitleParagraph("NOMOR: ${data.noSurat}")
+        styler.createTitleParagraph("NOMOR: $noSurat")
         styler.createTitleParagraph(" ")
 
         // Membuat tabel utama
@@ -50,20 +66,20 @@ class DocumentGenerator(private val context: Context) {
             listOf(500, 700, 3500, 300, 3000)
         )  // Mengatur ukuran kolom lebih besar dan tetap
 
-        // Mengisi data sesuai format dokumen
+        // Bagian I-IV dari SharedPreferences
         addStyledRowToTable(styler, table, listOf(" ", "I.", "Data Pengawas Pemilihan", "", ""))
         addStyledRowToTable(
             styler,
             table,
-            listOf(" ", "", "a. Nama Pelaksana Tugas Pengawasan", ":", data.namaPelaksana)
+            listOf(" ", "", "a. Nama Pelaksana Tugas Pengawasan", ":", namaPelaksana)
         )
-        addStyledRowToTable(styler, table, listOf(" ", "", "b. Jabatan", ":", data.jabatan))
+        addStyledRowToTable(styler, table, listOf(" ", "", "b. Jabatan", ":", jabatan))
         addStyledRowToTable(
             styler,
             table,
-            listOf(" ", "", "c. Nomor Surat Perintah Tugas", ":", data.nomorSuratperintah)
+            listOf(" ", "", "c. Nomor Surat Perintah Tugas", ":", nomorSuratPerintah)
         )
-        addStyledRowToTable(styler, table, listOf(" ", "", "d. Alamat", ":", data.alamat))
+        addStyledRowToTable(styler, table, listOf(" ", "", "d. Alamat", ":", alamat))
 
         // Jenis dan Tahapan Pemilihan
         addStyledRowToTable(
@@ -74,34 +90,34 @@ class DocumentGenerator(private val context: Context) {
         addStyledRowToTable(
             styler,
             table,
-            listOf(" ", "", "a. Jenis Pemilihan", ":", data.jenisPemilihan)
+            listOf(" ", "", "a. Jenis Pemilihan", ":", jenisPemilihan)
         )
         addStyledRowToTable(
             styler,
             table,
-            listOf(" ", "", "b. Tahapan Pemilihan", ":", data.tahapanPemilihan)
+            listOf(" ", "", "b. Tahapan Pemilihan", ":", tahapanPemilihan)
         )
 
         // Kegiatan Pengawasan
         addStyledRowToTable(styler, table, listOf(" ", "III.", "Kegiatan Pengawasan", "", ""))
         addStyledRowToTable(styler, table, listOf(" ", "", "Kegiatan", "", ""))
-        addStyledRowToTable(styler, table, listOf(" ", "", "a. Bentuk", ":", data.bentuk))
-        addStyledRowToTable(styler, table, listOf(" ", "", "b. Tujuan", ":", data.tujuan))
-        addStyledRowToTable(styler, table, listOf(" ", "", "c. Sasaran", ":", data.sasaran))
+        addStyledRowToTable(styler, table, listOf(" ", "", "a. Bentuk", ":", bentukPengawasan))
+        addStyledRowToTable(styler, table, listOf(" ", "", "b. Tujuan", ":", tujuanPengawasan))
+        addStyledRowToTable(styler, table, listOf(" ", "", "c. Sasaran", ":", sasaranPengawasan))
         addStyledRowToTable(
             styler,
             table,
-            listOf(" ", "", "d. Waktu dan Tempat", ":", data.waktuTempat)
+            listOf(" ", "", "d. Waktu dan Tempat", ":", waktuTempatPengawasan)
         )
 
         // Uraian Singkat Hasil Pengawasan
         addStyledRowToTable(
             styler,
             table,
-            listOf(" ", "IV.", "Uraian Singkat Hasil Pengawasan", "", data.hasilPengawasan)
+            listOf(" ", "IV.", "Uraian Singkat Hasil Pengawasan", "", uraianSingkat)
         )
 
-        // Informasi Dugaan Pelanggaran
+        // Bagian V-VI dari DocumentData (data yang diterima dari activity sebelumnya)
         addStyledRowToTable(
             styler,
             table,
@@ -236,7 +252,7 @@ class DocumentGenerator(private val context: Context) {
             )
         )
 
-        // Informasi Potensi Sengketa
+        // Informasi Potensi Sengketa (Bagian VI)
         addStyledRowToTable(
             styler,
             table,
@@ -334,8 +350,7 @@ class DocumentGenerator(private val context: Context) {
         )
 
         // Add Signature Section with Signature Image if Available
-        val signatureBitmap = signatureFilePath?.let { BitmapFactory.decodeFile(it)}
-        addSignatureSection(document, styler, signatureBitmap, signatureDate, signaturePosition, signatureName)
+        addSignatureSection(document, styler, signatureBitmap, tanggalTtd, jabatanTtd, namaTtd)
 
         // Tambahkan gambar lampiran ke dokumen jika ada
         if (selectedImages.isNotEmpty()) {
@@ -360,15 +375,10 @@ class DocumentGenerator(private val context: Context) {
                 tcW.w = BigInteger.valueOf(widths[j].toLong())
                 tcW.type = STTblWidth.DXA // Set width type to DXA (twips)
 
-                // Uncomment below if you want to disable text wrapping
-                // cellCTTc.addNewTcPr().addNewNoWrap()
-
-                // Center-align text vertically
                 cell.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER)
             }
         }
     }
-
 
     private fun removeTableBorders(table: XWPFTable) {
         val tblBorders: CTTblBorders =

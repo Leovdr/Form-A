@@ -34,7 +34,7 @@ class HomeActivity : AppCompatActivity() {
                     // Replace the fragment with data
                     replaceFragment(FragmentRiwayat.newInstance(dataList))
                 }
-                R.id.mnpengisian -> replaceFragment(FragmentPengisian())
+
                 R.id.mnprofil -> replaceFragment(FragmentProfil())
                 else -> {
                 }
