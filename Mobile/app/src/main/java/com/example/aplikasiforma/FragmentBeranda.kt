@@ -20,7 +20,7 @@ class FragmentBeranda : Fragment() {
         val imgPanduan = view.findViewById<ImageView>(R.id.img_panduan)
         val imgTentang = view.findViewById<ImageView>(R.id.img_tentang)
         val imgPrivasi = view.findViewById<ImageView>(R.id.img_privasi)
-        val imgSoon3 = view.findViewById<ImageView>(R.id.img_soon3)
+        val imgPengisian = view.findViewById<ImageView>(R.id.img_pengisian)
 
         imgPanduan.setOnClickListener {
             val intent = Intent(requireContext(), PanduanPengisian::class.java)
@@ -37,7 +37,7 @@ class FragmentBeranda : Fragment() {
             startActivity(intent)
         }
 
-        imgSoon3.setOnClickListener {
+        imgPengisian.setOnClickListener {
             val intent = Intent(requireContext(), NomorSurat::class.java)
             startActivity(intent)
         }

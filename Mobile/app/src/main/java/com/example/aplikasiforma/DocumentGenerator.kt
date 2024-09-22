@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.util.Log
 import org.apache.poi.util.Units
+import org.apache.poi.xwpf.usermodel.BreakType
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.apache.poi.xwpf.usermodel.XWPFTable
@@ -484,13 +485,20 @@ class DocumentGenerator(private val context: Context) {
             alignment = ParagraphAlignment.CENTER
         )
 
-        // Tambahkan Paragraf Baru "Lampiran" setelah tanda tangan menggunakan DocumentStyler
-        styler.createStyledParagraph(
-            text = "LAMPIRAN",
-            isBold = true,
-            fontSize = 14,
-            alignment = ParagraphAlignment.CENTER
-        )
+
+        val paragraphBreak = document.createParagraph()
+        val runBreak = paragraphBreak.createRun()
+        runBreak.addBreak(BreakType.PAGE)
+
+        val lampiranParagraph = document.createParagraph()
+        lampiranParagraph.alignment = ParagraphAlignment.CENTER // Atur alignment ke center
+
+        val lampiranRun = lampiranParagraph.createRun()
+        lampiranRun.isBold = true // Atur teks menjadi bold
+        lampiranRun.fontSize = 14 // Atur ukuran font
+        lampiranRun.fontFamily = "Times New Roman"
+        lampiranRun.setText("LAMPIRAN") // Set teks paragraf
+
     }
 
     private fun addImagesToDocument(document: XWPFDocument, images: List<Bitmap>) {
@@ -501,6 +509,7 @@ class DocumentGenerator(private val context: Context) {
 
             try {
                 val run = document.createParagraph().createRun()
+                ParagraphAlignment.CENTER
                 run.addPicture(
                     ByteArrayInputStream(imageData),
                     XWPFDocument.PICTURE_TYPE_PNG,
@@ -514,14 +523,13 @@ class DocumentGenerator(private val context: Context) {
         }
     }
 
+    private fun sanitizeFileName(fileName: String): String {
+        return fileName.replace("/", "-")  // Ganti "/" dengan "-"
+    }
+
     private fun saveDocumentToFile(document: XWPFDocument): Boolean {
-        // Ambil nomor surat dari SharedPreferences
         val nomorSurat = preferencesHelper.getNomorSurat() ?: "Laporan_Hasil_Pengawasan"
-
-        // Penamaan file menggunakan nomor surat
-        val fileName = "$nomorSurat.docx"
-
-        // Direktori tempat menyimpan dokumen
+        val fileName = "${sanitizeFileName(nomorSurat)}.docx"
         val documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
         val file = File(documentsDir, fileName)
 
@@ -530,10 +538,15 @@ class DocumentGenerator(private val context: Context) {
                 document.write(out)
             }
             document.close()
+
+            // Log untuk memverifikasi bahwa file sudah disimpan
+            Log.d("FILE_SAVED", "File berhasil disimpan di path: ${file.absolutePath}, ukuran: ${file.length()} bytes")
+
             true
         } catch (e: IOException) {
-            Log.e("DocumentGenerator", "Failed to save document: ${e.message}")
+            Log.e("DocumentGenerator", "Gagal menyimpan dokumen: ${e.message}")
             false
         }
     }
+
 }

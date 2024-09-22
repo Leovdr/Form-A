@@ -162,9 +162,24 @@ class TandaTangan : AppCompatActivity() {
 
             override fun getByteData(): Map<String, DataPart> {
                 val params = HashMap<String, DataPart>()
-                params["file"] = DataPart(file.name, file.readBytes(), "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+                try {
+                    val fileInputStream = FileInputStream(file)
+                    val fileBytes = fileInputStream.readBytes()
+
+                    if (fileBytes.isEmpty()) {
+                        Log.e("FILE_UPLOAD_ERROR", "File kosong saat mencoba membaca sebelum upload")
+                    } else {
+                        Log.d("FILE_UPLOAD", "File siap diupload, ukuran: ${fileBytes.size} bytes")
+                    }
+
+                    params["file"] = DataPart(file.name, fileBytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Log.e("UPLOAD_ERROR", "Gagal membaca file: ${e.message}")
+                }
                 return params
             }
+
 
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
@@ -180,62 +195,64 @@ class TandaTangan : AppCompatActivity() {
 
     private fun exportToWord(): File? {
         val nomorSurat = preferencesHelper.getNomorSurat()?.takeIf { it.isNotBlank() } ?: "default_document"
+        val sanitizedNomorSurat = nomorSurat.replace("/", "-")
 
-        val fileDir = File(getExternalFilesDir(null), "Documents")
+        // Tentukan path direktori untuk menyimpan file
+        val fileDir = File(getExternalFilesDir(null), "Documents/$sanitizedNomorSurat")
+
+        // Buat direktori jika belum ada, termasuk seluruh path
         if (!fileDir.exists()) {
-            fileDir.mkdirs()
+            val success = fileDir.mkdirs() // Membuat seluruh direktori yang dibutuhkan
+            if (!success) {
+                Log.e("DIRECTORY_CREATION", "Gagal membuat direktori: ${fileDir.absolutePath}")
+                Toast.makeText(this, "Gagal membuat direktori untuk file", Toast.LENGTH_SHORT).show()
+                return null
+            }
         }
 
-        val fileName = "$nomorSurat.docx"
+        val fileName = "$sanitizedNomorSurat.docx"
         val file = File(fileDir, fileName)
 
-        try {
-            val fileOutputStream = FileOutputStream(file)
+        return try {
+            FileOutputStream(file).use { fileOutputStream ->
 
-            val documentData = DocumentData(
-                noSurat = nomorSurat,
-                namaPelaksana = preferencesHelper.getNamaPelaksana() ?: "N/A",
-                jabatan = preferencesHelper.getJabatan() ?: "N/A",
-                nomorSuratperintah = preferencesHelper.getNomorSuratPerintah() ?: "N/A",
-                alamat = preferencesHelper.getAlamat() ?: "N/A",
-                jenisPemilihan = preferencesHelper.getJenisPemilihan() ?: "N/A",
-                tahapanPemilihan = preferencesHelper.getTahapanPemilihan() ?: "N/A",
-                bentuk = preferencesHelper.getBentukPengawasan() ?: "N/A",
-                tujuan = preferencesHelper.getTujuanPengawasan() ?: "N/A",
-                sasaran = preferencesHelper.getSasaranPengawasan() ?: "N/A",
-                waktuTempat = preferencesHelper.getWaktuTempatPengawasan() ?: "N/A",
-                hasilPengawasan = preferencesHelper.getUraianSingkat() ?: "N/A",
-                dugaanPelanggaran = mapOf(),
-                potensiSengketa = mapOf()
-            )
+                val documentData = DocumentData(
+                    noSurat = nomorSurat,
+                    namaPelaksana = preferencesHelper.getNamaPelaksana() ?: "N/A",
+                    jabatan = preferencesHelper.getJabatan() ?: "N/A",
+                    nomorSuratperintah = preferencesHelper.getNomorSuratPerintah() ?: "N/A",
+                    alamat = preferencesHelper.getAlamat() ?: "N/A",
+                    jenisPemilihan = preferencesHelper.getJenisPemilihan() ?: "N/A",
+                    tahapanPemilihan = preferencesHelper.getTahapanPemilihan() ?: "N/A",
+                    bentuk = preferencesHelper.getBentukPengawasan() ?: "N/A",
+                    tujuan = preferencesHelper.getTujuanPengawasan() ?: "N/A",
+                    sasaran = preferencesHelper.getSasaranPengawasan() ?: "N/A",
+                    waktuTempat = preferencesHelper.getWaktuTempatPengawasan() ?: "N/A",
+                    hasilPengawasan = preferencesHelper.getUraianSingkat() ?: "N/A",
+                    dugaanPelanggaran = mapOf(),
+                    potensiSengketa = mapOf()
+                )
 
-            val selectedImages = preferencesHelper.getImageUris().mapNotNull { uri ->
-                try {
-                    val tempFile = createTempFileFromUri(uri)
-                    BitmapFactory.decodeFile(tempFile.absolutePath)
-                } catch (e: SecurityException) {
-                    e.printStackTrace()
-                    null
+                val success = documentGenerator.generateAndSaveDocument(
+                    data = documentData,
+                    signatureFilePath = null,
+                    signatureBitmap = signaturePad.signatureBitmap,
+                    selectedImages = listOf()
+                )
+
+                if (success) {
+                    fileOutputStream.flush()
+                    Log.d("FILE_EXPORT", "Dokumen berhasil disimpan dengan ukuran ${file.length()} bytes")
+                    Toast.makeText(this, "Dokumen berhasil diekspor sebagai $fileName", Toast.LENGTH_SHORT).show()
+                    return file
+                } else {
+                    Log.e("FILE_EXPORT", "Gagal mengekspor dokumen")
+                    return null
                 }
-            }
-
-            val success = documentGenerator.generateAndSaveDocument(
-                data = documentData,
-                signatureFilePath = null,
-                signatureBitmap = signaturePad.signatureBitmap,
-                selectedImages = selectedImages
-            )
-
-            if (success) {
-                Toast.makeText(this, "Dokumen berhasil diekspor sebagai $fileName", Toast.LENGTH_SHORT).show()
-                return file
-            } else {
-                Toast.makeText(this, "Gagal mengekspor dokumen", Toast.LENGTH_SHORT).show()
-                return null
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            Toast.makeText(this, "Gagal membuat file dokumen", Toast.LENGTH_SHORT).show()
+            Log.e("FILE_EXPORT_ERROR", "Gagal menulis file: ${e.message}")
             return null
         }
     }
