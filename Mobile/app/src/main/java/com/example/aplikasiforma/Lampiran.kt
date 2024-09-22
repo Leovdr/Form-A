@@ -48,13 +48,16 @@ class Lampiran : AppCompatActivity() {
         pickImagesLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
                 val clipData = result.data!!.clipData
-                if (clipData != null) {  // Multiple images selected
+                // Di dalam pickImagesLauncher
+                if (clipData != null) {
                     for (i in 0 until clipData.itemCount) {
                         val imageUri = clipData.getItemAt(i).uri
+                        grantUriPermission(imageUri)  // Meminta persistable permission
                         selectedImages.add(imageUri)
                     }
-                } else {  // Single image selected
+                } else {
                     result.data?.data?.let { imageUri ->
+                        grantUriPermission(imageUri)  // Meminta persistable permission
                         selectedImages.add(imageUri)
                     }
                 }
@@ -97,5 +100,14 @@ class Lampiran : AppCompatActivity() {
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         pickImagesLauncher.launch(intent)
+    }
+
+    private fun grantUriPermission(uri: Uri) {
+        // Meminta persistable permission agar URI dapat diakses kemudian
+        try {
+            contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+        }
     }
 }

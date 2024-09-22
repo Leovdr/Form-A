@@ -1,28 +1,33 @@
 package com.example.aplikasiforma
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import org.json.JSONObject
 import java.io.ByteArrayOutputStream
-import java.net.HttpURLConnection
-import java.net.URL
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 class TandaTangan : AppCompatActivity() {
 
     private lateinit var etTanggalTtd: TextInputEditText
     private lateinit var etJabatanTtd: TextInputEditText
     private lateinit var etNamaTtd: TextInputEditText
-    private lateinit var etNomorSurat: TextInputEditText // Untuk nomor surat
     private lateinit var signaturePad: SignaturePad
     private lateinit var btnSaveSignature: Button
     private lateinit var btnClearSignature: Button
@@ -31,6 +36,10 @@ class TandaTangan : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var preferencesHelper: PreferencesHelper
     private lateinit var documentGenerator: DocumentGenerator
+
+    companion object {
+        const val REQUEST_CODE_READ_STORAGE = 1001
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,67 +96,45 @@ class TandaTangan : AppCompatActivity() {
         // Muat data yang tersimpan saat tampilan pertama kali terbuka
         loadSavedSignatureData()
 
-        // Ambil nomor surat dari server saat tampilan terbuka
-        fetchNomorSuratFromServer()
+        // Cek dan minta izin akses penyimpanan jika diperlukan
+        checkAndRequestPermissions()
     }
 
-    // Fungsi untuk mengambil nomor surat dari server
-    private fun fetchNomorSuratFromServer() {
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val userId = currentUser.uid
-            FetchNomorSuratTask().execute(userId)
-        } else {
-            Toast.makeText(this, "Gagal mengambil nomor surat, pengguna belum login", Toast.LENGTH_SHORT).show()
+    // Fungsi untuk meminta izin akses penyimpanan
+    private fun checkAndRequestPermissions() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                REQUEST_CODE_READ_STORAGE
+            )
         }
     }
 
-    // Fungsi AsyncTask untuk mengambil nomor surat
-    private inner class FetchNomorSuratTask : AsyncTask<String, Void, String?>() {
-        override fun doInBackground(vararg params: String?): String? {
-            val userId = params[0]
-            val url = URL("https://example.com/fetch_nosurat.php?uid=$userId") // URL API PHP Anda
-
-            return try {
-                val connection = url.openConnection() as HttpURLConnection
-                connection.requestMethod = "GET"
-                connection.connect()
-
-                val responseCode = connection.responseCode
-                if (responseCode == HttpURLConnection.HTTP_OK) {
-                    val inputStream = connection.inputStream
-                    inputStream.bufferedReader().use { reader ->
-                        reader.readText()
-                    }
-                } else {
-                    null
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
-            }
-        }
-
-        override fun onPostExecute(result: String?) {
-            if (result != null) {
-                try {
-                    val jsonResponse = JSONObject(result)
-                    val nomorSurat = jsonResponse.getString("nomor_surat")
-                    etNomorSurat.setText(nomorSurat)
-                } catch (e: Exception) {
-                    Toast.makeText(this@TandaTangan, "Gagal memuat nomor surat", Toast.LENGTH_SHORT).show()
-                    e.printStackTrace()
-                }
-            } else {
-                Toast.makeText(this@TandaTangan, "Tidak ada data nomor surat dari server", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
+    // Fungsi untuk mengekspor dokumen Word
     private fun exportToWord() {
+        val fileDir = File(getExternalFilesDir(null), "Documents")
+        if (!fileDir.exists()) {
+            fileDir.mkdirs()  // Buat direktori jika belum ada
+        }
+
+        val fileName = "${preferencesHelper.getNomorSurat()}.docx"
+        val file = File(fileDir, fileName)
+
+        try {
+            val fileOutputStream = FileOutputStream(file)
+            // Lanjutkan dengan menulis ke dalam file
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
         // Ambil data yang diperlukan untuk DocumentData dari SharedPreferences
         val documentData = DocumentData(
-            noSurat = etNomorSurat.text.toString(), // Nomor surat diambil dari input yang sudah terisi dari server
+            noSurat = preferencesHelper.getNomorSurat() ?: "N/A",
             namaPelaksana = preferencesHelper.getNamaPelaksana() ?: "N/A",
             jabatan = preferencesHelper.getJabatan() ?: "N/A",
             nomorSuratperintah = preferencesHelper.getNomorSuratPerintah() ?: "N/A",
@@ -163,10 +150,19 @@ class TandaTangan : AppCompatActivity() {
             potensiSengketa = mapOf()     // Sesuaikan ini dengan data Potensi Sengketa
         )
 
-        // Ambil daftar gambar dari SharedPreferences sebagai bitmap
-        val selectedImages = preferencesHelper.getImageUris().map { uri ->
-            val inputStream = contentResolver.openInputStream(uri)
-            BitmapFactory.decodeStream(inputStream)
+        // Ambil daftar gambar dari SharedPreferences yang disimpan dari Activity lain
+        val selectedImages = preferencesHelper.getImageUris().mapNotNull { uri ->
+            try {
+                contentResolver.openInputStream(uri)?.use {
+                    BitmapFactory.decodeStream(it)
+                }
+            } catch (e: SecurityException) {
+                e.printStackTrace()
+                null
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+                null
+            }
         }
 
         // Panggil DocumentGenerator untuk membuat dokumen

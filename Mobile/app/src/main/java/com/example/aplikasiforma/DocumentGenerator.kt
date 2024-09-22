@@ -515,9 +515,14 @@ class DocumentGenerator(private val context: Context) {
     }
 
     private fun saveDocumentToFile(document: XWPFDocument): Boolean {
-        val fileName = "Laporan_Hasil_Pengawasan.docx"
-        val documentsDir =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+        // Ambil nomor surat dari SharedPreferences
+        val nomorSurat = preferencesHelper.getNomorSurat() ?: "Laporan_Hasil_Pengawasan"
+
+        // Penamaan file menggunakan nomor surat
+        val fileName = "$nomorSurat.docx"
+
+        // Direktori tempat menyimpan dokumen
+        val documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
         val file = File(documentsDir, fileName)
 
         return try {
