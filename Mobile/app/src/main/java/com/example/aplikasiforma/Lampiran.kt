@@ -42,30 +42,28 @@ class Lampiran : AppCompatActivity() {
 
         // Muat gambar yang tersimpan di SharedPreferences
         selectedImages.addAll(preferencesHelper.getImageUris())
-        imageAdapter.notifyDataSetChanged()
+        imageAdapter.notifyItemRangeInserted(0, selectedImages.size) // Efficient update
 
         // Setup ActivityResultLauncher untuk memilih gambar
         pickImagesLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK && result.data != null) {
                 val clipData = result.data!!.clipData
-                // Di dalam pickImagesLauncher
                 if (clipData != null) {
+                    val startIndex = selectedImages.size
                     for (i in 0 until clipData.itemCount) {
                         val imageUri = clipData.getItemAt(i).uri
-                        grantUriPermission(imageUri)  // Meminta persistable permission
                         selectedImages.add(imageUri)
+                        imageAdapter.notifyItemInserted(selectedImages.size - 1) // Efficient update
                     }
                 } else {
                     result.data?.data?.let { imageUri ->
-                        grantUriPermission(imageUri)  // Meminta persistable permission
                         selectedImages.add(imageUri)
+                        imageAdapter.notifyItemInserted(selectedImages.size - 1) // Efficient update
                     }
                 }
-                imageAdapter.notifyDataSetChanged()
 
                 // Simpan URI gambar ke SharedPreferences
                 preferencesHelper.saveImageUris(selectedImages)
-
                 Toast.makeText(this, "${selectedImages.size} gambar dipilih", Toast.LENGTH_SHORT).show()
             }
         }
@@ -77,8 +75,9 @@ class Lampiran : AppCompatActivity() {
 
         // Tombol Clear untuk menghapus gambar yang dipilih
         btnClear.setOnClickListener {
+            val sizeBeforeClear = selectedImages.size
             selectedImages.clear()  // Menghapus semua gambar dari list
-            imageAdapter.notifyDataSetChanged()
+            imageAdapter.notifyItemRangeRemoved(0, sizeBeforeClear) // Efficient update
             preferencesHelper.saveImageUris(selectedImages)  // Hapus gambar dari SharedPreferences
             Toast.makeText(this, "Semua gambar telah dihapus", Toast.LENGTH_SHORT).show()
         }
@@ -100,14 +99,5 @@ class Lampiran : AppCompatActivity() {
         intent.type = "image/*"
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         pickImagesLauncher.launch(intent)
-    }
-
-    private fun grantUriPermission(uri: Uri) {
-        // Meminta persistable permission agar URI dapat diakses kemudian
-        try {
-            contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-        } catch (e: SecurityException) {
-            e.printStackTrace()
-        }
     }
 }

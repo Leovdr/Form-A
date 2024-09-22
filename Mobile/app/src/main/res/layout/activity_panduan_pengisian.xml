@@ -28,6 +28,19 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="10dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Panduan Pengisian"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
     <!-- Frame putih untuk menampung CardView -->
     <FrameLayout
         android:id="@+id/white_frame"
@@ -49,30 +62,38 @@
             app:cardCornerRadius="10dp"
             android:layout_margin="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Panduan Pengisian"
-                android:textSize="14dp"
-                android:padding="16dp"
-                android:fontFamily="@font/poppins_medium"
-                android:textColor="@color/colorPrimary"/>
-
             <!-- ScrollView for Long Text -->
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:padding="16dp">
 
-                <!-- TextView for Panduan Pengisian Content -->
-                <TextView
-                    android:id="@+id/text_panduan"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Sek ngenteni abhinaya"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/poppins_semibold" />
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|top"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Panduan Pengisian Aplikasi Form A"
+                        android:layout_gravity="center|top"
+                        android:gravity="center"
+                        android:textColor="@color/colorform"
+                        android:fontFamily="@font/poppins_semibold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="left|center"
+                        android:text="Untuk melakukan pengisian form A buka icon pada beranda aplikasi."/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
             </ScrollView>
 

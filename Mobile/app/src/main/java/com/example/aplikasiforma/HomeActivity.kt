@@ -24,17 +24,6 @@ class HomeActivity : AppCompatActivity() {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.mnberanda -> replaceFragment(FragmentBeranda())
-                R.id.mnriwayat -> {
-                    // Create a sample list of data
-                    val dataList = arrayListOf(
-                        ItemsViewModel(R.drawable.baseline_library_books_24, "History 1"),
-                        ItemsViewModel(R.drawable.baseline_library_books_24, "History 2"),
-                        ItemsViewModel(R.drawable.baseline_library_books_24, "History 3")
-                    )
-                    // Replace the fragment with data
-                    replaceFragment(FragmentRiwayat.newInstance(dataList))
-                }
-
                 R.id.mnprofil -> replaceFragment(FragmentProfil())
                 else -> {
                 }
