@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,12 +14,18 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/applogo"
-        android:label="Aplikasi Form A"
+        android:label="E-Form A"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/applogo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplikasiFormA"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".Riwayat"
+            android:exported="false" />
+        <activity
+            android:name=".TentangKami"
+            android:exported="false" />
         <activity
             android:name=".Lampiran"
             android:exported="false" />
@@ -68,7 +76,7 @@
             android:exported="true" />
         <activity
             android:name=".SplashScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,6 +88,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-</application>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-    </manifest>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC7mB_9WxaH7dQXKVIgF2Gm2SI_xyfBAZs" />
+    </application>
+
+</manifest>

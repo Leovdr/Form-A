@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file("E:\\Magang\\Form-A\\Form-A\\Mobile\\key.jks")
+            storePassword = "aplikasiforma"
+            keyAlias = "aplikasiforma"
+            keyPassword = "apikasiforma"
+        }
+    }
     namespace = "com.example.aplikasiforma"
     compileSdk = 34
 
@@ -24,6 +34,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        archivesName = "E-Form A${versionName}(${versionCode})"
     }
 
     buildTypes {

@@ -54,10 +54,10 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <string name="default_web_client_id">324085102254-m01261nes3k0pk01chjn413bmsic172n.apps.googleusercontent.com</string>
+    <string name="default_web_client_id">324085102254-2atih8ntdbvicfc7huqkqsdnhmslun91.apps.googleusercontent.com</string>
 
     <string name="kebijakan_privasi">
-        Aplikasi Pengisian Form A Bawarsiu menghargai privasi dan keamanan data pengguna.
+        Aplikasi Pengisian Form A Bawaslu menghargai privasi dan keamanan data pengguna.
         \n\nKebijakan privasi ini dirancang untuk menjelaskan bagaimana informasi pribadi dikumpulkan, digunakan, disimpan, dan dilindungi saat menggunakan aplikasi ini.
 
         \n\nKebijakan Privasi ini disertakan sebagai bagian dari ketentuan penggunaan. Kebijakan Privasi ini mencakup hal-hal sebagai berikut:
@@ -71,7 +71,7 @@
         \n7. Perubahan Atas Kebijakan Privasi
         \n8. Cara untuk Menghubungi Kami
 
-        \nPenggunaan atas aplikasi dan layanan tunduk pada ketentuan penggunaan dan Kebijakan Privasi ini dan mengindikasikan persetujuan terhadap ketentuan penggunaan dan Kebijakan Privasi tersebut.
+        \n\nPenggunaan atas aplikasi dan layanan tunduk pada ketentuan penggunaan dan Kebijakan Privasi ini dan mengindikasikan persetujuan terhadap ketentuan penggunaan dan Kebijakan Privasi tersebut.
 
         \n\n1. Definisi
         \nAplikasi: Aplikasi Pengisian Form A Bawaslu yang digunakan untuk mengisi dan mengelola laporan pengawasan pemilu.
@@ -112,7 +112,77 @@
 
         \n\nEmail: leovanderadds@gmail.com
 
-        \nKami akan berusaha menanggapi setiap permintaan atau keluhan secepat mungkin.
+        \n\nKami akan berusaha menanggapi setiap permintaan atau keluhan secepat mungkin.
     </string>
 
+    <string name="panduanpengisian1">2. Data Pengawas Pemilihan\n\n
+        Isikan data lengkap Pengawas Pemilihan yang bertugas. Data yang diminta mencakup:
+        \n- Nama pelaksana tugas pengawasan
+        \n- Jabatan
+        \n-Nomor surat perintah tugas
+        \n-Alamat
+        \nPastikan data yang diisikan sesuai dengan identitas resmi pengawas pemilihan.
+        \n\n3. Jenis dan Tahapan Pemilihan yang Diawasi
+        \n\nTerdapat dua bagian yang harus di isikan, Jenis Pemilihan dan Tahapan Pemilihan sesuai dengan pemilihan yang di awasi.
+        \n\n4. Kegiatan Pengawasan
+        \n\nIsi Kegiatan Pengawasan dengan jelas, seperti bentuk kegiatan, tujuan, sasaran, serta waktu dan tempat. Pastikan semua informasi yang relevan dan rinci dimasukkan agar dapat memberi gambaran lengkap tentang kegiatan pengawasan.
+        \n\n5. Uraian Singkat Hasil Pengawasan
+        \n\nTuliskan uraian singkat mengenai hasil pengawasan yang Anda lakukan. Pastikan untuk mencatat semua temuan atau situasi yang terjadi selama pengawasan. Jika tidak ada pelanggaran atau kejadian penting, cukup tuliskan ringkasan kegiatan yang dilakukan.
+        \n\nLangkah 2: Pengisian Jika Ada Dugaan Pelanggaran
+        \n\n1. Informasi Dugaan Pelanggaran
+
+        \n\n- Jika selama pengawasan ditemukan dugaan pelanggaran, centang kotak kecil yang disediakan pada aplikasi.
+        \n\n- Setelah mencentang, masukkan keterangan dugaan pelanggaran sesuai dengan kategori atau pelanggaran yang teridentifikasi.
+        \n\n- Jika tidak ada pelanggaran, biarkan bagian ini kosong.</string>
+
+    <string name="panduanpengisian2">Langkah 3: Pengisian Jika Terdapat Potensi Sengketa
+\n\n1. Informasi Potensi Sengketa Pemilihan
+
+\n- Jika ada potensi terjadinya sengketa selama proses pengawasan, centang kotak kecil seperti dugaan pelanggaran di atas isikan informasi yang relevan di bagian Potensi Sengketa.
+\n- Jelaskan potensi sengketa yang bisa timbul, seperti peristiwa, objek sengketa dan uraian singkat potensi sengketa.
+\n- Jika tidak ada potensi sengketa, Anda bisa membiarkan bagian ini kosong.
+\n\nLangkah 4: Pengisian Bagian Tanda Tangan
+\n\n1. Masukkan tanggal tanda tangan, sesuai dengan hari ketika form tersebut diisi atau ditandatangani.
+\n2. Isikan jabatan pengawas atau pejabat yang bertanggung jawab dalam proses pengisian form ini.
+\n3. Masukkan nama lengkap dari pihak yang menandatangani form.
+\n4. Setelah itu, masukkan tanda tangan digital sesuai instruksi aplikasi. Gunakan fitur tanda tangan yang sudah disediakan oleh aplikasi untuk membuat tanda tangan Anda.
+\n5. Ketika ada perubahan dapat menghapus menggunakan tombol bersihkan. Setelah selesai tekan tombol simpan untuk menyimpan hasil tanda tangan agar bisa muncul pada file yang akan dicetak.</string>
+
+    <string name="tentangaplikasi">Gambaran umum Aplikasi Form A
+\n\nAplikasi Pengisian Form A Bawaslu adalah sebuah sistem digital yang dirancang untuk mempermudah proses pengisian, pengelolaan, dan pelaporan form A terkait pengawasan pemilu. Dengan aplikasi ini, proses yang sebelumnya dilakukan secara manual dapat dipercepat, lebih terstruktur, dan akurat. Aplikasi ini menawarkan fitur pengisian form secara langsung di perangkat elektronik, penyimpanan otomatis, dan pelacakan data yang lebih mudah, memastikan transparansi dan efisiensi dalam pelaksanaan tugas pengawasan.
+\n\nStatus Pengembangan
+\n\nSaat ini, aplikasi berada dalam tahap pengembangan aktif, dengan beberapa fitur telah dirilis dan fitur tambahan akan segera hadir. Pembaruan aplikasi dilakukan secara berkala untuk memperbaiki performa dan menambah fungsionalitas baru.
+\n\nFitur Utama
+
+\n\n- Pengisian Digital Form Model A: Memungkinkan pengguna mengisi form secara langsung di perangkat digital.
+\n- Penyimpanan Otomatis: Semua laporan yang diisi akan tersimpan dengan aman di dalam sistem, memudahkan pengelolaan dan akses di masa mendatang.
+\n- Cetak Otomatis: Pengguna dapat mencetak hasil pengisian form A berupa file word dan dapat mengubah secara manual apabila terjadi kesalahan.
+\n- Akses Panduan Pengisian: Pengguna dapat mengakses panduan lengkap mengenai pengisian form melalui aplikasi.
+\n- Perlindungan Data dan Privasi
+\n- Aplikasi ini mengutamakan keamanan dan privasi pengguna. Setiap data yang diinput dilindungi dengan enkripsi sehingga hanya dapat diakses oleh pihak yang berwenang. Aplikasi mematuhi kebijakan privasi yang ketat untuk menjaga keamanan data pengguna.
+\n\nKeterbatasan Pengguna
+\n\nAplikasi ini masih dalam tahap pengembangan, sehingga beberapa fitur mungkin belum berfungsi sepenuhnya. Pengguna diharapkan untuk memahami bahwa aplikasi ini mungkin menghadapi gangguan sementara selama proses peningkatan fitur.
+\n\nFeedback dan Dukungan
+\n\nKami sangat menghargai umpan balik dari pengguna untuk terus menyempurnakan aplikasi ini. Jika Anda memiliki saran, pertanyaan, atau menemui masalah saat menggunakan aplikasi, silakan hubungi kami melalui email di leovanderadds@gmail.com. Kami akan dengan senang hati membantu Anda.
+\n\nRencana Pengembangan Lebih Lanjut
+
+\n\nKe depan, kami berencana untuk menambahkan atau mengatasi beberapa fitur, termasuk:
+\n- Peningkatan User Interface: Meningkatkan tampilan sehingga dapat mempermudah pengguna dalam menggunakan.
+\n- Peningkatan Fungsionalitas: Mengikatkan fungsi yang kurang responsif dan mengatasi masalah debugging.
+\n- Peningkatan Keamanan Data: Meningkatkan lapisan keamanan data untuk menjaga privasi lebih baik lagi.
+</string>
+
+    <string name="tentangkami">Aplikasi Pengisian Form Model A Bawaslu merupakan hasil kerja sama strategis antara Kaftapus Srigala Asia, tim mahasiswa yang penuh inovasi, dan Bawaslu Kota Batu, sebuah lembaga independen yang bertugas mengawasi pemilu di Indonesia. Kolaborasi ini terbentuk dengan tujuan menciptakan solusi teknologi yang memudahkan proses pengawasan dan pelaporan pelanggaran pemilu, yang sebelumnya dilakukan secara manual, menjadi lebih efisien dan terstruktur melalui platform digital.
+\n\nMisi Kami
+\n\nKami berkomitmen untuk menghadirkan alat yang tangguh, aman, dan mudah digunakan oleh petugas Bawaslu di lapangan, memastikan proses pelaporan kejadian pemilu menjadi lebih akurat, transparan, dan cepat. Dengan berfokus pada pengembangan teknologi yang dapat diakses di berbagai perangkat, kami ingin mendukung pelaksanaan pemilu yang bersih, adil, dan demokratis di wilayah Kota Batu.
+\n\nKolaborasi Mahasiswa dan Bawaslu
+\n\nPengembangan aplikasi ini adalah hasil dari kolaborasi antara mahasiswa yang tergabung dalam tim Kaftapus Srigala Asia dan Bawaslu Kota Batu. Tim mahasiswa kami terdiri dari individu yang memiliki latar belakang dalam bidang teknologi informasi, desain antarmuka, dan manajemen proyek. Dengan pengawasan dari Bawaslu dan pemahaman akan kebutuhan operasional pengawasan pemilu, aplikasi ini dirancang untuk memenuhi standar keamanan dan fungsionalitas yang tinggi, sekaligus memastikan kesesuaian dengan prosedur pemilu.
+\n\nBawaslu Kota Batu
+\n\nSebagai lembaga negara yang memiliki tugas utama mengawasi jalannya pemilu di Kota Batu, Bawaslu bertanggung jawab untuk menjaga transparansi, kejujuran, dan keadilan dalam proses pemilihan umum. Dalam menghadapi tantangan era digital, Bawaslu menyadari pentingnya modernisasi dalam pengelolaan pengawasan pemilu. Oleh karena itu, kerja sama dengan tim mahasiswa ini menjadi langkah strategis dalam menciptakan aplikasi yang tidak hanya relevan dengan kondisi lapangan, tetapi juga siap menghadapi perkembangan teknologi ke depannya.
+\n\nKaftapus Srigala Asia
+\n\nKaftapus Srigala Asia adalah tim mahasiswa yang bergerak di bidang pengembangan teknologi dengan semangat inovasi. Kami terdiri dari berbagai disiplin ilmu yang berfokus pada penerapan teknologi digital untuk memecahkan masalah di dunia nyata. Dengan pengetahuan dan keterampilan yang kami miliki, kami telah berhasil mengembangkan aplikasi ini sebagai solusi nyata bagi kebutuhan pengawasan pemilu. Kami percaya bahwa kolaborasi antara sektor pendidikan dan pemerintah dapat membawa perubahan positif yang signifikan, khususnya dalam penyelenggaraan pemilu yang lebih efektif dan efisien.
+\n\nVisi Masa Depan
+\n\nKami terus berkomitmen untuk memperbarui dan menyempurnakan aplikasi ini dengan fitur-fitur baru,  serta peningkatan keamanan data pengguna untuk memastikan aplikasi tetap relevan dengan kebutuhan di lapangan. Melalui pengembangan yang berkelanjutan, kami berharap aplikasi ini dapat menjadi platform utama dalam mendukung Bawaslu menjalankan tugasnya dengan lebih baik, tidak hanya di Kota Batu tetapi juga di wilayah lain yang membutuhkan solusi serupa.
+
+\n\nDengan dedikasi yang kuat dan semangat untuk memberikan kontribusi nyata dalam pelaksanaan pemilu yang lebih baik, Kaftapus Srigala Asia dan Bawaslu Kota Batu bangga untuk mempersembahkan aplikasi ini sebagai bagian dari upaya bersama menuju demokrasi yang lebih maju.</string>
 </resources>

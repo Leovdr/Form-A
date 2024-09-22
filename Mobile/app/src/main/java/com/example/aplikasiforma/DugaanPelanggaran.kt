@@ -2,9 +2,11 @@ package com.example.aplikasiforma
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -37,12 +39,38 @@ class DugaanPelanggaran : AppCompatActivity() {
             val dugaanPelanggaranData = getDugaanPelanggaranData()
             uploadDugaanPelanggaranToDatabase(dugaanPelanggaranData) { success ->
                 if (success) {
+                    Toast.makeText(this, "Data berhasil dikirim ke server.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, PotensiSengketa::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(this, "Gagal mengirim data ke server.", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        // Set up the checkbox listeners to toggle visibility of corresponding layouts
+        setCheckboxListener(findViewById(R.id.checkboxPeristiwa), findViewById(R.id.layoutPeristiwa))
+        setCheckboxListener(findViewById(R.id.checkboxTempatkejadian), findViewById(R.id.layoutTempatkejadian))
+        setCheckboxListener(findViewById(R.id.checkboxWaktukejadian), findViewById(R.id.layoutWaktukejadian))
+        setCheckboxListener(findViewById(R.id.checkboxPelaku), findViewById(R.id.layoutPelaku))
+        setCheckboxListener(findViewById(R.id.checkboxAlamat), findViewById(R.id.layoutAlamat))
+        setCheckboxListener(findViewById(R.id.checkboxPasal), findViewById(R.id.layoutPasal))
+        setCheckboxListener(findViewById(R.id.checkboxNama1), findViewById(R.id.layoutNama1))
+        setCheckboxListener(findViewById(R.id.checkboxAlamatsaksi1), findViewById(R.id.layoutAlamatsaksi1))
+        setCheckboxListener(findViewById(R.id.checkboxNama2), findViewById(R.id.layoutNama2))
+        setCheckboxListener(findViewById(R.id.checkboxAlamatsaksi2), findViewById(R.id.layoutAlamatsaksi2))
+        setCheckboxListener(findViewById(R.id.checkboxBarangbukti), findViewById(R.id.layoutBarangbukti))
+        setCheckboxListener(findViewById(R.id.checkboxUraian), findViewById(R.id.layoutUraian))
+        setCheckboxListener(findViewById(R.id.checkboxJenis), findViewById(R.id.layoutJenis))
+        setCheckboxListener(findViewById(R.id.checkboxFakta), findViewById(R.id.layoutFakta))
+        setCheckboxListener(findViewById(R.id.checkboxAnalisa), findViewById(R.id.layoutAnalisa))
+        setCheckboxListener(findViewById(R.id.checkboxTindak), findViewById(R.id.layoutTindak))
+    }
+
+    // Fungsi untuk mengatur visibilitas layout berdasarkan checkbox
+    private fun setCheckboxListener(checkbox: CheckBox, layout: LinearLayout) {
+        checkbox.setOnCheckedChangeListener { _, isChecked ->
+            layout.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
     }
 

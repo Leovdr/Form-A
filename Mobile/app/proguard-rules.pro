@@ -21,3 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.example.aplikasiforma.TandaTangan { *; }
+-keep class com.google.android.gms.** { *; }
+-keep class com.google.firebase.** { *; }
+

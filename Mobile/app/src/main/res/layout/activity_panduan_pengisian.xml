@@ -29,6 +29,7 @@
         android:layout_marginLeft="10dp" />
 
     <TextView
+        android:id="@+id/tvpanduan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Panduan Pengisian"
@@ -45,14 +46,15 @@
     <FrameLayout
         android:id="@+id/white_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="700dp"
         android:background="@android:color/white"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/back_button"
+        app:layout_constraintTop_toBottomOf="@id/tvpanduan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- CardView berada di dalam frame putih -->
         <androidx.cardview.widget.CardView
@@ -92,7 +94,85 @@
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pp1"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Untuk melanjutkan atau kembali pada form tekan next/ previous. Untuk melanjutkan wajib mengisi semua form terlebih dahulu, jika tidak maka muncul notifikasi seperti berikut."/>
+                    
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pp2"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Langkah 1: Pengisian Informasi Pengawas\n\n1. Pengisian Nomor Surat\n\nMasukkan Nomor Surat sesuai dengan nomor referensi yang diberikan atau sesuai dengan format yang berlaku. Pastikan nomor ini diisi dengan benar dan sesuai urutan."/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pp3"
+                        android:layout_gravity="center"/>
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/panduanpengisian1"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pp4"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/panduanpengisian2"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pp5"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Langkah 5: Pengisian Lampiran \n\n1. Jika Anda memiliki lampiran gambar yang ingin ditambahkan ke dalam laporan, seperti foto kejadian atau bukti pendukung, Anda dapat mengunggah file tersebut di bagian Lampiran.
+\n2. Pastikan ukuran file sesuai dengan batas yang ditentukan aplikasi, dan format file diterima (misalnya, JPG, PNG, Jpeg.).
+\n3. Tekan tombol pilih gambar nantinya akan diarahkan langsung ke galeri anda, Ketika selesai pastikan gambar muncul pada aplikasi untuk mengganti atau menghapus tekan clear." />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pp6"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Langkah 6: Simpan Hasil/Export Document
+\n\n1. Setelah semua informasi diisi dengan benar, periksa kembali seluruh isian form untuk memastikan tidak ada kesalahan.
+\n2. Setelah yakin, klik tombol Simpan atau Export Dokumen pada bagian bawah untuk menyimpan hasil pengisian, file hasil yang disimpan berupa word.
+\n3. Pastikan form tersimpan dengan baik dan dapat diakses kembali kapan saja."/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pp7"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Panduan ini membantu memastikan bahwa setiap pengguna aplikasi Form A Bawaslu dapat mengisi semua bagian dengan benar dan sesuai prosedur."/>
                 </LinearLayout>
 
             </ScrollView>

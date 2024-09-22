@@ -22,64 +22,76 @@
         android:id="@+id/back_button"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp"
         android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp" />
 
-    <!-- Frame putih untuk menampung konten -->
+    <TextView
+        android:id="@+id/tvkebijakan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kebijakan Privasi"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="36dp"
+        android:textColor="@color/white"
+        android:gravity="center"/>
+
+    <!-- Frame putih untuk menampung CardView -->
     <FrameLayout
         android:id="@+id/white_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="16dp"
+        android:layout_height="700dp"
         android:background="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvkebijakan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back_button">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- CardView berisi judul -->
+        <!-- CardView berada di dalam frame putih -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:elevation="4dp"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            android:layout_margin="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- ScrollView for Long Text -->
+            <ScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:padding="16dp"
-                android:text="Kebijakan Privasi"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14dp" />
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center|top"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="left|center"
+                        android:text="@string/kebijakan_privasi"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+            </ScrollView>
+
         </androidx.cardview.widget.CardView>
+
     </FrameLayout>
-
-    <!-- ScrollView untuk teks panjang -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/white_frame"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/kebijakan_privasi"/>
-
-        </LinearLayout>
-
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

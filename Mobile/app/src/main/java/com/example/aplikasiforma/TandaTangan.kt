@@ -2,6 +2,7 @@ package com.example.aplikasiforma
 
 import android.Manifest
 import android.app.ProgressDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,7 +22,6 @@ import com.android.volley.toolbox.Volley
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import org.json.JSONObject
 import java.io.*
 
 class TandaTangan : AppCompatActivity() {
@@ -65,7 +65,7 @@ class TandaTangan : AppCompatActivity() {
 
         // Inisialisasi progress dialog
         progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Mengunggah dokumen...")
+        progressDialog.setMessage("Proses sedang berlangsung...")
         progressDialog.setCancelable(false)
 
         // Fungsi untuk tombol Clear, membersihkan tanda tangan
@@ -94,7 +94,7 @@ class TandaTangan : AppCompatActivity() {
 
         // Aksi untuk tombol Next: Ekspor dokumen Word dan unggah ke server
         btnNext.setOnClickListener {
-            progressDialog.show()
+            progressDialog.show() // Menampilkan progress dialog
             val file = exportToWord()
             if (file != null) {
                 // Ambil nomor_surat dari SharedPreferences
@@ -147,10 +147,16 @@ class TandaTangan : AppCompatActivity() {
             Response.Listener { response ->
                 val responseStr = String(response.data)
                 Log.d("UPLOAD_RESPONSE", responseStr)
-                progressDialog.dismiss()
                 if (responseStr.contains("success")) {
+                    progressDialog.dismiss()
                     Toast.makeText(this, "Dokumen berhasil diunggah", Toast.LENGTH_SHORT).show()
+                    // Intent ke HomeActivity jika berhasil unggah
+                    val intent = Intent(this@TandaTangan, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish() // Mengakhiri activity ini setelah intent
                 } else {
+                    progressDialog.dismiss()
                     Toast.makeText(this, "Gagal mengunggah dokumen", Toast.LENGTH_SHORT).show()
                 }
             },
@@ -180,7 +186,6 @@ class TandaTangan : AppCompatActivity() {
                 return params
             }
 
-
             override fun getParams(): Map<String, String> {
                 val params = HashMap<String, String>()
                 params["uid"] = uid
@@ -191,7 +196,6 @@ class TandaTangan : AppCompatActivity() {
         }
         requestQueue.add(multipartRequest)
     }
-
 
     private fun exportToWord(): File? {
         val nomorSurat = preferencesHelper.getNomorSurat()?.takeIf { it.isNotBlank() } ?: "default_document"
@@ -255,19 +259,6 @@ class TandaTangan : AppCompatActivity() {
             Log.e("FILE_EXPORT_ERROR", "Gagal menulis file: ${e.message}")
             return null
         }
-    }
-
-    private fun createTempFileFromUri(uri: Uri): File {
-        val inputStream = contentResolver.openInputStream(uri)
-        val tempFile = File.createTempFile("tempImage", ".jpg", cacheDir)
-
-        inputStream.use { input ->
-            FileOutputStream(tempFile).use { output ->
-                input?.copyTo(output)
-            }
-        }
-
-        return tempFile
     }
 
     private fun bitmapToBase64(bitmap: Bitmap): String {

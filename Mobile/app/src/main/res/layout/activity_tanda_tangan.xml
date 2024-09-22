@@ -189,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:padding="10dp"
-            android:text="Next"
+            android:text="Upload dan Export Data"
             android:textColor="@color/white"
             android:backgroundTint="@color/colorPrimary"
             android:textAllCaps="false"
