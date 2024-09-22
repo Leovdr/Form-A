@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.widget.Button
@@ -18,10 +17,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
 
 class TandaTangan : AppCompatActivity() {
 
@@ -117,66 +114,68 @@ class TandaTangan : AppCompatActivity() {
 
     // Fungsi untuk mengekspor dokumen Word
     private fun exportToWord() {
+        // Ambil nomor surat dan pastikan valid
+        val nomorSurat = preferencesHelper.getNomorSurat()?.takeIf { it.isNotBlank() } ?: "default_document"
+
+        // Buat direktori untuk menyimpan file dokumen
         val fileDir = File(getExternalFilesDir(null), "Documents")
         if (!fileDir.exists()) {
             fileDir.mkdirs()  // Buat direktori jika belum ada
         }
 
-        val fileName = "${preferencesHelper.getNomorSurat()}.docx"
+        // Gunakan nomor surat sebagai nama file
+        val fileName = "$nomorSurat.docx"
         val file = File(fileDir, fileName)
 
         try {
             val fileOutputStream = FileOutputStream(file)
-            // Lanjutkan dengan menulis ke dalam file
+
+            // Ambil data yang diperlukan untuk DocumentData dari SharedPreferences
+            val documentData = DocumentData(
+                noSurat = nomorSurat,
+                namaPelaksana = preferencesHelper.getNamaPelaksana() ?: "N/A",
+                jabatan = preferencesHelper.getJabatan() ?: "N/A",
+                nomorSuratperintah = preferencesHelper.getNomorSuratPerintah() ?: "N/A",
+                alamat = preferencesHelper.getAlamat() ?: "N/A",
+                jenisPemilihan = preferencesHelper.getJenisPemilihan() ?: "N/A",
+                tahapanPemilihan = preferencesHelper.getTahapanPemilihan() ?: "N/A",
+                bentuk = preferencesHelper.getBentukPengawasan() ?: "N/A",
+                tujuan = preferencesHelper.getTujuanPengawasan() ?: "N/A",
+                sasaran = preferencesHelper.getSasaranPengawasan() ?: "N/A",
+                waktuTempat = preferencesHelper.getWaktuTempatPengawasan() ?: "N/A",
+                hasilPengawasan = preferencesHelper.getUraianSingkat() ?: "N/A",
+                dugaanPelanggaran = mapOf(),  // Sesuaikan ini dengan data Dugaan Pelanggaran
+                potensiSengketa = mapOf()     // Sesuaikan ini dengan data Potensi Sengketa
+            )
+
+            // Ambil daftar gambar dari SharedPreferences yang disimpan dari Activity lain
+            val selectedImages = preferencesHelper.getImageUris().mapNotNull { uri ->
+                try {
+                    contentResolver.openInputStream(uri)?.use {
+                        BitmapFactory.decodeStream(it)
+                    }
+                } catch (e: SecurityException) {
+                    e.printStackTrace()
+                    null
+                }
+            }
+
+            // Panggil DocumentGenerator untuk membuat dokumen
+            val success = documentGenerator.generateAndSaveDocument(
+                data = documentData,
+                signatureFilePath = null,  // Jika Anda ingin menggunakan path file, sesuaikan
+                signatureBitmap = signaturePad.signatureBitmap, // Ambil tanda tangan dari SignaturePad
+                selectedImages = selectedImages  // Gambar yang dipilih
+            )
+
+            if (success) {
+                Toast.makeText(this, "Dokumen berhasil diekspor sebagai $fileName", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Gagal mengekspor dokumen", Toast.LENGTH_SHORT).show()
+            }
         } catch (e: IOException) {
             e.printStackTrace()
-        }
-
-        // Ambil data yang diperlukan untuk DocumentData dari SharedPreferences
-        val documentData = DocumentData(
-            noSurat = preferencesHelper.getNomorSurat() ?: "N/A",
-            namaPelaksana = preferencesHelper.getNamaPelaksana() ?: "N/A",
-            jabatan = preferencesHelper.getJabatan() ?: "N/A",
-            nomorSuratperintah = preferencesHelper.getNomorSuratPerintah() ?: "N/A",
-            alamat = preferencesHelper.getAlamat() ?: "N/A",
-            jenisPemilihan = preferencesHelper.getJenisPemilihan() ?: "N/A",
-            tahapanPemilihan = preferencesHelper.getTahapanPemilihan() ?: "N/A",
-            bentuk = preferencesHelper.getBentukPengawasan() ?: "N/A",
-            tujuan = preferencesHelper.getTujuanPengawasan() ?: "N/A",
-            sasaran = preferencesHelper.getSasaranPengawasan() ?: "N/A",
-            waktuTempat = preferencesHelper.getWaktuTempatPengawasan() ?: "N/A",
-            hasilPengawasan = preferencesHelper.getUraianSingkat() ?: "N/A",
-            dugaanPelanggaran = mapOf(),  // Sesuaikan ini dengan data Dugaan Pelanggaran
-            potensiSengketa = mapOf()     // Sesuaikan ini dengan data Potensi Sengketa
-        )
-
-        // Ambil daftar gambar dari SharedPreferences yang disimpan dari Activity lain
-        val selectedImages = preferencesHelper.getImageUris().mapNotNull { uri ->
-            try {
-                contentResolver.openInputStream(uri)?.use {
-                    BitmapFactory.decodeStream(it)
-                }
-            } catch (e: SecurityException) {
-                e.printStackTrace()
-                null
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-                null
-            }
-        }
-
-        // Panggil DocumentGenerator untuk membuat dokumen
-        val success = documentGenerator.generateAndSaveDocument(
-            data = documentData,
-            signatureFilePath = null,  // Jika Anda ingin menggunakan path file, sesuaikan
-            signatureBitmap = signaturePad.signatureBitmap, // Ambil tanda tangan dari SignaturePad
-            selectedImages = selectedImages  // Gambar yang dipilih
-        )
-
-        if (success) {
-            Toast.makeText(this, "Dokumen berhasil diekspor", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Gagal mengekspor dokumen", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Gagal membuat file dokumen", Toast.LENGTH_SHORT).show()
         }
     }
 

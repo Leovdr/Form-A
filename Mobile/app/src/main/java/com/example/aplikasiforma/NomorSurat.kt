@@ -31,21 +31,22 @@ class NomorSurat : AppCompatActivity() {
         btnNext = findViewById(R.id.btnNext)
         btnPrevious = findViewById(R.id.btnPrevious)
 
-        // Ambil data yang sudah disimpan di SharedPreferences jika ada
-        val savedNomorSurat = preferencesHelper.getNomorSurat()
-        if (savedNomorSurat != null) {
-            etNosurat.setText(savedNomorSurat)
-        }
+        // Ambil data dari SharedPreferences jika tersedia
+        loadDataFromSharedPreferences()
 
         // Aksi tombol Next
         btnNext.setOnClickListener {
-            val nomorSurat = etNosurat.text.toString()
+            val nomorSurat = etNosurat.text.toString().trim()
 
             if (nomorSurat.isNotEmpty()) {
+                // Simpan data ke SharedPreferences
+                preferencesHelper.saveNomorSurat(nomorSurat)
+
+                // Upload data ke database
                 uploadNomorSuratToDatabase(nomorSurat) { success ->
                     if (success) {
+                        Toast.makeText(this, "Data berhasil disimpan ke server", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, DataPengawas::class.java)
-                        intent.putExtra("nomor_surat", nomorSurat)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this, "Gagal menyimpan Nomor Surat ke database.", Toast.LENGTH_SHORT).show()
@@ -56,18 +57,21 @@ class NomorSurat : AppCompatActivity() {
             }
         }
 
-
         // Aksi tombol Previous
         btnPrevious.setOnClickListener {
-            // Simpan data ke SharedPreferences sebelum kembali
             preferencesHelper.saveNomorSurat(etNosurat.text.toString())
             finish() // Kembali ke halaman sebelumnya
         }
     }
 
+    // Fungsi untuk memuat data dari SharedPreferences
+    private fun loadDataFromSharedPreferences() {
+        etNosurat.setText(preferencesHelper.getNomorSurat())
+    }
+
     private fun uploadNomorSuratToDatabase(nomorSurat: String, callback: (Boolean) -> Unit) {
         val url = "https://kaftapus.web.id/api/save_nosurat.php"
-        val uid = preferencesHelper.getUid()
+        val uid = auth.currentUser?.uid
 
         if (uid.isNullOrEmpty()) {
             Toast.makeText(this, "UID tidak ditemukan", Toast.LENGTH_SHORT).show()
@@ -98,8 +102,6 @@ class NomorSurat : AppCompatActivity() {
 
         requestQueue.add(stringRequest)
     }
-
-
 
     // Simpan data saat Activity dihancurkan
     override fun onDestroy() {

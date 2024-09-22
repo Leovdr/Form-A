@@ -60,6 +60,7 @@ class UraianSingkat : AppCompatActivity() {
 
         // Aksi tombol Previous
         btnPrevious.setOnClickListener {
+            preferencesHelper.saveUraianSingkat(etUraianSingkat.text.toString())
             finish() // Kembali ke halaman sebelumnya
         }
     }
