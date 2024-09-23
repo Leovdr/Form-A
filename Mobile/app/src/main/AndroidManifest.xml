@@ -25,31 +25,31 @@
             android:name=".TentangKami"
             android:exported="false" />
         <activity
-            android:name=".Lampiran"
+            android:name=".pengisian.Lampiran"
             android:exported="false" />
         <activity
-            android:name=".TandaTangan"
+            android:name=".pengisian.TandaTangan"
             android:exported="false" />
         <activity
-            android:name=".PotensiSengketa"
+            android:name=".pengisian.PotensiSengketa"
             android:exported="false" />
         <activity
-            android:name=".DugaanPelanggaran"
+            android:name=".pengisian.DugaanPelanggaran"
             android:exported="false" />
         <activity
-            android:name=".UraianSingkat"
+            android:name=".pengisian.UraianSingkat"
             android:exported="false" />
         <activity
-            android:name=".KegiatanPengawasan"
+            android:name=".pengisian.KegiatanPengawasan"
             android:exported="false" />
         <activity
-            android:name=".JenisTahapan"
+            android:name=".pengisian.JenisTahapan"
             android:exported="false" />
         <activity
-            android:name=".DataPengawas"
+            android:name=".pengisian.DataPengawas"
             android:exported="false" />
         <activity
-            android:name=".NomorSurat"
+            android:name=".pengisian.NomorSurat"
             android:exported="false" />
         <activity
             android:name=".KebijakanPrivasi"
