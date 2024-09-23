@@ -19,10 +19,8 @@
         android:roundIcon="@mipmap/applogo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AplikasiFormA"
-        tools:targetApi="31">
-        <activity
-            android:name=".Riwayat"
-            android:exported="false" />
+        tools:targetApi="31"
+        android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".TentangKami"
             android:exported="false" />

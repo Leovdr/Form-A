@@ -7,12 +7,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.firebase.auth.FirebaseAuth
+import org.json.JSONObject
 
 class FragmentProfil : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var preferencesHelper: PreferencesHelper
+    private lateinit var namaTextView: TextView
+    private lateinit var emailTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +39,21 @@ class FragmentProfil : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profil, container, false)
 
+        namaTextView = view.findViewById(R.id.namaprofile)
+        emailTextView = view.findViewById(R.id.emailprofile)
+
+        val currentUser = auth.currentUser
+        val uid = currentUser?.uid
+        val email = currentUser?.email
+
+        if (uid != null) {
+            fetchUserProfile(uid)
+        }
+
+        if (email != null) {
+            emailTextView.text = email
+        }
+
         // Mencari button logout
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
         btnLogout.setOnClickListener {
@@ -38,6 +62,38 @@ class FragmentProfil : Fragment() {
 
         return view
     }
+
+    private fun fetchUserProfile(uid: String) {
+        val url = "https://kaftapus.web.id/api/get_fullname.php?uid=$uid"
+
+        val stringRequest = StringRequest(
+            Request.Method.GET, url,
+            Response.Listener { response ->
+                try {
+                    val jsonObject = JSONObject(response)
+                    val status = jsonObject.getString("status")
+                    if (status == "success") {
+                        val fullname = jsonObject.getString("fullname")
+                        val email = jsonObject.getString("email")  // Handle email not found case
+                        view?.findViewById<TextView>(R.id.namaprofile)?.text = fullname
+                        view?.findViewById<TextView>(R.id.emailprofile)?.text = email
+                    } else {
+                        Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(requireContext(), "Error parsing data", Toast.LENGTH_SHORT).show()
+                }
+            },
+            Response.ErrorListener { error ->
+                error.printStackTrace()
+                Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+            })
+
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        requestQueue.add(stringRequest)
+    }
+
 
     private fun logout() {
         // Hapus status login dari SharedPreferences
