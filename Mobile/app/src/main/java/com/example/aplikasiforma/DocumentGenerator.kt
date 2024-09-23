@@ -510,12 +510,13 @@ class DocumentGenerator(private val context: Context) {
             try {
                 val run = document.createParagraph().createRun()
                 ParagraphAlignment.CENTER
+                run.addBreak() // Tambahkan line break sebelum gambar jika diperlukan
                 run.addPicture(
                     ByteArrayInputStream(imageData),
                     XWPFDocument.PICTURE_TYPE_PNG,
                     "Image.png",
-                    Units.toEMU(200.0),
-                    Units.toEMU(200.0)
+                    Units.toEMU(350.0), // Sesuaikan ukuran gambar di sini
+                    Units.toEMU(300.0)
                 )
             } catch (e: Exception) {
                 Log.e("DocumentGenerator", "Error adding image: ${e.message}")

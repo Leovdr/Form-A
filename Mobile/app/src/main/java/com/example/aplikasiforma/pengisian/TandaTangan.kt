@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -42,6 +43,7 @@ class TandaTangan : AppCompatActivity() {
     private lateinit var documentGenerator: DocumentGenerator
 
     private lateinit var progressDialog: ProgressDialog
+    private val selectedImages = mutableListOf<Bitmap>() // List untuk menyimpan gambar yang dikonversi ke Bitmap
 
     companion object {
         const val REQUEST_CODE_READ_STORAGE = 1001
@@ -70,6 +72,9 @@ class TandaTangan : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog.setMessage("Proses sedang berlangsung...")
         progressDialog.setCancelable(false)
+
+        // Ambil gambar yang tersimpan di SharedPreferences
+        loadSavedImagesFromPreferences()
 
         // Fungsi untuk tombol Clear, membersihkan tanda tangan
         btnClearSignature.setOnClickListener {
@@ -124,6 +129,28 @@ class TandaTangan : AppCompatActivity() {
 
         // Cek dan minta izin akses penyimpanan jika diperlukan
         checkAndRequestPermissions()
+    }
+
+    // Fungsi untuk memuat gambar yang tersimpan di SharedPreferences
+    private fun loadSavedImagesFromPreferences() {
+        val imageUris = preferencesHelper.getImageUris() // Ambil URI yang tersimpan dari SharedPreferences
+        imageUris.forEach { uri ->
+            val bitmap = uriToBitmap(uri) // Ubah URI menjadi Bitmap
+            if (bitmap != null) {
+                selectedImages.add(bitmap) // Simpan bitmap ke dalam list selectedImages
+            }
+        }
+    }
+
+    // Fungsi untuk mengonversi URI ke Bitmap
+    private fun uriToBitmap(uri: Uri): Bitmap? {
+        return try {
+            val inputStream = contentResolver.openInputStream(uri)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            Log.e("TandaTangan", "Failed to convert URI to Bitmap: ${e.message}")
+            null
+        }
     }
 
     private fun checkAndRequestPermissions() {
@@ -236,7 +263,7 @@ class TandaTangan : AppCompatActivity() {
                     data = documentData,
                     signatureFilePath = null,
                     signatureBitmap = signaturePad.signatureBitmap,
-                    selectedImages = listOf()
+                    selectedImages = selectedImages // Gambar dari SharedPreferences dikirimkan untuk diekspor
                 )
 
                 if (success) {

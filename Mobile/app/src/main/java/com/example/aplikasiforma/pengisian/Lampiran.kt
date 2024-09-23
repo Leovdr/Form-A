@@ -1,6 +1,5 @@
 package com.example.aplikasiforma.pengisian
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aplikasiforma.ImageAdapter
 import com.example.aplikasiforma.PreferencesHelper
 import com.example.aplikasiforma.R
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 
 class Lampiran : AppCompatActivity() {
 
@@ -26,7 +28,6 @@ class Lampiran : AppCompatActivity() {
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var pickImagesLauncher: ActivityResultLauncher<Intent>
     private lateinit var preferencesHelper: PreferencesHelper
-    private lateinit var progressDialog: ProgressDialog // ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +41,6 @@ class Lampiran : AppCompatActivity() {
         btnNext = findViewById(R.id.btnNext)
         preferencesHelper = PreferencesHelper(this)
 
-        // Inisialisasi ProgressDialog
-        progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Memproses gambar...")
-        progressDialog.setCancelable(false)
-
         // Setup RecyclerView dengan GridLayoutManager
         recyclerView.layoutManager = GridLayoutManager(this, 3)
         imageAdapter = ImageAdapter(this, selectedImages)
@@ -56,20 +52,24 @@ class Lampiran : AppCompatActivity() {
 
         // Setup ActivityResultLauncher untuk memilih gambar
         pickImagesLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            progressDialog.show()  // Tampilkan ProgressDialog saat gambar dipilih
             if (result.resultCode == RESULT_OK && result.data != null) {
                 val clipData = result.data!!.clipData
                 if (clipData != null) {
                     val startIndex = selectedImages.size
                     for (i in 0 until clipData.itemCount) {
                         val imageUri = clipData.getItemAt(i).uri
-                        selectedImages.add(imageUri)
-                        imageAdapter.notifyItemInserted(selectedImages.size - 1) // Efficient update
+                        // Pastikan tidak ada duplikasi
+                        if (!selectedImages.contains(imageUri)) {
+                            selectedImages.add(imageUri)
+                            imageAdapter.notifyItemInserted(selectedImages.size - 1) // Efficient update
+                        }
                     }
                 } else {
                     result.data?.data?.let { imageUri ->
-                        selectedImages.add(imageUri)
-                        imageAdapter.notifyItemInserted(selectedImages.size - 1) // Efficient update
+                        if (!selectedImages.contains(imageUri)) {
+                            selectedImages.add(imageUri)
+                            imageAdapter.notifyItemInserted(selectedImages.size - 1) // Efficient update
+                        }
                     }
                 }
 
@@ -77,7 +77,6 @@ class Lampiran : AppCompatActivity() {
                 preferencesHelper.saveImageUris(selectedImages)
                 Toast.makeText(this, "${selectedImages.size} gambar dipilih", Toast.LENGTH_SHORT).show()
             }
-            progressDialog.dismiss()  // Sembunyikan ProgressDialog setelah proses selesai
         }
 
         // Tombol Pilih Gambar
@@ -102,6 +101,7 @@ class Lampiran : AppCompatActivity() {
         // Tombol Next untuk membuka aktivitas berikutnya
         btnNext.setOnClickListener {
             val intent = Intent(this, TandaTangan::class.java)
+            intent.putParcelableArrayListExtra("selectedImages", ArrayList(selectedImages)) // Kirimkan gambar sebagai extra
             startActivity(intent)  // Berpindah ke aktivitas berikutnya
         }
     }

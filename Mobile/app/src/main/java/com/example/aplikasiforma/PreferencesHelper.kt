@@ -202,7 +202,6 @@ class PreferencesHelper(context: Context) {
         editor.apply()
     }
 
-    // Fungsi untuk mendapatkan daftar URI gambar yang disimpan
     fun getImageUris(): List<Uri> {
         val uriStrings = sharedPreferences.getStringSet(IMAGES_URI_LIST, emptySet()) ?: emptySet()
         return uriStrings.map { Uri.parse(it) }
