@@ -11,7 +11,7 @@
         android:id="@+id/logogetstart"
         android:layout_width="225dp"
         android:layout_height="225dp"
-        android:src="@drawable/logogetstart"
+        android:src="@drawable/logobws"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
@@ -34,7 +34,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins"
-        android:text="Best and Simple App to work from home"
+        android:text="Bersama Rakyat Awasi Pemilu\nBersama Bawaslu Tegakkan Keadilan Pemilu"
+        android:gravity="center"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
