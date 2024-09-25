@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.example.aplikasiforma.PreferencesHelper
 import com.example.aplikasiforma.R
 import com.google.android.material.textfield.TextInputEditText
@@ -59,25 +57,18 @@ class DataPengawas : AppCompatActivity() {
             val alamat = etAlamat.text.toString()
 
             if (namaPelaksana.isNotEmpty() && jabatan.isNotEmpty() && nomorSuratPerintah.isNotEmpty() && alamat.isNotEmpty()) {
-                // Tampilkan ProgressDialog saat mulai proses unggah
+                // Tampilkan ProgressDialog saat mulai proses menyimpan data
                 progressDialog.show()
 
                 // Simpan data ke SharedPreferences
                 preferencesHelper.saveDataPengawas(namaPelaksana, jabatan, nomorSuratPerintah, alamat)
 
-                // Upload data ke database
-                uploadDataPengawasToDatabase(namaPelaksana, jabatan, nomorSuratPerintah, alamat) { success ->
-                    // Selalu dismiss ProgressDialog setelah proses selesai
-                    progressDialog.dismiss()
+                // Dismiss ProgressDialog setelah proses selesai
+                progressDialog.dismiss()
 
-                    if (success) {
-                        val intent = Intent(this, JenisTahapan::class.java)
-                        intent.putExtra("nama_pelaksana", namaPelaksana)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, "Gagal menyimpan data ke server.", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                val intent = Intent(this, JenisTahapan::class.java)
+                intent.putExtra("nama_pelaksana", namaPelaksana)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
             }
@@ -94,54 +85,5 @@ class DataPengawas : AppCompatActivity() {
         etJabatan.setText(preferencesHelper.getJabatan())
         etNomorSuratPerintah.setText(preferencesHelper.getNomorSuratPerintah())
         etAlamat.setText(preferencesHelper.getAlamat())
-    }
-
-    private fun uploadDataPengawasToDatabase(
-        namaPelaksana: String,
-        jabatan: String,
-        nomorSuratPerintah: String,
-        alamat: String,
-        callback: (Boolean) -> Unit
-    ) {
-        val url = "https://kaftapus.web.id/api/save_datapengawas.php" // Ganti dengan URL endpoint PHP Anda
-
-        // Ambil UID pengguna dari Firebase Authentication
-        val uid = auth.currentUser?.uid
-
-        if (uid != null) {
-            val requestQueue = Volley.newRequestQueue(this)
-            val stringRequest = object : StringRequest(
-                Method.POST, url,
-                { response ->
-                    // Jika respons berhasil
-                    if (response.contains("success")) {
-                        callback(true)
-                    } else {
-                        callback(false)
-                    }
-                },
-                { error ->
-                    // Jika terjadi kesalahan
-                    error.printStackTrace()
-                    Toast.makeText(this@DataPengawas, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
-                    callback(false)
-                }) {
-                override fun getParams(): Map<String, String> {
-                    val params = HashMap<String, String>()
-                    params["uid"] = uid // Kirim UID pengguna
-                    params["nama_pelaksana"] = namaPelaksana
-                    params["jabatan"] = jabatan
-                    params["nomor_suratperintah"] = nomorSuratPerintah
-                    params["alamat"] = alamat
-                    return params
-                }
-            }
-
-            // Tambahkan request ke antrian
-            requestQueue.add(stringRequest)
-        } else {
-            Toast.makeText(this, "Gagal mendapatkan UID pengguna. Pastikan Anda telah login.", Toast.LENGTH_SHORT).show()
-            callback(false)
-        }
     }
 }

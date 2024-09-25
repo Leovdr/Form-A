@@ -460,7 +460,7 @@ class DocumentGenerator(private val context: Context) {
             signatureParagraph.alignment = ParagraphAlignment.CENTER
             val signatureRun = signatureParagraph.createRun()
             val outputStream = ByteArrayOutputStream()
-            signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            signatureBitmap.compress(Bitmap.CompressFormat.PNG, 50, outputStream)
             val imageData = outputStream.toByteArray()
             try {
                 signatureRun.addPicture(

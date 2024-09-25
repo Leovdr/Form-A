@@ -10,10 +10,6 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.example.aplikasiforma.R
 import com.google.firebase.auth.FirebaseAuth
 
@@ -31,7 +27,7 @@ class DugaanPelanggaran : AppCompatActivity() {
 
         // Inisialisasi ProgressDialog
         progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Mengunggah data...")
+        progressDialog.setMessage("Menyimpan data...")
         progressDialog.setCancelable(false) // Tidak bisa di-cancel oleh pengguna
 
         // Button Previous
@@ -46,21 +42,18 @@ class DugaanPelanggaran : AppCompatActivity() {
         btnNext.setOnClickListener {
             val dugaanPelanggaranData = getDugaanPelanggaranData()
 
-            // Tampilkan ProgressDialog sebelum memulai upload
+            // Tampilkan ProgressDialog sebelum memulai penyimpanan lokal
             progressDialog.show()
 
-            uploadDugaanPelanggaranToDatabase(dugaanPelanggaranData) { success ->
-                // Sembunyikan ProgressDialog setelah proses selesai
-                progressDialog.dismiss()
+            // Simpan data ke SharedPreferences atau lokal (hilangkan upload ke database)
+            saveDugaanPelanggaranLocally(dugaanPelanggaranData)
 
-                if (success) {
-                    Toast.makeText(this, "Data berhasil dikirim ke server.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, PotensiSengketa::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "Gagal mengirim data ke server.", Toast.LENGTH_SHORT).show()
-                }
-            }
+            // Sembunyikan ProgressDialog setelah proses selesai
+            progressDialog.dismiss()
+
+            Toast.makeText(this, "Data berhasil disimpan.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, PotensiSengketa::class.java)
+            startActivity(intent)
         }
 
         // Set up the checkbox listeners to toggle visibility of corresponding layouts
@@ -116,36 +109,9 @@ class DugaanPelanggaran : AppCompatActivity() {
         return if (checkbox.isChecked) editText.text.toString() else "Nihil"
     }
 
-    // Fungsi untuk mengirimkan data Dugaan Pelanggaran ke server
-    private fun uploadDugaanPelanggaranToDatabase(dugaanPelanggaranData: Map<String, String>, callback: (Boolean) -> Unit) {
-        val url = "https://kaftapus.web.id/api/save_dugaanpelanggaran.php"
-        val uid = auth.currentUser?.uid
-
-        if (uid != null) {
-            val requestQueue = Volley.newRequestQueue(this)
-            val stringRequest = object : StringRequest(Request.Method.POST, url,
-                Response.Listener { response ->
-                    if (response.contains("success")) {
-                        callback(true)
-                    } else {
-                        callback(false)
-                    }
-                },
-                Response.ErrorListener { error ->
-                    error.printStackTrace()
-                    callback(false)
-                }) {
-                override fun getParams(): Map<String, String> {
-                    val params = HashMap<String, String>()
-                    params["uid"] = uid
-                    params.putAll(dugaanPelanggaranData)
-                    return params
-                }
-            }
-            requestQueue.add(stringRequest)
-        } else {
-            Toast.makeText(this, "Gagal mendapatkan UID pengguna.", Toast.LENGTH_SHORT).show()
-            callback(false)
-        }
+    // Fungsi untuk menyimpan data Dugaan Pelanggaran secara lokal (misalnya ke SharedPreferences)
+    private fun saveDugaanPelanggaranLocally(dugaanPelanggaranData: Map<String, String>) {
+        // Simpan data secara lokal, misalnya ke SharedPreferences
+        // Implementasikan logika penyimpanan lokal di sini
     }
 }

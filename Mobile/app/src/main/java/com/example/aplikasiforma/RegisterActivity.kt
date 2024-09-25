@@ -22,7 +22,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         auth = FirebaseAuth.getInstance()
-        preferencesHelper = PreferencesHelper(this)  // Inisialisasi PreferencesHelper
+        preferencesHelper = PreferencesHelper(this)
 
         val registerButton = findViewById<Button>(R.id.registerButton)
         val emailField = findViewById<EditText>(R.id.emailEditTextreg)
@@ -40,17 +40,21 @@ class RegisterActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             val uid = auth.currentUser?.uid
                             if (uid != null) {
-                                preferencesHelper.saveUid(uid)  // Simpan UID ke SharedPreferences
+                                // Simpan fullname ke SharedPreferences
+                                preferencesHelper.saveFullname(fullname)
+
+                                // Kirim data registrasi ke server
+                                sendUserDataToServer(uid, email, fullname)
+
+                                Toast.makeText(this, "Registered successfully. Please login.", Toast.LENGTH_SHORT).show()
+
+                                // Setelah registrasi, arahkan pengguna ke LoginActivity untuk login ulang
+                                val intent = Intent(this, LoginActivity::class.java)
+                                startActivity(intent)
+                                finish()
                             }
-
-                            sendUserDataToServer(uid, email, fullname)
-
-                            Toast.makeText(this, "Registered Successfully", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, LoginActivity::class.java)
-                            startActivity(intent)
-                            finish()
                         } else {
-                            Toast.makeText(this, "Registration Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
@@ -61,7 +65,6 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        // Link to LoginActivity
         val tvsignin = findViewById<LinearLayout>(R.id.tvsignin)
         tvsignin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)

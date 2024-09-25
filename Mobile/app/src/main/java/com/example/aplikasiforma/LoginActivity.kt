@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
@@ -62,12 +63,11 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val uid = auth.currentUser?.uid
                         if (uid != null) {
-                            preferencesHelper.saveUid(uid)  // Simpan UID dan status login
+                            // Kirim data login ke server
+                            sendLoginDataToServer(uid, email, "")
+                        } else {
+                            Toast.makeText(this, "Login Failed: UID is null", Toast.LENGTH_SHORT).show()
                         }
-                        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
                     } else {
                         Toast.makeText(this, "Login Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
@@ -118,16 +118,69 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 val user = auth.currentUser
                 val uid = user?.uid
+                val email = user?.email ?: ""
+                val fullname = account.displayName ?: ""  // Ambil fullname dari akun Google
+
                 if (uid != null) {
-                    preferencesHelper.saveUid(uid)  // Simpan UID dan status login
+                    // Kirim data login dan fullname ke server
+                    sendLoginDataToServer(uid, email, fullname)
                 }
+
                 Toast.makeText(this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
             } else {
                 Toast.makeText(this, "Google Sign-In Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // Mengirim data login ke server (dengan fullname)
+    private fun sendLoginDataToServer(uid: String, email: String, fullname: String) {
+        val client = OkHttpClient()
+        val formBody = FormBody.Builder()
+            .add("uid", uid)
+            .add("email", email)
+            .add("fullname", fullname)  // Menambahkan fullname
+            .build()
+
+        val request = Request.Builder()
+            .url("https://kaftapus.web.id/api/login.php")  // Ganti dengan URL API server kamu
+            .post(formBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("LoginActivity", "Error sending login data to server: ${e.message}")
+                runOnUiThread {
+                    Toast.makeText(this@LoginActivity, "Failed to send data to server", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    // Parsing JSON response
+                    val responseBody = response.body?.string()
+                    val jsonObject = JSONObject(responseBody ?: "")
+                    val fullnameFromServer = jsonObject.optString("fullname")  // Ambil fullname dari respons
+                    val userId = jsonObject.optString("user_id")
+
+                    // Simpan fullname dan userId di PreferencesHelper
+                    preferencesHelper.saveFullname(fullnameFromServer)
+                    preferencesHelper.saveUid(userId)
+
+                    runOnUiThread {
+                        Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                        // Pindah ke HomeActivity setelah login sukses
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    Log.e("LoginActivity", "Failed to send login data: ${response.message}")
+                    runOnUiThread {
+                        Toast.makeText(this@LoginActivity, "Server error: ${response.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
     }
 }

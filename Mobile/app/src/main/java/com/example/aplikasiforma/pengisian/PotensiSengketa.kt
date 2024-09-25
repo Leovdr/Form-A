@@ -1,9 +1,7 @@
 package com.example.aplikasiforma.pengisian
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -11,29 +9,13 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.example.aplikasiforma.R
-import com.google.firebase.auth.FirebaseAuth
 
 class PotensiSengketa : AppCompatActivity() {
-
-    private lateinit var auth: FirebaseAuth
-    private lateinit var progressDialog: ProgressDialog // ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_potensi_sengketa)
-
-        // Inisialisasi Firebase Auth
-        auth = FirebaseAuth.getInstance()
-
-        // Inisialisasi ProgressDialog
-        progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Mengunggah data...")
-        progressDialog.setCancelable(false)
 
         // Button Previous
         val btnPrevious: Button = findViewById(R.id.btnPrevious)
@@ -47,21 +29,11 @@ class PotensiSengketa : AppCompatActivity() {
         btnNext.setOnClickListener {
             val potensiSengketaData = getPotensiSengketaData()
 
-            // Tampilkan ProgressDialog sebelum upload
-            progressDialog.show()
+            // Logika setelah menekan tombol Next
+            Toast.makeText(this, "Data berhasil diambil.", Toast.LENGTH_SHORT).show()
 
-            uploadPotensiSengketaToDatabase(potensiSengketaData) { success ->
-                // Sembunyikan ProgressDialog setelah selesai
-                progressDialog.dismiss()
-
-                if (success) {
-                    Toast.makeText(this, "Data berhasil dikirim ke server.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, Lampiran::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this, "Gagal mengirim data ke server.", Toast.LENGTH_SHORT).show()
-                }
-            }
+            val intent = Intent(this, Lampiran::class.java)
+            startActivity(intent)
         }
 
         // Set up checkbox listeners to toggle visibility of corresponding layouts
@@ -99,40 +71,5 @@ class PotensiSengketa : AppCompatActivity() {
     // Fungsi untuk mendapatkan data dari checkbox dan EditText
     private fun getInfo(checkbox: CheckBox, editText: EditText): String {
         return if (checkbox.isChecked) editText.text.toString() else "Nihil"
-    }
-
-    // Fungsi untuk mengirimkan data Potensi Sengketa ke server
-    private fun uploadPotensiSengketaToDatabase(potensiSengketaData: Map<String, String>, callback: (Boolean) -> Unit) {
-        val url = "https://kaftapus.web.id/api/save_potensisengketa.php"
-        val uid = auth.currentUser?.uid
-
-        if (uid != null) {
-            val requestQueue = Volley.newRequestQueue(this)
-            val stringRequest = object : StringRequest(Request.Method.POST, url,
-                Response.Listener { response ->
-                    if (response.contains("success")) {
-                        callback(true)
-                    } else {
-                        callback(false)
-                    }
-                },
-                Response.ErrorListener { error ->
-                    error.printStackTrace()
-                    callback(false)
-                }) {
-                override fun getParams(): Map<String, String> {
-                    val params = HashMap<String, String>()
-                    params["uid"] = uid
-                    params.putAll(potensiSengketaData)
-                    // Tambahkan log untuk data yang dikirim
-                    Log.d("PotensiSengketa", "Data yang dikirim ke server: $params")
-                    return params
-                }
-            }
-            requestQueue.add(stringRequest)
-        } else {
-            Toast.makeText(this, "Gagal mendapatkan UID pengguna.", Toast.LENGTH_SHORT).show()
-            callback(false)
-        }
     }
 }

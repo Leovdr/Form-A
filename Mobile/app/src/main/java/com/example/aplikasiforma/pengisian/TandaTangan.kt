@@ -15,18 +15,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.android.volley.Response
-import com.android.volley.toolbox.Volley
 import com.example.aplikasiforma.DocumentData
 import com.example.aplikasiforma.DocumentGenerator
 import com.example.aplikasiforma.HomeActivity
 import com.example.aplikasiforma.PreferencesHelper
 import com.example.aplikasiforma.R
-import com.example.aplikasiforma.VolleyMultipartRequest
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class TandaTangan : AppCompatActivity() {
 
@@ -38,7 +37,6 @@ class TandaTangan : AppCompatActivity() {
     private lateinit var btnClearSignature: Button
     private lateinit var btnNext: Button
     private lateinit var btnPrevious: Button
-    private lateinit var auth: FirebaseAuth
     private lateinit var preferencesHelper: PreferencesHelper
     private lateinit var documentGenerator: DocumentGenerator
 
@@ -53,8 +51,7 @@ class TandaTangan : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tanda_tangan)
 
-        // Inisialisasi FirebaseAuth, PreferencesHelper, dan DocumentGenerator
-        auth = FirebaseAuth.getInstance()
+        // Inisialisasi PreferencesHelper dan DocumentGenerator
         preferencesHelper = PreferencesHelper(this)
         documentGenerator = DocumentGenerator(this)
 
@@ -100,22 +97,19 @@ class TandaTangan : AppCompatActivity() {
             }
         }
 
-        // Aksi untuk tombol Next: Ekspor dokumen Word dan unggah ke server
+        // Aksi untuk tombol Next: Ekspor dokumen Word
         btnNext.setOnClickListener {
             progressDialog.show() // Menampilkan progress dialog
             val file = exportToWord()
             if (file != null) {
-                // Ambil nomor_surat dari SharedPreferences
-                val nomorSurat = preferencesHelper.getNomorSurat()
-
-                if (!nomorSurat.isNullOrEmpty()) {
-                    uploadFileToServer(file, nomorSurat)
-                } else {
-                    progressDialog.dismiss() // Dismiss progress dialog jika gagal
-                    Toast.makeText(this, "Nomor surat tidak ditemukan di penyimpanan.", Toast.LENGTH_SHORT).show()
-                }
+                progressDialog.dismiss()
+                Toast.makeText(this, "Dokumen berhasil diekspor", Toast.LENGTH_SHORT).show()
+                preferencesHelper.isExported() // Reset gambar setelah ekspor
+                val intent = Intent(this@TandaTangan, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
             } else {
-                progressDialog.dismiss() // Dismiss progress dialog jika gagal
+                progressDialog.dismiss()
                 Toast.makeText(this, "Gagal mengekspor dokumen", Toast.LENGTH_SHORT).show()
             }
         }
@@ -131,109 +125,23 @@ class TandaTangan : AppCompatActivity() {
         checkAndRequestPermissions()
     }
 
-    // Fungsi untuk memuat gambar yang tersimpan di SharedPreferences
-    private fun loadSavedImagesFromPreferences() {
-        val imageUris = preferencesHelper.getImageUris() // Ambil URI yang tersimpan dari SharedPreferences
-        imageUris.forEach { uri ->
-            val bitmap = uriToBitmap(uri) // Ubah URI menjadi Bitmap
-            if (bitmap != null) {
-                selectedImages.add(bitmap) // Simpan bitmap ke dalam list selectedImages
-            }
-        }
-    }
-
-    // Fungsi untuk mengonversi URI ke Bitmap
-    private fun uriToBitmap(uri: Uri): Bitmap? {
-        return try {
-            val inputStream = contentResolver.openInputStream(uri)
-            BitmapFactory.decodeStream(inputStream)
-        } catch (e: Exception) {
-            Log.e("TandaTangan", "Failed to convert URI to Bitmap: ${e.message}")
-            null
-        }
-    }
-
+    // Memeriksa dan meminta izin penyimpanan jika diperlukan
     private fun checkAndRequestPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_CODE_READ_STORAGE)
         }
     }
 
-    private fun uploadFileToServer(file: File, nomorSurat: String) {
-        val currentUser = auth.currentUser
-
-        if (currentUser == null) {
-            Toast.makeText(this, "Pengguna belum login", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val uid = currentUser.uid
-
-        val url = "https://kaftapus.web.id/api/save_dokumen.php"
-        val requestQueue = Volley.newRequestQueue(this)
-
-        val multipartRequest = object : VolleyMultipartRequest(
-            Method.POST, url,
-            Response.Listener { response ->
-                val responseStr = String(response.data)
-                Log.d("UPLOAD_RESPONSE", responseStr)
-                progressDialog.dismiss() // Dismiss progress dialog setelah upload selesai
-                if (responseStr.contains("success")) {
-                    Toast.makeText(this, "Dokumen berhasil diunggah", Toast.LENGTH_SHORT).show()
-                    // Intent ke HomeActivity jika berhasil unggah
-                    val intent = Intent(this@TandaTangan, HomeActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish() // Mengakhiri activity ini setelah intent
-                } else {
-                    Toast.makeText(this, "Gagal mengunggah dokumen", Toast.LENGTH_SHORT).show()
-                }
-            },
-            Response.ErrorListener { error ->
-                progressDialog.dismiss() // Dismiss progress dialog jika terjadi error
-                error.printStackTrace()
-                Toast.makeText(this, "Terjadi kesalahan: ${error.message}", Toast.LENGTH_SHORT).show()
-            }) {
-
-            override fun getByteData(): Map<String, DataPart> {
-                val params = HashMap<String, DataPart>()
-                try {
-                    val fileInputStream = FileInputStream(file)
-                    val fileBytes = fileInputStream.readBytes()
-
-                    params["file"] = DataPart(file.name, fileBytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    Log.e("UPLOAD_ERROR", "Gagal membaca file: ${e.message}")
-                }
-                return params
-            }
-
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params["uid"] = uid
-                params["nomor_surat"] = nomorSurat // Ambil dari SharedPreferences
-                return params
-            }
-        }
-        requestQueue.add(multipartRequest)
-    }
-
+    // Ekspor dokumen Word dengan gambar dan tanda tangan dari SharedPreferences
     private fun exportToWord(): File? {
-        val nomorSurat = preferencesHelper.getNomorSurat()?.takeIf { it.isNotBlank() } ?: "default_document"
+        val nomorSurat = preferencesHelper.getNomorSurat() ?: "default_document"
         val sanitizedNomorSurat = nomorSurat.replace("/", "-")
 
-        // Tentukan path direktori untuk menyimpan file
+        // Direktori penyimpanan dokumen
         val fileDir = File(getExternalFilesDir(null), "Documents/$sanitizedNomorSurat")
 
-        // Buat direktori jika belum ada, termasuk seluruh path
         if (!fileDir.exists()) {
-            val success = fileDir.mkdirs() // Membuat seluruh direktori yang dibutuhkan
-            if (!success) {
-                Log.e("DIRECTORY_CREATION", "Gagal membuat direktori: ${fileDir.absolutePath}")
-                Toast.makeText(this, "Gagal membuat direktori untuk file", Toast.LENGTH_SHORT).show()
-                return null
-            }
+            fileDir.mkdirs()
         }
 
         val fileName = "$sanitizedNomorSurat.docx"
@@ -242,6 +150,7 @@ class TandaTangan : AppCompatActivity() {
         return try {
             FileOutputStream(file).use { fileOutputStream ->
 
+                // Ambil data dokumen
                 val documentData = DocumentData(
                     noSurat = nomorSurat,
                     namaPelaksana = preferencesHelper.getNamaPelaksana() ?: "N/A",
@@ -259,37 +168,57 @@ class TandaTangan : AppCompatActivity() {
                     potensiSengketa = mapOf()
                 )
 
+                // Tambahkan gambar dan tanda tangan ke dokumen
                 val success = documentGenerator.generateAndSaveDocument(
                     data = documentData,
                     signatureFilePath = null,
                     signatureBitmap = signaturePad.signatureBitmap,
-                    selectedImages = selectedImages // Gambar dari SharedPreferences dikirimkan untuk diekspor
+                    selectedImages = selectedImages // Sertakan gambar yang diambil dari SharedPreferences
                 )
 
                 if (success) {
                     fileOutputStream.flush()
-                    Log.d("FILE_EXPORT", "Dokumen berhasil disimpan dengan ukuran ${file.length()} bytes")
-                    Toast.makeText(this, "Dokumen berhasil diekspor sebagai $fileName", Toast.LENGTH_SHORT).show()
                     return file
                 } else {
-                    Log.e("FILE_EXPORT", "Gagal mengekspor dokumen")
-                    return null
+                    null
                 }
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            Log.e("FILE_EXPORT_ERROR", "Gagal menulis file: ${e.message}")
-            return null
+            null
         }
     }
 
+    // Fungsi untuk memuat gambar yang tersimpan di SharedPreferences
+    private fun loadSavedImagesFromPreferences() {
+        val imageUris = preferencesHelper.getImageUris() // Ambil URI yang tersimpan dari SharedPreferences
+        imageUris.forEach { uri ->
+            val bitmap = uriToBitmap(Uri.parse(uri)) // Ubah URI menjadi Bitmap
+            if (bitmap != null) {
+                selectedImages.add(bitmap) // Simpan bitmap ke dalam list selectedImages
+            }
+        }
+    }
+
+    // Konversi Uri menjadi Bitmap
+    private fun uriToBitmap(uri: Uri): Bitmap? {
+        return try {
+            val inputStream = contentResolver.openInputStream(uri)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    // Konversi Bitmap ke Base64
     private fun bitmapToBase64(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        val byteArray = byteArrayOutputStream.toByteArray()
-        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+        return Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT)
     }
 
+    // Muat data tanda tangan yang tersimpan
     private fun loadSavedSignatureData() {
         etTanggalTtd.setText(preferencesHelper.getTanggalTtd())
         etJabatanTtd.setText(preferencesHelper.getJabatanTtd())
@@ -302,6 +231,7 @@ class TandaTangan : AppCompatActivity() {
         }
     }
 
+    // Konversi Base64 ke Bitmap
     private fun base64ToBitmap(base64String: String): Bitmap {
         val decodedBytes = Base64.decode(base64String, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)

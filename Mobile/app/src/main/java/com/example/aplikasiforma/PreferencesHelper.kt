@@ -12,6 +12,7 @@ class PreferencesHelper(context: Context) {
     companion object {
         private const val IS_LOGGED_IN = "is_logged_in"
         private const val UID = "uid"
+        private const val FULLNAME = "fullname"  // Menambahkan konstanta fullname
         private const val NAMA_PELAKSANA = "nama_pelaksana"
         private const val JABATAN = "jabatan"
         private const val NOMOR_SURAT = "nomor_surat"
@@ -27,6 +28,7 @@ class PreferencesHelper(context: Context) {
         private const val TANGGAL_TTD = "tanggal_ttd"
         private const val SIGNATURE_IMAGE = "signature_image"
         private const val IMAGES_URI_LIST = "images_uri_list"
+        private const val IS_EXPORTED = "is_exported"
 
 //        // Dugaan Pelanggaran fields
 //        private const val PERISTIWA = "peristiwa"
@@ -68,6 +70,18 @@ class PreferencesHelper(context: Context) {
     // Fungsi untuk mendapatkan UID
     fun getUid(): String? {
         return sharedPreferences.getString(UID, null)
+    }
+
+    // Fungsi untuk menyimpan Fullname
+    fun saveFullname(fullname: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(FULLNAME, fullname)
+        editor.apply()
+    }
+
+    // Fungsi untuk mendapatkan Fullname
+    fun getFullname(): String? {
+        return sharedPreferences.getString(FULLNAME, null)
     }
 
     // Fungsi untuk memeriksa apakah pengguna sudah login
@@ -236,6 +250,17 @@ class PreferencesHelper(context: Context) {
         editor.remove(NAMA_TTD)
         editor.remove(SIGNATURE_IMAGE)
         editor.apply()
+    }
+
+    fun setExported(isExported: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(IS_EXPORTED, isExported)
+        editor.apply()
+    }
+
+    // Fungsi untuk memeriksa apakah dokumen sudah diekspor
+    fun isExported(): Boolean {
+        return sharedPreferences.getBoolean(IS_EXPORTED, false)
     }
 
 //    // Fungsi untuk menyimpan data Dugaan Pelanggaran

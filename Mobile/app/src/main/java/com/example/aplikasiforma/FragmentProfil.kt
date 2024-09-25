@@ -13,6 +13,9 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONObject
 
@@ -22,6 +25,8 @@ class FragmentProfil : Fragment() {
     private lateinit var preferencesHelper: PreferencesHelper
     private lateinit var namaTextView: TextView
     private lateinit var emailTextView: TextView
+    private lateinit var googleSignInClient: GoogleSignInClient
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,12 @@ class FragmentProfil : Fragment() {
 
         // Inisialisasi PreferencesHelper
         preferencesHelper = PreferencesHelper(requireContext())
+
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
     }
 
     override fun onCreateView(
@@ -102,10 +113,18 @@ class FragmentProfil : Fragment() {
         // Logout dari Firebase
         auth.signOut()
 
-        // Kembali ke halaman login atau activity yang diinginkan setelah logout
-        val intent = Intent(activity, LoginActivity::class.java) // Ganti dengan Activity yang sesuai
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        activity?.finish() // Tutup activity saat ini
+        // Logout dari Google Sign-In
+        googleSignInClient.signOut().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Kembali ke halaman login atau activity yang diinginkan setelah logout
+                val intent = Intent(activity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                activity?.finish() // Tutup activity saat ini
+            } else {
+                Toast.makeText(requireContext(), "Failed to log out from Google", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
 }
