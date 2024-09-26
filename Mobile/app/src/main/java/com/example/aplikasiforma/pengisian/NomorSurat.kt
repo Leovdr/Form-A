@@ -20,7 +20,6 @@ class NomorSurat : AppCompatActivity() {
     private lateinit var etNosurat: TextInputEditText
     private lateinit var preferencesHelper: PreferencesHelper
     private lateinit var auth: FirebaseAuth // Firebase Authentication untuk mengambil user_id
-    private lateinit var progressDialog: ProgressDialog // ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +34,6 @@ class NomorSurat : AppCompatActivity() {
         btnNext = findViewById(R.id.btnNext)
         btnPrevious = findViewById(R.id.btnPrevious)
 
-        // Inisialisasi ProgressDialog
-        progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Menyimpan data...") // Pesan di dialog
-        progressDialog.setCancelable(false) // Tidak bisa ditutup dengan back button
-
         // Ambil data dari SharedPreferences jika tersedia
         loadDataFromSharedPreferences()
 
@@ -48,16 +42,12 @@ class NomorSurat : AppCompatActivity() {
             val nomorSurat = etNosurat.text.toString().trim()
 
             if (nomorSurat.isNotEmpty()) {
-                // Tampilkan ProgressDialog
-                progressDialog.show()
 
                 // Simpan data ke SharedPreferences
                 preferencesHelper.saveNomorSurat(nomorSurat)
 
                 // Upload data ke database
                 uploadNomorSuratToDatabase(nomorSurat) { success ->
-                    // Selalu dismiss ProgressDialog setelah proses selesai
-                    progressDialog.dismiss()
 
                     if (success) {
                         Toast.makeText(this, "Data berhasil disimpan ke server", Toast.LENGTH_SHORT).show()
@@ -90,7 +80,6 @@ class NomorSurat : AppCompatActivity() {
         val uid = auth.currentUser?.uid
 
         if (uid.isNullOrEmpty()) {
-            progressDialog.dismiss() // Dismiss ProgressDialog jika UID tidak ditemukan
             Toast.makeText(this, "UID tidak ditemukan", Toast.LENGTH_SHORT).show()
             return
         }

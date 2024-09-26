@@ -21,7 +21,6 @@ class DataPengawas : AppCompatActivity() {
     private lateinit var etAlamat: TextInputEditText
     private lateinit var preferencesHelper: PreferencesHelper
     private lateinit var auth: FirebaseAuth // Firebase Authentication untuk mendapatkan UID
-    private lateinit var progressDialog: ProgressDialog // ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,11 +31,6 @@ class DataPengawas : AppCompatActivity() {
 
         // Inisialisasi PreferencesHelper
         preferencesHelper = PreferencesHelper(this)
-
-        // Inisialisasi ProgressDialog
-        progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Menyimpan data...") // Pesan untuk progress dialog
-        progressDialog.setCancelable(false) // Dialog tidak bisa di-dismiss dengan tombol back
 
         // Inisialisasi komponen UI
         etNamaPelaksana = findViewById(R.id.etNamaPelaksana)
@@ -51,7 +45,6 @@ class DataPengawas : AppCompatActivity() {
 
         // Aksi tombol Next
         btnNext.setOnClickListener {
-            progressDialog.show()
             val namaPelaksana = etNamaPelaksana.text.toString()
             val jabatan = etJabatan.text.toString()
             val nomorSuratPerintah = etNomorSuratPerintah.text.toString()
@@ -62,9 +55,6 @@ class DataPengawas : AppCompatActivity() {
 
                 // Simpan data ke SharedPreferences
                 preferencesHelper.saveDataPengawas(namaPelaksana, jabatan, nomorSuratPerintah, alamat)
-
-                // Dismiss ProgressDialog setelah proses selesai
-                progressDialog.dismiss()
 
                 val intent = Intent(this, JenisTahapan::class.java)
                 intent.putExtra("nama_pelaksana", namaPelaksana)

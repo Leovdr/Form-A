@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 class DugaanPelanggaran : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var progressDialog: ProgressDialog // ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +23,6 @@ class DugaanPelanggaran : AppCompatActivity() {
 
         // Inisialisasi Firebase Auth
         auth = FirebaseAuth.getInstance()
-
-        // Inisialisasi ProgressDialog
-        progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Menyimpan data...")
-        progressDialog.setCancelable(false) // Tidak bisa di-cancel oleh pengguna
 
         // Button Previous
         val btnPrevious: Button = findViewById(R.id.btnPrevious)
@@ -40,14 +34,10 @@ class DugaanPelanggaran : AppCompatActivity() {
         // Button Next
         val btnNext: Button = findViewById(R.id.btnNext)
         btnNext.setOnClickListener {
-            progressDialog.show()
             val dugaanPelanggaranData = getDugaanPelanggaranData()
 
             // Simpan data ke SharedPreferences atau lokal (hilangkan upload ke database)
             saveDugaanPelanggaranLocally(dugaanPelanggaranData)
-
-            // Sembunyikan ProgressDialog setelah proses selesai
-            progressDialog.dismiss()
 
             Toast.makeText(this, "Data berhasil disimpan.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, PotensiSengketa::class.java)
