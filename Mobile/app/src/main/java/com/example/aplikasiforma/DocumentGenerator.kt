@@ -115,7 +115,7 @@ class DocumentGenerator(private val context: Context) {
         addStyledRowToTable(
             styler,
             table,
-            listOf(" ", "IV.", "Uraian Singkat Hasil Pengawasan", "", uraianSingkat)
+            listOf(" ", "IV.", "Uraian Singkat Hasil Pengawasan", ":", uraianSingkat)
         )
 
         // Bagian V-VI dari DocumentData (data yang diterima dari activity sebelumnya)
@@ -501,25 +501,56 @@ class DocumentGenerator(private val context: Context) {
 
     }
 
+    private fun resizeBitmap(bitmap: Bitmap, maxWidth: Int, maxHeight: Int): Bitmap {
+        val width = bitmap.width
+        val height = bitmap.height
+        val aspectRatio = width.toFloat() / height.toFloat()
+
+        val newWidth: Int
+        val newHeight: Int
+
+        if (width > height) {
+            newWidth = maxWidth
+            newHeight = (maxWidth / aspectRatio).toInt()
+        } else {
+            newHeight = maxHeight
+            newWidth = (maxHeight * aspectRatio).toInt()
+        }
+
+        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+    }
+
+
     private fun addImagesToDocument(document: XWPFDocument, images: List<Bitmap>) {
         for (bitmap in images) {
+            // Resize bitmap to reduce memory usage
+            val resizedBitmap = resizeBitmap(bitmap, 800, 600)
+
             val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream) // Change to JPEG and reduce quality
             val imageData = outputStream.toByteArray()
 
             try {
-                val run = document.createParagraph().createRun()
-                ParagraphAlignment.CENTER
+                // Create a new paragraph and set alignment to center
+                val paragraph = document.createParagraph()
+                paragraph.alignment = ParagraphAlignment.CENTER
+
+                val run = paragraph.createRun()
                 run.addBreak() // Tambahkan line break sebelum gambar jika diperlukan
+
+                // Add picture to the run
                 run.addPicture(
                     ByteArrayInputStream(imageData),
-                    XWPFDocument.PICTURE_TYPE_PNG,
-                    "Image.png",
-                    Units.toEMU(350.0), // Sesuaikan ukuran gambar di sini
+                    XWPFDocument.PICTURE_TYPE_JPEG, // Changed to JPEG
+                    "Image.jpg", // Changed to jpg
+                    Units.toEMU(300.0), // Sesuaikan ukuran gambar di sini
                     Units.toEMU(300.0)
                 )
             } catch (e: Exception) {
                 Log.e("DocumentGenerator", "Error adding image: ${e.message}")
+            } finally {
+                // Recycle bitmap to free memory
+                resizedBitmap.recycle()
             }
         }
     }

@@ -23,4 +23,7 @@
 -keep class com.example.aplikasiforma.pengisian.TandaTangan { *; }
 -keep class com.google.android.gms.** { *; }
 -keep class com.google.firebase.** { *; }
+-keep class org.apache.poi.** { *; }
+-keep class org.openxmlformats.schemas.** { *; }
+-dontwarn org.apache.poi.**
 

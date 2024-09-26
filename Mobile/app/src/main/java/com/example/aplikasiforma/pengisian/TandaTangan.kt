@@ -102,9 +102,9 @@ class TandaTangan : AppCompatActivity() {
             progressDialog.show() // Menampilkan progress dialog
             val file = exportToWord()
             if (file != null) {
-                progressDialog.dismiss()
                 Toast.makeText(this, "Dokumen berhasil diekspor", Toast.LENGTH_SHORT).show()
                 preferencesHelper.isExported() // Reset gambar setelah ekspor
+                progressDialog.dismiss()
                 val intent = Intent(this@TandaTangan, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -193,7 +193,7 @@ class TandaTangan : AppCompatActivity() {
     private fun loadSavedImagesFromPreferences() {
         val imageUris = preferencesHelper.getImageUris() // Ambil URI yang tersimpan dari SharedPreferences
         imageUris.forEach { uri ->
-            val bitmap = uriToBitmap(Uri.parse(uri)) // Ubah URI menjadi Bitmap
+            val bitmap = uriToBitmap(Uri.parse(uri.toString())) // Ubah URI menjadi Bitmap
             if (bitmap != null) {
                 selectedImages.add(bitmap) // Simpan bitmap ke dalam list selectedImages
             }
@@ -214,7 +214,7 @@ class TandaTangan : AppCompatActivity() {
     // Konversi Bitmap ke Base64
     private fun bitmapToBase64(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 50, byteArrayOutputStream)
         return Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT)
     }
 
