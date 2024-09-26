@@ -192,20 +192,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="By signing up you accept the "
-            android:textColor="#9D9FA0"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Terms of Service"
-            android:textColor="#0082CD"/>
-    </LinearLayout>
+        android:layout_marginTop="20dp"/>
 
     <LinearLayout
         android:id="@+id/privacy"
@@ -215,20 +202,7 @@
         app:layout_constraintTop_toBottomOf="@id/terms"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="and "
-            android:textColor="#9D9FA0"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Privacy Policy"
-            android:textColor="#0082CD"/>
-    </LinearLayout>
+        android:gravity="center"/>
 
 
     <LinearLayout
