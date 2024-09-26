@@ -1,5 +1,6 @@
 package com.example.aplikasiforma.pengisian
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -28,10 +29,14 @@ class Lampiran : AppCompatActivity() {
     private lateinit var imageAdapter: ImageAdapter
     private lateinit var pickImagesLauncher: ActivityResultLauncher<Intent>
     private lateinit var preferencesHelper: PreferencesHelper
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lampiran)
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Menyimpan data...") // Pesan untuk progress dialog
+        progressDialog.setCancelable(false) // Dialog tidak bisa di-dismiss dengan tombol back
 
         // Inisialisasi Views
         btnSelectImages = findViewById(R.id.btnSelectImages)
@@ -100,9 +105,12 @@ class Lampiran : AppCompatActivity() {
 
         // Tombol Next untuk membuka aktivitas berikutnya
         btnNext.setOnClickListener {
+            progressDialog.show()
             val intent = Intent(this, TandaTangan::class.java)
             intent.putParcelableArrayListExtra("selectedImages", ArrayList(selectedImages)) // Kirimkan gambar sebagai extra
+            progressDialog.dismiss()
             startActivity(intent)  // Berpindah ke aktivitas berikutnya
+            Toast.makeText(this, "Data berhasil disimpan.", Toast.LENGTH_SHORT).show()
         }
     }
 

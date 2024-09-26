@@ -1,5 +1,6 @@
 package com.example.aplikasiforma.pengisian
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,9 +14,14 @@ import com.example.aplikasiforma.R
 
 class PotensiSengketa : AppCompatActivity() {
 
+    private lateinit var progressDialog: ProgressDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_potensi_sengketa)
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Menyimpan data...") // Pesan untuk progress dialog
+        progressDialog.setCancelable(false) // Dialog tidak bisa di-dismiss dengan tombol back
 
         // Button Previous
         val btnPrevious: Button = findViewById(R.id.btnPrevious)
@@ -27,12 +33,14 @@ class PotensiSengketa : AppCompatActivity() {
         // Button Next
         val btnNext: Button = findViewById(R.id.btnNext)
         btnNext.setOnClickListener {
+            progressDialog.show()
             val potensiSengketaData = getPotensiSengketaData()
 
             // Logika setelah menekan tombol Next
-            Toast.makeText(this, "Data berhasil diambil.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Data berhasil disimpan.", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(this, Lampiran::class.java)
+            progressDialog.dismiss()
             startActivity(intent)
         }
 

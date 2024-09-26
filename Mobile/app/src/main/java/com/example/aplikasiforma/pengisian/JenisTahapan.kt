@@ -1,5 +1,6 @@
 package com.example.aplikasiforma.pengisian
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -16,9 +17,13 @@ class JenisTahapan : AppCompatActivity() {
     private lateinit var etJenisPemilihan: TextInputEditText
     private lateinit var etTahapanPemilihan: TextInputEditText
     private lateinit var preferencesHelper: PreferencesHelper
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Menyimpan data...") // Pesan untuk progress dialog
+        progressDialog.setCancelable(false) // Dialog tidak bisa di-dismiss dengan tombol back
         setContentView(R.layout.activity_jenis_tahapan)
 
         // Inisialisasi PreferencesHelper
@@ -35,6 +40,7 @@ class JenisTahapan : AppCompatActivity() {
 
         // Aksi tombol Next
         btnNext.setOnClickListener {
+            progressDialog.show()
             val jenisPemilihan = etJenisPemilihan.text.toString().trim()
             val tahapanPemilihan = etTahapanPemilihan.text.toString().trim()
 
@@ -42,9 +48,12 @@ class JenisTahapan : AppCompatActivity() {
                 // Simpan data ke SharedPreferences
                 preferencesHelper.saveJenisTahapan(jenisPemilihan, tahapanPemilihan)
 
+                progressDialog.dismiss()
+
                 // Lanjutkan ke halaman berikutnya
                 val intent = Intent(this, KegiatanPengawasan::class.java)
                 startActivity(intent)
+                Toast.makeText(this, "Data berhasil tersimpan", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
             }

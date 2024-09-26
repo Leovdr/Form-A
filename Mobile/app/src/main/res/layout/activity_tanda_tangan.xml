@@ -125,6 +125,7 @@
 
             <!-- Layout untuk Simpan dan Bersihkan berdampingan -->
             <LinearLayout
+                android:id="@+id/layoutbtonsgntr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -157,6 +158,19 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/buttonLayout">
+        <Button
+            android:id="@+id/btnShareWhatsApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share Whatsapp"/>
+    </LinearLayout>
 
     <!-- LinearLayout untuk tombol Next dan Previous -->
     <LinearLayout

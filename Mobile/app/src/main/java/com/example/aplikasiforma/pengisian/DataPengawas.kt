@@ -51,6 +51,7 @@ class DataPengawas : AppCompatActivity() {
 
         // Aksi tombol Next
         btnNext.setOnClickListener {
+            progressDialog.show()
             val namaPelaksana = etNamaPelaksana.text.toString()
             val jabatan = etJabatan.text.toString()
             val nomorSuratPerintah = etNomorSuratPerintah.text.toString()
@@ -58,7 +59,6 @@ class DataPengawas : AppCompatActivity() {
 
             if (namaPelaksana.isNotEmpty() && jabatan.isNotEmpty() && nomorSuratPerintah.isNotEmpty() && alamat.isNotEmpty()) {
                 // Tampilkan ProgressDialog saat mulai proses menyimpan data
-                progressDialog.show()
 
                 // Simpan data ke SharedPreferences
                 preferencesHelper.saveDataPengawas(namaPelaksana, jabatan, nomorSuratPerintah, alamat)
@@ -69,6 +69,7 @@ class DataPengawas : AppCompatActivity() {
                 val intent = Intent(this, JenisTahapan::class.java)
                 intent.putExtra("nama_pelaksana", namaPelaksana)
                 startActivity(intent)
+                Toast.makeText(this, "Data berhasil disimpan.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
             }

@@ -1,5 +1,6 @@
 package com.example.aplikasiforma.pengisian
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -17,10 +18,14 @@ class UraianSingkat : AppCompatActivity() {
     private lateinit var etUraianSingkat: TextInputEditText
     private lateinit var preferencesHelper: PreferencesHelper
     private lateinit var auth: FirebaseAuth
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_uraian_singkat)
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Menyimpan data...") // Pesan untuk progress dialog
+        progressDialog.setCancelable(false) // Dialog tidak bisa di-dismiss dengan tombol back
 
         // Inisialisasi FirebaseAuth dan PreferencesHelper
         auth = FirebaseAuth.getInstance()
@@ -36,6 +41,7 @@ class UraianSingkat : AppCompatActivity() {
 
         // Aksi tombol Next
         btnNext.setOnClickListener {
+            progressDialog.show()
             val uraianSingkat = etUraianSingkat.text.toString().trim()
 
             if (uraianSingkat.isNotEmpty()) {
@@ -44,6 +50,7 @@ class UraianSingkat : AppCompatActivity() {
 
                 // Lanjutkan ke halaman berikutnya
                 val intent = Intent(this, DugaanPelanggaran::class.java)
+                progressDialog.dismiss()
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Uraian Singkat harus diisi!", Toast.LENGTH_SHORT).show()

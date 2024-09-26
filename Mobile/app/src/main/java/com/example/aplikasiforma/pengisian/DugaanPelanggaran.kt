@@ -40,10 +40,8 @@ class DugaanPelanggaran : AppCompatActivity() {
         // Button Next
         val btnNext: Button = findViewById(R.id.btnNext)
         btnNext.setOnClickListener {
-            val dugaanPelanggaranData = getDugaanPelanggaranData()
-
-            // Tampilkan ProgressDialog sebelum memulai penyimpanan lokal
             progressDialog.show()
+            val dugaanPelanggaranData = getDugaanPelanggaranData()
 
             // Simpan data ke SharedPreferences atau lokal (hilangkan upload ke database)
             saveDugaanPelanggaranLocally(dugaanPelanggaranData)

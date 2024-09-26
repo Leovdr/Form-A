@@ -1,5 +1,6 @@
 package com.example.aplikasiforma.pengisian
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -18,10 +19,14 @@ class KegiatanPengawasan : AppCompatActivity() {
     private lateinit var etSasaran: TextInputEditText
     private lateinit var etWaktuTempat: TextInputEditText
     private lateinit var preferencesHelper: PreferencesHelper
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kegiatan_pengawasan)
+        progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Menyimpan data...") // Pesan untuk progress dialog
+        progressDialog.setCancelable(false) // Dialog tidak bisa di-dismiss dengan tombol back
 
         // Inisialisasi PreferencesHelper
         preferencesHelper = PreferencesHelper(this)
@@ -39,6 +44,7 @@ class KegiatanPengawasan : AppCompatActivity() {
 
         // Aksi tombol Next
         btnNext.setOnClickListener {
+            progressDialog.show()
             val bentuk = etBentuk.text.toString().trim()
             val tujuan = etTujuan.text.toString().trim()
             val sasaran = etSasaran.text.toString().trim()
@@ -47,10 +53,12 @@ class KegiatanPengawasan : AppCompatActivity() {
             if (bentuk.isNotEmpty() && tujuan.isNotEmpty() && sasaran.isNotEmpty() && waktuTempat.isNotEmpty()) {
                 // Simpan data ke SharedPreferences
                 preferencesHelper.saveKegiatanPengawasan(bentuk, tujuan, sasaran, waktuTempat)
+                progressDialog.dismiss()
 
                 // Lanjutkan ke halaman berikutnya
                 val intent = Intent(this, UraianSingkat::class.java)
                 startActivity(intent)
+                Toast.makeText(this, "Data berhasil disimpan.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Semua field harus diisi!", Toast.LENGTH_SHORT).show()
             }
