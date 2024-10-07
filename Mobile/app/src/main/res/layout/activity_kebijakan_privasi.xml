@@ -71,10 +71,195 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:gravity="left|center"
-                        android:text="@string/kebijakan_privasi"/>
+                        android:text="@string/kebijakan_privasi"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
 
-                    <ImageView
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi1"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi2"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1. Definisi"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi3"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2. Pengumpulan Informasi"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi4"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+                    <TextView
+                        android:layout_marginLeft="11dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi5"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi6"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3. Penggunaan Informasi"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi7"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi8"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4. Perlindungan Data"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi9"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5. Hak Pengguna"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi10"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6. Pengakuan dan Persetujuan"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi11"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7. Perubahan Atas Kebijakan Privasi"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi12"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cara untuk Menghubungi Kami"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+                    
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/kebijakanprivasi13"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>

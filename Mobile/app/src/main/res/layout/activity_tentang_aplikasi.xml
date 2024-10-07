@@ -67,20 +67,132 @@
                     android:orientation="vertical">
 
                 <ImageView
+                    android:layout_marginBottom="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ta1"
                     android:layout_gravity="center"/>
 
+                    <TextView
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gambaran umum Aplikasi Form A"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tentangaplikasi"/>
+                    android:text="@string/tentangaplikasi"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status Pengembangan"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Copyright © 2024 Kaftapus Srigala Asia"
+                        android:text="@string/tentangaplikasi1"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fitur Utama"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginLeft="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tentangaplikasi2"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Perlindungan Data dan Privasi"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tentangaplikasi3"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Keterbatasan Pengguna"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tentangaplikasi4"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Feedback dan Dukungan"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tentangaplikasi5"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rencana Pengembangan Lebih Lanjut"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tentangaplikasi6"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"/>
+
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Copyright © 2024 Bawaslu Kota Batu"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="12sp"
                         android:layout_gravity="center"
                         android:gravity="center"/>
                 </LinearLayout>
