@@ -45,9 +45,9 @@ class DocumentGenerator(private val context: Context) {
         val sasaranPengawasan = preferencesHelper.getSasaranPengawasan() ?: "Tidak Ada Sasaran Pengawasan"
         val waktuTempatPengawasan = preferencesHelper.getWaktuTempatPengawasan() ?: "Tidak Ada Waktu dan Tempat Pengawasan"
         val uraianSingkat = preferencesHelper.getUraianSingkat() ?: "Tidak Ada Uraian Singkat"
-        val tanggalTtd = preferencesHelper.getTanggalTtd() ?: "Tidak Ada Tanggal TTD"
-        val jabatanTtd = preferencesHelper.getJabatanTtd() ?: "Tidak Ada Jabatan TTD"
-        val namaTtd = preferencesHelper.getNamaTtd() ?: "Tidak Ada Nama TTD"
+        val tanggalTtd = preferencesHelper.getTanggalTtd() ?: ""//"Tidak Ada Tanggal TTD"
+        val jabatanTtd = preferencesHelper.getJabatanTtd() ?: ""//"Tidak Ada Jabatan TTD"
+        val namaTtd = preferencesHelper.getNamaTtd() ?: ""//"Tidak Ada Nama TTD"
 
         val document = XWPFDocument()
         val styler = DocumentStyler(document)
@@ -496,7 +496,7 @@ class DocumentGenerator(private val context: Context) {
         val lampiranRun = lampiranParagraph.createRun()
         lampiranRun.isBold = true // Atur teks menjadi bold
         lampiranRun.fontSize = 14 // Atur ukuran font
-        lampiranRun.fontFamily = "Times New Roman"
+        lampiranRun.fontFamily = "Arial"
         lampiranRun.setText("LAMPIRAN") // Set teks paragraf
 
     }

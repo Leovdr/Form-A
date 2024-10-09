@@ -102,18 +102,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/passwordTextInputLayout" />
 
-    <TextView
-        android:id="@+id/forgotpw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Forgot Password?"
-        android:textColor="#0082CD"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginButton" />
+<!--    <TextView-->
+<!--        android:id="@+id/forgotpw"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:fontFamily="@font/poppins_medium"-->
+<!--        android:text="Forgot Password?"-->
+<!--        android:textColor="#0082CD"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/loginButton" />-->
 
     <!-- Divider Layout -->
     <LinearLayout
@@ -125,7 +125,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/forgotpw">
+        app:layout_constraintTop_toBottomOf="@id/loginButton">
 
         <!-- Left Line -->
         <View

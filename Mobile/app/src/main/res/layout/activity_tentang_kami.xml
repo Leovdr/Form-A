@@ -190,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins"
-                    android:text="@string/tentangkami6"
+                    android:text="@string/tentangkami7"
                     android:textSize="12sp" />
 
                 <TextView

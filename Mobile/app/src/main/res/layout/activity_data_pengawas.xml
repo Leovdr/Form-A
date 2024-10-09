@@ -116,7 +116,7 @@
                     android:textColorHint="#f0f0f0"
                     android:fontFamily="@font/poppins"
                     android:textSize="16sp"
-                    android:hint="Masukkan Jabatan" />
+                    android:hint="Masukkan Surat Perintah Tugas" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Label Alamat -->
@@ -169,7 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="Previous"
+            android:text="Kembali"
             android:textColor="@color/white"
             android:backgroundTint="@color/colorPrimary"
             android:textAllCaps="false"
@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:padding="10dp"
-            android:text="Next"
+            android:text="Lanjut"
             android:textColor="@color/white"
             android:backgroundTint="@color/colorPrimary"
             android:textAllCaps="false"
